@@ -109,7 +109,18 @@ class VisitController extends Controller
      */
     public function show(Visit $visit): View
     {
-        $visit->load(['patient', 'doctor', 'anamnesis', 'ophthalmicExam', 'imagingStudies', 'treatmentPlans', 'prescriptions', 'spectaclePrescriptions']);
+        $visit->load([
+            'patient',
+            'doctor',
+            'anamnesis',
+            'ophthalmicExam.refractions',
+            'imagingStudies.orderedBy',
+            'imagingStudies.performedBy',
+            'treatmentPlans',
+            'prescriptions.doctor',
+            'prescriptions.prescriptionItems',
+            'spectaclePrescriptions.doctor'
+        ]);
 
         return view('visits.show', compact('visit'));
     }

@@ -167,18 +167,36 @@ return [
         'notes' => 'Notes',
     ],
 
+    // Additional workspace keys
+    'drug_forms' => [
+        'drops' => 'Eye Drops',
+        'ointment' => 'Ointment',
+        'tablet' => 'Tablet',
+        'capsule' => 'Capsule',
+        'other' => 'Other',
+    ],
+
     'refraction_methods' => [
         'autorefraction' => 'Autorefraction',
         'lensmeter' => 'Lensmeter',
         'subjective' => 'Subjective',
     ],
 
-    'prism_base' => [
-        'up' => 'Up',
-        'down' => 'Down',
-        'in' => 'In',
-        'out' => 'Out',
+    'spectacle_types' => [
+        'distance' => 'Distance',
+        'near' => 'Near',
+        'bifocal' => 'Bifocal',
+        'progressive' => 'Progressive',
     ],
+
+    // Additional general keys
+    'save' => 'Save',
+    'update' => 'Update',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'back' => 'Back',
+    'close' => 'Close',
+    'cancel' => 'Cancel',
 
     // Imaging Studies
     'imaging' => [
@@ -259,14 +277,6 @@ return [
         'repeats' => 'Repeats',
     ],
 
-    'drug_forms' => [
-        'drops' => 'Eye Drops',
-        'ointment' => 'Ointment',
-        'tablet' => 'Tablet',
-        'capsule' => 'Capsule',
-        'other' => 'Other',
-    ],
-
     // Spectacle Prescriptions
     'spectacles' => [
         'title' => 'Spectacle Prescription',
@@ -287,13 +297,6 @@ return [
         'valid_until' => 'Valid Until',
         'right_eye' => 'Right Eye',
         'left_eye' => 'Left Eye',
-    ],
-
-    'spectacle_types' => [
-        'distance' => 'Distance',
-        'near' => 'Near',
-        'bifocal' => 'Bifocal',
-        'progressive' => 'Progressive',
     ],
 
     // Navigation & Layout

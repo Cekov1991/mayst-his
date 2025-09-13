@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ his_trans('visits.visit_details') }} - {{ $visit->patient->full_name }}
+            {{ his_trans('workspace.title') }} - {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -58,7 +58,7 @@
                     </div>
 
                     <!-- Visit Details Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div>
                             <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('visits.patient') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white">
@@ -66,11 +66,6 @@
                                     {{ $visit->patient->full_name }}
                                 </a>
                             </dd>
-                        </div>
-
-                        <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('visits.doctor') }}</dt>
-                            <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $visit->doctor->name }}</dd>
                         </div>
 
                         <div>
@@ -103,79 +98,73 @@
                             <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('visits.scheduled_at') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $visit->scheduled_at->format('M d, Y g:i A') }}</dd>
                         </div>
-
-                        @if($visit->room)
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('visits.room') }}</dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $visit->room }}</dd>
-                            </div>
-                        @endif
-
-                        @if($visit->arrived_at)
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('visits.arrived_at') }}</dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $visit->arrived_at->format('M d, Y g:i A') }}</dd>
-                            </div>
-                        @endif
-
-                        @if($visit->started_at)
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('visits.started_at') }}</dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $visit->started_at->format('M d, Y g:i A') }}</dd>
-                            </div>
-                        @endif
-
-                        @if($visit->completed_at)
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('visits.completed_at') }}</dt>
-                                <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $visit->completed_at->format('M d, Y g:i A') }}</dd>
-                            </div>
-                        @endif
                     </div>
-
-                    @if($visit->reason_for_visit)
-                        <div class="mt-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('visits.reason_for_visit') }}</dt>
-                            <dd class="mt-2 text-sm text-gray-900 dark:text-white whitespace-pre-wrap">{{ $visit->reason_for_visit }}</dd>
-                        </div>
-                    @endif
                 </div>
             </div>
 
-            <!-- Related Information Sections -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Anamnesis -->
-                @if($visit->anamnesis)
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ his_trans('workspace.anamnesis') }}</h3>
-                        </div>
-                        <div class="px-6 py-4">
-                            <p class="text-sm text-gray-900 dark:text-white">{{ $visit->anamnesis->chief_complaint }}</p>
-                        </div>
-                    </div>
-                @endif
+            <!-- Workspace Tabs -->
+            <div class="bg-white dark:bg-gray-800 shadow-xl sm:rounded-lg" x-data="{ activeTab: 'anamnesis' }">
+                <!-- Tab Navigation -->
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <nav class="-mb-px flex space-x-8 px-6" aria-label="Tabs">
+                        <button @click="activeTab = 'anamnesis'" :class="activeTab === 'anamnesis' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                            {{ his_trans('workspace.anamnesis') }}
+                        </button>
 
-                <!-- Ophthalmic Exam -->
-                @if($visit->ophthalmicExam)
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ his_trans('workspace.examination') }}</h3>
-                        </div>
-                        <div class="px-6 py-4">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Visus OD:</span>
-                                    <span class="text-sm text-gray-900 dark:text-white ml-2">{{ $visit->ophthalmicExam->visus_od ?: '—' }}</span>
-                                </div>
-                                <div>
-                                    <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Visus OS:</span>
-                                    <span class="text-sm text-gray-900 dark:text-white ml-2">{{ $visit->ophthalmicExam->visus_os ?: '—' }}</span>
-                                </div>
-                            </div>
-                        </div>
+                        <button @click="activeTab = 'examination'" :class="activeTab === 'examination' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                            {{ his_trans('workspace.examination') }}
+                        </button>
+
+                        <button @click="activeTab = 'imaging'" :class="activeTab === 'imaging' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                            {{ his_trans('workspace.imaging') }}
+                        </button>
+
+                        <button @click="activeTab = 'treatment'" :class="activeTab === 'treatment' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                            {{ his_trans('workspace.treatment') }}
+                        </button>
+
+                        <button @click="activeTab = 'prescriptions'" :class="activeTab === 'prescriptions' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                            {{ his_trans('workspace.prescriptions') }}
+                        </button>
+
+                        <button @click="activeTab = 'spectacles'" :class="activeTab === 'spectacles' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                            {{ his_trans('workspace.spectacles') }}
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="p-6 lg:p-8">
+                    <!-- Anamnesis Tab -->
+                    <div x-show="activeTab === 'anamnesis'" x-transition>
+                        @include('visits.workspace.anamnesis', ['visit' => $visit])
                     </div>
-                @endif
+
+                    <!-- Examination Tab -->
+                    <div x-show="activeTab === 'examination'" x-transition>
+                        @include('visits.workspace.examination', ['visit' => $visit])
+                    </div>
+
+                    <!-- Imaging Tab -->
+                    <div x-show="activeTab === 'imaging'" x-transition>
+                        @include('visits.workspace.imaging', ['visit' => $visit])
+                    </div>
+
+                    <!-- Treatment Tab -->
+                    <div x-show="activeTab === 'treatment'" x-transition>
+                        @include('visits.workspace.treatment', ['visit' => $visit])
+                    </div>
+
+                    <!-- Prescriptions Tab -->
+                    <div x-show="activeTab === 'prescriptions'" x-transition>
+                        @include('visits.workspace.prescriptions', ['visit' => $visit])
+                    </div>
+
+                    <!-- Spectacles Tab -->
+                    <div x-show="activeTab === 'spectacles'" x-transition>
+                        @include('visits.workspace.spectacles', ['visit' => $visit])
+                    </div>
+                </div>
             </div>
 
             <!-- Back Button -->

@@ -169,7 +169,7 @@ return [
 
     'refraction_methods' => [
         'autorefraction' => 'Авторефракција',
-        'lensmeter' => 'Диоптрометар',
+        'lensmeter' => 'Лензметар',
         'subjective' => 'Субјективна',
     ],
 
@@ -291,7 +291,7 @@ return [
 
     'spectacle_types' => [
         'distance' => 'За далечина',
-        'near' => 'За близу',
+        'near' => 'За близина',
         'bifocal' => 'Бифокални',
         'progressive' => 'Прогресивни',
     ],
