@@ -10,6 +10,10 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Visit;
+use App\Models\Prescription;
+use App\Models\SpectaclePrescription;
 
 class User extends Authenticatable
 {
@@ -31,6 +35,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'is_active',
     ];
 
     /**
@@ -64,6 +70,23 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
+    }
+
+    // HIS Relationships
+    public function doctorVisits(): HasMany
+    {
+        return $this->hasMany(Visit::class, 'doctor_id');
+    }
+
+    public function prescriptions(): HasMany
+    {
+        return $this->hasMany(Prescription::class, 'doctor_id');
+    }
+
+    public function spectaclePrescriptions(): HasMany
+    {
+        return $this->hasMany(SpectaclePrescription::class, 'doctor_id');
     }
 }
