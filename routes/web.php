@@ -1,10 +1,20 @@
 <?php
 
+use App\Helpers\Locale\LocaleHelper;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Locale switching route
+Route::get('/locale/{locale}', function (string $locale) {
+    if (LocaleHelper::setLocale($locale)) {
+        return redirect()->back()->with('success', __('his.messages.locale_changed'));
+    }
+
+    return redirect()->back()->with('error', __('his.messages.invalid_locale'));
+})->name('locale.switch');
 
 Route::middleware([
     'auth:sanctum',
