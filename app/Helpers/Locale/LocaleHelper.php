@@ -69,7 +69,7 @@ class LocaleHelper
      */
     public static function getSessionLocale(): string
     {
-        $sessionLocale = Session::get('locale');
+        $sessionLocale = Session::get('locale') ?? config('app.locale');
 
         return self::isValidLocale($sessionLocale) ? $sessionLocale : config('app.locale');
     }

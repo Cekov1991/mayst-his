@@ -8,237 +8,191 @@
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <form method="POST" action="{{ route('patients.update', $patient) }}" class="p-6 space-y-6">
-                    @csrf
-                    @method('PUT')
+    <div>
+        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+            <form method="POST" action="{{ route('patients.update', $patient) }}">
+                @csrf
+                @method('PUT')
 
-                    <!-- Personal Information Section -->
-                    <div>
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100 mb-4">
-                            {{ his_trans('patients.patient_details') }}
-                        </h3>
-
-                        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
-                            <!-- First Name -->
-                            <div>
-                                <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.first_name') }} <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text"
-                                       name="first_name"
-                                       id="first_name"
-                                       value="{{ old('first_name', $patient->first_name) }}"
-                                       required
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('first_name') border-red-500 @enderror">
-                                @error('first_name')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <!-- Last Name -->
-                            <div>
-                                <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.last_name') }} <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text"
-                                       name="last_name"
-                                       id="last_name"
-                                       value="{{ old('last_name', $patient->last_name) }}"
-                                       required
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('last_name') border-red-500 @enderror">
-                                @error('last_name')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <!-- Sex -->
-                            <div>
-                                <label for="sex" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.sex') }} <span class="text-red-500">*</span>
-                                </label>
-                                <select name="sex"
-                                        id="sex"
-                                        required
-                                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('sex') border-red-500 @enderror">
-                                    <option value="">{{ his_trans('patients.sex') }}...</option>
-                                    @foreach(['male', 'female', 'other', 'unknown'] as $sexOption)
-                                        <option value="{{ $sexOption }}"
-                                                {{ old('sex', $patient->sex) === $sexOption ? 'selected' : '' }}>
-                                            {{ his_trans("sex_options.{$sexOption}") }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('sex')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <!-- Date of Birth -->
-                            <div>
-                                <label for="dob" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.dob') }} <span class="text-red-500">*</span>
-                                </label>
-                                <input type="date"
-                                       name="dob"
-                                       id="dob"
-                                       value="{{ old('dob', $patient->dob->format('Y-m-d')) }}"
-                                       required
-                                       max="{{ date('Y-m-d') }}"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('dob') border-red-500 @enderror">
-                                @error('dob')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <!-- Phone -->
-                            <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.phone') }}
-                                </label>
-                                <input type="tel"
-                                       name="phone"
-                                       id="phone"
-                                       value="{{ old('phone', $patient->phone) }}"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('phone') border-red-500 @enderror">
-                                @error('phone')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <!-- Email -->
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.email') }}
-                                </label>
-                                <input type="email"
-                                       name="email"
-                                       id="email"
-                                       value="{{ old('email', $patient->email) }}"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('email') border-red-500 @enderror">
-                                @error('email')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
+                <div class="md:grid md:grid-cols-3 md:gap-6">
+                    <div class="md:col-span-1">
+                        <div class="px-4 sm:px-0">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                {{ his_trans('patients.patient_details') }}
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                Update the patient's personal information.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Address Information Section -->
-                    <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100 mb-4">
-                            Address Information
-                        </h3>
+                    <div class="mt-5 md:mt-0 md:col-span-2">
+                        <div class="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6 shadow sm:rounded-md">
+                            <div class="grid grid-cols-6 gap-6">
 
-                        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
-                            <!-- Address -->
-                            <div class="sm:col-span-2">
-                                <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.address') }}
-                                </label>
-                                <textarea name="address"
-                                          id="address"
-                                          rows="2"
-                                          class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('address') border-red-500 @enderror">{{ old('address', $patient->address) }}</textarea>
-                                @error('address')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
+                                <!-- First Name -->
+                                <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="first_name" value="{{ his_trans('patients.first_name') }}" />
+                                    <x-input id="first_name" name="first_name" type="text" class="mt-1 block w-full" :value="old('first_name', $patient->first_name)" required autofocus />
+                                    <x-input-error for="first_name" class="mt-2" />
+                                </div>
 
-                            <!-- City -->
-                            <div>
-                                <label for="city" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.city') }}
-                                </label>
-                                <input type="text"
-                                       name="city"
-                                       id="city"
-                                       value="{{ old('city', $patient->city) }}"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('city') border-red-500 @enderror">
-                                @error('city')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
+                                <!-- Last Name -->
+                                <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="last_name" value="{{ his_trans('patients.last_name') }}" />
+                                    <x-input id="last_name" name="last_name" type="text" class="mt-1 block w-full" :value="old('last_name', $patient->last_name)" required />
+                                    <x-input-error for="last_name" class="mt-2" />
+                                </div>
 
-                            <!-- Country -->
-                            <div>
-                                <label for="country" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.country') }}
-                                </label>
-                                <input type="text"
-                                       name="country"
-                                       id="country"
-                                       value="{{ old('country', $patient->country) }}"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('country') border-red-500 @enderror">
-                                @error('country')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
+                                <!-- Sex -->
+                                <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="sex" value="{{ his_trans('patients.sex') }}" />
+                                    <select id="sex" name="sex" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" required>
+                                        <option value="">{{ his_trans('patients.sex') }}...</option>
+                                        @foreach(['male', 'female', 'other', 'unknown'] as $sexOption)
+                                            <option value="{{ $sexOption }}" {{ old('sex', $patient->sex) === $sexOption ? 'selected' : '' }}>
+                                                {{ his_trans("sex_options.{$sexOption}") }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error for="sex" class="mt-2" />
+                                </div>
 
-                            <!-- Unique Master Citizen Number -->
-                            <div class="sm:col-span-2">
-                                <label for="unique_master_citizen_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {{ his_trans('patients.unique_master_citizen_number') }}
-                                </label>
-                                <input type="text"
-                                       name="unique_master_citizen_number"
-                                       id="unique_master_citizen_number"
-                                       value="{{ old('unique_master_citizen_number', $patient->unique_master_citizen_number) }}"
-                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('unique_master_citizen_number') border-red-500 @enderror">
-                                @error('unique_master_citizen_number')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
+                                <!-- Date of Birth -->
+                                <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="dob" value="{{ his_trans('patients.dob') }}" />
+                                    <x-input id="dob" name="dob" type="date" class="mt-1 block w-full" :value="old('dob', $patient->dob->format('Y-m-d'))" max="{{ date('Y-m-d') }}" required />
+                                    <x-input-error for="dob" class="mt-2" />
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="phone" value="{{ his_trans('patients.phone') }}" />
+                                    <x-input id="phone" name="phone" type="tel" class="mt-1 block w-full" :value="old('phone', $patient->phone)" />
+                                    <x-input-error for="phone" class="mt-2" />
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-span-6 sm:col-span-3">
+                                    <x-label for="email" value="{{ his_trans('patients.email') }}" />
+                                    <x-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $patient->email)" />
+                                    <x-input-error for="email" class="mt-2" />
+                                </div>
+
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Notes Section -->
-                    <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
-                        <div>
-                            <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                {{ his_trans('patients.notes') }}
-                            </label>
-                            <textarea name="notes"
-                                      id="notes"
-                                      rows="3"
-                                      placeholder="Additional notes about the patient..."
-                                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('notes') border-red-500 @enderror">{{ old('notes', $patient->notes) }}</textarea>
-                            @error('notes')
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
+                <x-section-border />
 
-                    <!-- Form Actions -->
-                    <div class="border-t border-gray-200 dark:border-gray-700 pt-6 flex items-center justify-between">
-                        <div class="flex space-x-4">
-                            <a href="{{ route('patients.show', $patient) }}"
-                               class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-600 dark:text-gray-200 dark:border-gray-500 dark:hover:bg-gray-700">
-                                {{ his_trans('cancel') }}
-                            </a>
-                            <button type="submit"
-                                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                {{ his_trans('save') }}
-                            </button>
+                <!-- Address Information -->
+                <div class="mt-10 sm:mt-0">
+                    <div class="md:grid md:grid-cols-3 md:gap-6">
+                        <div class="md:col-span-1">
+                            <div class="px-4 sm:px-0">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                    Address Information
+                                </h3>
+                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                    Patient's address and location information.
+                                </p>
+                            </div>
                         </div>
 
-                        <!-- Delete Button (if no visits exist) -->
-                        @if($patient->visits()->count() === 0)
-                        <form method="POST" action="{{ route('patients.destroy', $patient) }}"
-                              onsubmit="return confirm('{{ his_trans('confirm_delete') }}')"
-                              class="ml-4">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                {{ his_trans('delete') }}
-                            </button>
-                        </form>
-                        @endif
+                        <div class="mt-5 md:mt-0 md:col-span-2">
+                            <div class="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6 shadow sm:rounded-md">
+                                <div class="grid grid-cols-6 gap-6">
+
+                                    <!-- Address -->
+                                    <div class="col-span-6">
+                                        <x-label for="address" value="{{ his_trans('patients.address') }}" />
+                                        <textarea id="address" name="address" rows="2" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">{{ old('address', $patient->address) }}</textarea>
+                                        <x-input-error for="address" class="mt-2" />
+                                    </div>
+
+                                    <!-- City -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <x-label for="city" value="{{ his_trans('patients.city') }}" />
+                                        <x-input id="city" name="city" type="text" class="mt-1 block w-full" :value="old('city', $patient->city)" />
+                                        <x-input-error for="city" class="mt-2" />
+                                    </div>
+
+                                    <!-- Country -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <x-label for="country" value="{{ his_trans('patients.country') }}" />
+                                        <x-input id="country" name="country" type="text" class="mt-1 block w-full" :value="old('country', $patient->country)" />
+                                        <x-input-error for="country" class="mt-2" />
+                                    </div>
+
+                                    <!-- Unique Master Citizen Number -->
+                                    <div class="col-span-6">
+                                        <x-label for="unique_master_citizen_number" value="{{ his_trans('patients.unique_master_citizen_number') }}" />
+                                        <x-input id="unique_master_citizen_number" name="unique_master_citizen_number" type="text" class="mt-1 block w-full" :value="old('unique_master_citizen_number', $patient->unique_master_citizen_number)" />
+                                        <x-input-error for="unique_master_citizen_number" class="mt-2" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <x-section-border />
+
+                <!-- Notes -->
+                <div class="mt-10 sm:mt-0">
+                    <div class="md:grid md:grid-cols-3 md:gap-6">
+                        <div class="md:col-span-1">
+                            <div class="px-4 sm:px-0">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                    {{ his_trans('patients.notes') }}
+                                </h3>
+                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                    Additional notes about the patient.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 md:mt-0 md:col-span-2">
+                            <div class="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
+                                <div class="grid grid-cols-6 gap-6">
+                                    <div class="col-span-6">
+                                        <x-label for="notes" value="{{ his_trans('patients.notes') }}" />
+                                        <textarea id="notes" name="notes" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="Additional notes about the patient...">{{ old('notes', $patient->notes) }}</textarea>
+                                        <x-input-error for="notes" class="mt-2" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-800 sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
+                                <div class="flex items-center">
+                                    @if($patient->visits()->count() === 0)
+                                        <form method="POST" action="{{ route('patients.destroy', $patient) }}" onsubmit="return confirm('{{ his_trans('confirm_delete') }}')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-danger-button type="submit">
+                                                {{ his_trans('delete') }}
+                                            </x-danger-button>
+                                        </form>
+                                    @endif
+                                </div>
+
+                                <div class="flex items-center">
+                                    <x-secondary-button type="button" onclick="window.location.href='{{ route('patients.show', $patient) }}'">
+                                        {{ his_trans('cancel') }}
+                                    </x-secondary-button>
+
+                                    <x-button class="ms-4">
+                                        {{ his_trans('save') }}
+                                    </x-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
         </div>
     </div>
 </x-app-layout>
