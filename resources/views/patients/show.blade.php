@@ -6,6 +6,15 @@
             </h2>
             <div class="flex items-center space-x-4">
                 <x-locale-switcher />
+
+                <!-- Schedule Visit Button -->
+                <x-secondary-button onclick="window.location.href='{{ route('visits.create', ['patient_id' => $patient->id]) }}'">
+                    <svg class="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    {{ his_trans('visits.add_visit') }}
+                </x-secondary-button>
+
                 <x-button onclick="window.location.href='{{ route('patients.edit', $patient) }}'">
                     {{ his_trans('edit') }}
                 </x-button>

@@ -15,6 +15,23 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <!-- Patients Link -->
+                    <x-nav-link href="{{ route('patients.index') }}" :active="request()->routeIs('patients.*')">
+                        {{ his_trans('patients.title') }}
+                    </x-nav-link>
+
+                    <!-- Visits Link -->
+                    <x-nav-link href="{{ route('visits.index') }}" :active="request()->routeIs('visits.*')">
+                        {{ his_trans('visits.title') }}
+                    </x-nav-link>
+
+                    <!-- Doctor Queue Link (Only for Doctors) -->
+                    @can('accessDoctorQueue')
+                        <x-nav-link href="{{ route('doctor.queue') }}" :active="request()->routeIs('doctor.queue')">
+                            {{ his_trans('visits.queue') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -142,6 +159,23 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <!-- Patients Link -->
+            <x-responsive-nav-link href="{{ route('patients.index') }}" :active="request()->routeIs('patients.*')">
+                {{ his_trans('patients.title') }}
+            </x-responsive-nav-link>
+
+            <!-- Visits Link -->
+            <x-responsive-nav-link href="{{ route('visits.index') }}" :active="request()->routeIs('visits.*')">
+                {{ his_trans('visits.title') }}
+            </x-responsive-nav-link>
+
+            <!-- Doctor Queue Link (Only for Doctors) -->
+            @can('accessDoctorQueue')
+                <x-responsive-nav-link href="{{ route('doctor.queue') }}" :active="request()->routeIs('doctor.queue')">
+                    {{ his_trans('visits.queue') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

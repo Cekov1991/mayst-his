@@ -25,6 +25,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    // Doctor Queue
+    Route::get('/doctor-queue', function () {
+        return view('doctor-queue');
+    })->name('doctor.queue')->middleware('can:accessDoctorQueue');
+
     // Patient management routes
     Route::resource('patients', App\Http\Controllers\PatientController::class);
     Route::get('/patients-search', [App\Http\Controllers\PatientController::class, 'search'])->name('patients.search');
