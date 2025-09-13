@@ -85,6 +85,13 @@ return [
         'room' => 'Room',
         'queue' => 'Doctor Queue',
         'today_queue' => 'Today\'s Queue',
+        'messages' => [
+            'created_successfully' => 'Visit created successfully.',
+            'updated_successfully' => 'Visit updated successfully.',
+            'deleted_successfully' => 'Visit deleted successfully.',
+            'status_updated' => 'Status updated successfully.',
+            'delete_failed' => 'Unable to delete visit. Please try again.',
+        ],
     ],
 
     'visit_types' => [
@@ -308,8 +315,11 @@ return [
         'patient_deleted' => 'Patient deleted successfully.',
         'visit_created' => 'Visit created successfully.',
         'visit_updated' => 'Visit updated successfully.',
+        'visit_deleted' => 'Visit deleted successfully.',
         'visit_started' => 'Visit started successfully.',
         'visit_completed' => 'Visit completed successfully.',
+        'status_updated' => 'Status updated successfully.',
+        'delete_failed' => 'Unable to delete. Please try again.',
         'anamnesis_saved' => 'Anamnesis saved successfully.',
         'exam_saved' => 'Examination saved successfully.',
         'prescription_saved' => 'Prescription saved successfully.',

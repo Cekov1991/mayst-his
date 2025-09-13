@@ -28,4 +28,8 @@ Route::middleware([
     // Patient management routes
     Route::resource('patients', App\Http\Controllers\PatientController::class);
     Route::get('/patients-search', [App\Http\Controllers\PatientController::class, 'search'])->name('patients.search');
+
+    // Visit management routes
+    Route::resource('visits', App\Http\Controllers\VisitController::class);
+    Route::patch('/visits/{visit}/status', [App\Http\Controllers\VisitController::class, 'updateStatus'])->name('visits.updateStatus');
 });

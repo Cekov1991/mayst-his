@@ -85,6 +85,13 @@ return [
         'room' => 'Соба',
         'queue' => 'Ред за прегледи',
         'today_queue' => 'Денешен ред',
+        'messages' => [
+            'created_successfully' => 'Прегледот е успешно креиран.',
+            'updated_successfully' => 'Прегледот е успешно ажуриран.',
+            'deleted_successfully' => 'Прегледот е успешно избришан.',
+            'status_updated' => 'Статусот е успешно ажуриран.',
+            'delete_failed' => 'Не може да се избрише прегледот. Обидете се повторно.',
+        ],
     ],
 
     'visit_types' => [
