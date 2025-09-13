@@ -24,4 +24,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    // Patient management routes
+    Route::resource('patients', App\Http\Controllers\PatientController::class);
+    Route::get('/patients-search', [App\Http\Controllers\PatientController::class, 'search'])->name('patients.search');
 });
