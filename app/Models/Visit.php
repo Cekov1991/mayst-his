@@ -95,7 +95,7 @@ class Visit extends Model
 
     public function scopeQueue($query, $doctorId = null)
     {
-        $query = $query->whereIn('status', ['arrived', 'in_progress'])
+        $query = $query->whereIn('status', ['arrived', 'in_progress', 'scheduled'])
             ->orderBy('arrived_at')
             ->orderBy('scheduled_at');
 

@@ -6,9 +6,9 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <!-- Visit Overview Card -->
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg mb-6">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-start mb-6">
                         <div>
@@ -102,73 +102,125 @@
                 </div>
             </div>
 
-            <!-- Workspace Tabs -->
-            <div class="bg-white dark:bg-gray-800 shadow-xl sm:rounded-lg" x-data="{ activeTab: 'anamnesis' }">
-                <!-- Tab Navigation -->
+            <!-- Workspace Navigation -->
+            <div class="bg-white dark:bg-gray-800 shadow-xl sm:rounded-lg">
                 <div class="border-b border-gray-200 dark:border-gray-700">
                     <nav class="-mb-px flex space-x-8 px-6" aria-label="Tabs">
-                        <button @click="activeTab = 'anamnesis'" :class="activeTab === 'anamnesis' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <a href="{{ route('visits.anamnesis', $visit) }}"
+                           class="@if(request()->routeIs('visits.anamnesis')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                             {{ his_trans('workspace.anamnesis') }}
-                        </button>
+                        </a>
 
-                        <button @click="activeTab = 'examination'" :class="activeTab === 'examination' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <a href="{{ route('visits.examination', $visit) }}"
+                           class="@if(request()->routeIs('visits.examination*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                             {{ his_trans('workspace.examination') }}
-                        </button>
+                        </a>
 
-                        <button @click="activeTab = 'imaging'" :class="activeTab === 'imaging' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <a href="{{ route('visits.imaging', $visit) }}"
+                           class="@if(request()->routeIs('visits.imaging*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                             {{ his_trans('workspace.imaging') }}
-                        </button>
+                        </a>
 
-                        <button @click="activeTab = 'treatment'" :class="activeTab === 'treatment' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <a href="{{ route('visits.treatments', $visit) }}"
+                           class="@if(request()->routeIs('visits.treatments*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                             {{ his_trans('workspace.treatment') }}
-                        </button>
+                        </a>
 
-                        <button @click="activeTab = 'prescriptions'" :class="activeTab === 'prescriptions' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <a href="{{ route('visits.prescriptions', $visit) }}"
+                           class="@if(request()->routeIs('visits.prescriptions*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                             {{ his_trans('workspace.prescriptions') }}
-                        </button>
+                        </a>
 
-                        <button @click="activeTab = 'spectacles'" :class="activeTab === 'spectacles' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        <a href="{{ route('visits.spectacles', $visit) }}"
+                           class="@if(request()->routeIs('visits.spectacles*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                             {{ his_trans('workspace.spectacles') }}
-                        </button>
+                        </a>
                     </nav>
                 </div>
 
-                <!-- Tab Content -->
+                <!-- Workspace Overview Content -->
                 <div class="p-6 lg:p-8">
-                    <!-- Anamnesis Tab -->
-                    <div x-show="activeTab === 'anamnesis'" x-transition>
-                        @include('visits.workspace.anamnesis', ['visit' => $visit])
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-6">{{ his_trans('workspace.title') }}</h3>
+
+                    <!-- Quick Overview Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Anamnesis Card -->
+                        <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-md font-medium text-gray-900 dark:text-white">{{ his_trans('workspace.anamnesis') }}</h4>
+                                <a href="{{ route('visits.anamnesis', $visit) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                    @if($visit->anamnesis) {{ his_trans('edit') }} @else {{ his_trans('add') }} @endif
+                                </a>
+                            </div>
+                            @if($visit->anamnesis)
+                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ Str::limit($visit->anamnesis->chief_complaint ?? 'Completed', 50) }}</p>
+                                <p class="text-xs text-green-600 dark:text-green-400 mt-2">✓ Recorded</p>
+                            @else
+                                <p class="text-sm text-gray-500 dark:text-gray-400">No anamnesis recorded yet</p>
+                            @endif
+                        </div>
+
+                        <!-- Examination Card -->
+                        <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-md font-medium text-gray-900 dark:text-white">{{ his_trans('workspace.examination') }}</h4>
+                                <a href="{{ route('visits.examination', $visit) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                    @if($visit->ophthalmicExam) {{ his_trans('edit') }} @else {{ his_trans('add') }} @endif
+                                </a>
+                            </div>
+                            @if($visit->ophthalmicExam)
+                                <div class="space-y-1">
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Visus: {{ $visit->ophthalmicExam->visus_od ?? '—' }} / {{ $visit->ophthalmicExam->visus_os ?? '—' }}</p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">IOP: {{ $visit->ophthalmicExam->iop_od ?? '—' }} / {{ $visit->ophthalmicExam->iop_os ?? '—' }}</p>
+                                    <p class="text-xs text-green-600 dark:text-green-400 mt-2">✓ Recorded ({{ $visit->ophthalmicExam->refractions->count() }} refractions)</p>
+                                </div>
+                            @else
+                                <p class="text-sm text-gray-500 dark:text-gray-400">No examination recorded yet</p>
+                            @endif
+                        </div>
+
+                        <!-- Quick Actions Card -->
+                        <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
+                            <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">Quick Actions</h4>
+                            <div class="space-y-2">
+                                <a href="{{ route('visits.prescriptions.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ Add Prescription</a>
+                                <a href="{{ route('visits.imaging.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ Order Imaging</a>
+                                <a href="{{ route('visits.treatments.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ Add Treatment Plan</a>
+                                <a href="{{ route('visits.spectacles.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ Spectacle Prescription</a>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Examination Tab -->
-                    <div x-show="activeTab === 'examination'" x-transition>
-                        @include('visits.workspace.examination', ['visit' => $visit])
-                    </div>
+                    <!-- Recent Activity -->
+                    @if($visit->imagingStudies->isNotEmpty() || $visit->treatmentPlans->isNotEmpty() || $visit->prescriptions->isNotEmpty())
+                        <div class="mt-8">
+                            <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">Recent Activity</h4>
+                            <div class="space-y-3">
+                                @foreach($visit->prescriptions->take(3) as $prescription)
+                                    <div class="flex items-center text-sm">
+                                        <span class="text-green-600 dark:text-green-400 mr-2">✓</span>
+                                        <span class="text-gray-900 dark:text-white">Prescription created with {{ $prescription->prescriptionItems->count() }} medications</span>
+                                        <span class="text-gray-500 dark:text-gray-400 ml-auto">{{ $prescription->created_at->diffForHumans() }}</span>
+                                    </div>
+                                @endforeach
 
-                    <!-- Imaging Tab -->
-                    <div x-show="activeTab === 'imaging'" x-transition>
-                        @include('visits.workspace.imaging', ['visit' => $visit])
-                    </div>
-
-                    <!-- Treatment Tab -->
-                    <div x-show="activeTab === 'treatment'" x-transition>
-                        @include('visits.workspace.treatment', ['visit' => $visit])
-                    </div>
-
-                    <!-- Prescriptions Tab -->
-                    <div x-show="activeTab === 'prescriptions'" x-transition>
-                        @include('visits.workspace.prescriptions', ['visit' => $visit])
-                    </div>
-
-                    <!-- Spectacles Tab -->
-                    <div x-show="activeTab === 'spectacles'" x-transition>
-                        @include('visits.workspace.spectacles', ['visit' => $visit])
-                    </div>
+                                @foreach($visit->imagingStudies->take(3) as $study)
+                                    <div class="flex items-center text-sm">
+                                        <span class="@if($study->status === 'done') text-green-600 dark:text-green-400 @else text-yellow-600 dark:text-yellow-400 @endif mr-2">
+                                            @if($study->status === 'done') ✓ @else ○ @endif
+                                        </span>
+                                        <span class="text-gray-900 dark:text-white">{{ his_trans("imaging_modalities.{$study->modality}") }} {{ his_trans("imaging_eyes.{$study->eye}") }}</span>
+                                        <span class="text-gray-500 dark:text-gray-400 ml-auto">{{ $study->created_at->diffForHumans() }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
 
             <!-- Back Button -->
-            <div class="mt-6">
+            <div class="flex justify-between">
                 <a href="{{ route('visits.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
                     ← {{ his_trans('back') }}
                 </a>

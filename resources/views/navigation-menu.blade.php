@@ -139,6 +139,7 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
+                <x-locale-switcher />
             </div>
 
             <!-- Hamburger -->
@@ -249,5 +250,6 @@
                 @endif
             </div>
         </div>
+        <x-locale-switcher />
     </div>
 </nav>
