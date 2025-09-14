@@ -427,7 +427,7 @@ return [
 
     // Workspace
     'workspace' => [
-        'anamnesis' => 'History & Chief Complaint',
+        'anamnesis' => 'Anamnesis',
         'examination' => 'Ophthalmic Examination',
         'refraction' => 'Refraction',
         'imaging' => 'Imaging Studies',

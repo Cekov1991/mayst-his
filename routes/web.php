@@ -41,48 +41,48 @@ Route::middleware([
     // Visit workspace routes
     Route::prefix('visits/{visit}')->group(function () {
         // Workspace page routes (individual pages)
-        Route::get('/anamnesis', [App\Http\Controllers\VisitController::class, 'showAnamnesis'])->name('visits.anamnesis');
-        Route::get('/examination', [App\Http\Controllers\VisitController::class, 'showExamination'])->name('visits.examination');
-        Route::get('/imaging', [App\Http\Controllers\VisitController::class, 'showImaging'])->name('visits.imaging');
-        Route::get('/treatments', [App\Http\Controllers\VisitController::class, 'showTreatments'])->name('visits.treatments');
-        Route::get('/prescriptions', [App\Http\Controllers\VisitController::class, 'showPrescriptions'])->name('visits.prescriptions');
-        Route::get('/spectacles', [App\Http\Controllers\VisitController::class, 'showSpectacles'])->name('visits.spectacles');
-        Route::get('/diagnoses', [App\Http\Controllers\VisitController::class, 'diagnoses'])->name('visits.diagnoses');
+        Route::get('/anamnesis', [App\Http\Controllers\AnamnesisController::class, 'show'])->name('visits.anamnesis');
+        Route::get('/examination', [App\Http\Controllers\ExaminationController::class, 'show'])->name('visits.examination');
+        Route::get('/imaging', [App\Http\Controllers\ImagingController::class, 'show'])->name('visits.imaging');
+        Route::get('/treatments', [App\Http\Controllers\TreatmentController::class, 'show'])->name('visits.treatments');
+        Route::get('/prescriptions', [App\Http\Controllers\PrescriptionController::class, 'show'])->name('visits.prescriptions');
+        Route::get('/spectacles', [App\Http\Controllers\SpectacleController::class, 'show'])->name('visits.spectacles');
+        Route::get('/diagnoses', [App\Http\Controllers\DiagnosisController::class, 'index'])->name('visits.diagnoses');
 
         // Individual form routes
-        Route::get('/imaging/create', [App\Http\Controllers\VisitController::class, 'createImaging'])->name('visits.imaging.create');
-        Route::get('/imaging/{imaging}/edit', [App\Http\Controllers\VisitController::class, 'editImaging'])->name('visits.imaging.edit');
-        Route::get('/treatments/create', [App\Http\Controllers\VisitController::class, 'createTreatment'])->name('visits.treatments.create');
-        Route::get('/treatments/{treatment}/edit', [App\Http\Controllers\VisitController::class, 'editTreatment'])->name('visits.treatments.edit');
-        Route::get('/prescriptions/create', [App\Http\Controllers\VisitController::class, 'createPrescription'])->name('visits.prescriptions.create');
-        Route::get('/prescriptions/{prescription}/edit', [App\Http\Controllers\VisitController::class, 'editPrescription'])->name('visits.prescriptions.edit');
-        Route::get('/spectacles/create', [App\Http\Controllers\VisitController::class, 'createSpectacles'])->name('visits.spectacles.create');
-        Route::get('/spectacles/{spectacle}/edit', [App\Http\Controllers\VisitController::class, 'editSpectacles'])->name('visits.spectacles.edit');
-        Route::get('/refractions/create', [App\Http\Controllers\VisitController::class, 'createRefraction'])->name('visits.refractions.create');
-        Route::get('/diagnoses/create', [App\Http\Controllers\VisitController::class, 'diagnosisCreate'])->name('visits.diagnosis.create');
-        Route::get('/diagnoses/{diagnosis}/edit', [App\Http\Controllers\VisitController::class, 'diagnosisEdit'])->name('visits.diagnosis.edit');
+        Route::get('/imaging/create', [App\Http\Controllers\ImagingController::class, 'create'])->name('visits.imaging.create');
+        Route::get('/imaging/{imaging}/edit', [App\Http\Controllers\ImagingController::class, 'edit'])->name('visits.imaging.edit');
+        Route::get('/treatments/create', [App\Http\Controllers\TreatmentController::class, 'create'])->name('visits.treatments.create');
+        Route::get('/treatments/{treatment}/edit', [App\Http\Controllers\TreatmentController::class, 'edit'])->name('visits.treatments.edit');
+        Route::get('/prescriptions/create', [App\Http\Controllers\PrescriptionController::class, 'create'])->name('visits.prescriptions.create');
+        Route::get('/prescriptions/{prescription}/edit', [App\Http\Controllers\PrescriptionController::class, 'edit'])->name('visits.prescriptions.edit');
+        Route::get('/spectacles/create', [App\Http\Controllers\SpectacleController::class, 'create'])->name('visits.spectacles.create');
+        Route::get('/spectacles/{spectacle}/edit', [App\Http\Controllers\SpectacleController::class, 'edit'])->name('visits.spectacles.edit');
+        Route::get('/refractions/create', [App\Http\Controllers\ExaminationController::class, 'createRefraction'])->name('visits.refractions.create');
+        Route::get('/diagnoses/create', [App\Http\Controllers\DiagnosisController::class, 'create'])->name('visits.diagnosis.create');
+        Route::get('/diagnoses/{diagnosis}/edit', [App\Http\Controllers\DiagnosisController::class, 'edit'])->name('visits.diagnosis.edit');
 
         // Data submission routes (simplified, no form request classes)
-        Route::post('/anamnesis', [App\Http\Controllers\VisitController::class, 'storeAnamnesis'])->name('visits.anamnesis.store');
-        Route::post('/exam', [App\Http\Controllers\VisitController::class, 'storeExam'])->name('visits.exam.store');
-        Route::post('/refractions', [App\Http\Controllers\VisitController::class, 'storeRefraction'])->name('visits.refractions.store');
-        Route::post('/imaging', [App\Http\Controllers\VisitController::class, 'storeImaging'])->name('visits.imaging.store');
-        Route::put('/imaging/{imaging}', [App\Http\Controllers\VisitController::class, 'updateImaging'])->name('visits.imaging.update');
-        Route::post('/treatments', [App\Http\Controllers\VisitController::class, 'storeTreatment'])->name('visits.treatments.store');
-        Route::put('/treatments/{treatment}', [App\Http\Controllers\VisitController::class, 'updateTreatment'])->name('visits.treatments.update');
-        Route::post('/prescriptions', [App\Http\Controllers\VisitController::class, 'storePrescription'])->name('visits.prescriptions.store');
-        Route::put('/prescriptions/{prescription}', [App\Http\Controllers\VisitController::class, 'updatePrescription'])->name('visits.prescriptions.update');
-        Route::post('/spectacles', [App\Http\Controllers\VisitController::class, 'storeSpectacles'])->name('visits.spectacles.store');
-        Route::put('/spectacles/{spectacle}', [App\Http\Controllers\VisitController::class, 'updateSpectacles'])->name('visits.spectacles.update');
-        Route::post('/diagnoses', [App\Http\Controllers\VisitController::class, 'diagnosisStore'])->name('visits.diagnosis.store');
-        Route::put('/diagnoses/{diagnosis}', [App\Http\Controllers\VisitController::class, 'diagnosisUpdate'])->name('visits.diagnosis.update');
+        Route::post('/anamnesis', [App\Http\Controllers\AnamnesisController::class, 'store'])->name('visits.anamnesis.store');
+        Route::post('/exam', [App\Http\Controllers\ExaminationController::class, 'store'])->name('visits.exam.store');
+        Route::post('/refractions', [App\Http\Controllers\ExaminationController::class, 'storeRefraction'])->name('visits.refractions.store');
+        Route::post('/imaging', [App\Http\Controllers\ImagingController::class, 'store'])->name('visits.imaging.store');
+        Route::put('/imaging/{imaging}', [App\Http\Controllers\ImagingController::class, 'update'])->name('visits.imaging.update');
+        Route::post('/treatments', [App\Http\Controllers\TreatmentController::class, 'store'])->name('visits.treatments.store');
+        Route::put('/treatments/{treatment}', [App\Http\Controllers\TreatmentController::class, 'update'])->name('visits.treatments.update');
+        Route::post('/prescriptions', [App\Http\Controllers\PrescriptionController::class, 'store'])->name('visits.prescriptions.store');
+        Route::put('/prescriptions/{prescription}', [App\Http\Controllers\PrescriptionController::class, 'update'])->name('visits.prescriptions.update');
+        Route::post('/spectacles', [App\Http\Controllers\SpectacleController::class, 'store'])->name('visits.spectacles.store');
+        Route::put('/spectacles/{spectacle}', [App\Http\Controllers\SpectacleController::class, 'update'])->name('visits.spectacles.update');
+        Route::post('/diagnoses', [App\Http\Controllers\DiagnosisController::class, 'store'])->name('visits.diagnosis.store');
+        Route::put('/diagnoses/{diagnosis}', [App\Http\Controllers\DiagnosisController::class, 'update'])->name('visits.diagnosis.update');
 
         // Delete routes
-        Route::delete('/refractions/{refraction}', [App\Http\Controllers\VisitController::class, 'destroyRefraction'])->name('visits.refractions.destroy');
-        Route::delete('/imaging/{imaging}', [App\Http\Controllers\VisitController::class, 'destroyImaging'])->name('visits.imaging.destroy');
-        Route::delete('/treatments/{treatment}', [App\Http\Controllers\VisitController::class, 'destroyTreatment'])->name('visits.treatments.destroy');
-        Route::delete('/prescriptions/{prescription}', [App\Http\Controllers\VisitController::class, 'destroyPrescription'])->name('visits.prescriptions.destroy');
-        Route::delete('/spectacles/{spectacle}', [App\Http\Controllers\VisitController::class, 'destroySpectacles'])->name('visits.spectacles.destroy');
-        Route::delete('/diagnoses/{diagnosis}', [App\Http\Controllers\VisitController::class, 'diagnosisDestroy'])->name('visits.diagnosis.destroy');
+        Route::delete('/refractions/{refraction}', [App\Http\Controllers\ExaminationController::class, 'destroyRefraction'])->name('visits.refractions.destroy');
+        Route::delete('/imaging/{imaging}', [App\Http\Controllers\ImagingController::class, 'destroy'])->name('visits.imaging.destroy');
+        Route::delete('/treatments/{treatment}', [App\Http\Controllers\TreatmentController::class, 'destroy'])->name('visits.treatments.destroy');
+        Route::delete('/prescriptions/{prescription}', [App\Http\Controllers\PrescriptionController::class, 'destroy'])->name('visits.prescriptions.destroy');
+        Route::delete('/spectacles/{spectacle}', [App\Http\Controllers\SpectacleController::class, 'destroy'])->name('visits.spectacles.destroy');
+        Route::delete('/diagnoses/{diagnosis}', [App\Http\Controllers\DiagnosisController::class, 'destroy'])->name('visits.diagnosis.destroy');
     })->middleware(['auth']);
 });

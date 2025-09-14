@@ -28,7 +28,7 @@
 
             <a href="{{ route('visits.treatments', $visit) }}"
                class="@if($active === 'treatments') border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                {{ __('his.workspace.treatment') }}
+                {{ __('his.workspace.treatments') }}
                 @if($visit->treatmentPlans->isNotEmpty())
                     <span class="ml-1 text-gray-500">({{ $visit->treatmentPlans->count() }})</span>
                 @endif
@@ -55,9 +55,6 @@
                 {{ __('his.workspace.diagnoses') }}
                 @if($visit->diagnoses && $visit->diagnoses->isNotEmpty())
                     <span class="ml-1 text-gray-500">({{ $visit->diagnoses->count() }})</span>
-                    @if($visit->diagnoses->where('is_primary', true)->isNotEmpty())
-                        <span class="ml-1 text-blue-500">P</span>
-                    @endif
                 @endif
             </a>
         </nav>

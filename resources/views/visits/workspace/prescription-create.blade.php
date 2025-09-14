@@ -14,7 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.prescription.add_prescription') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.prescriptions.add_prescription') }}</h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Create a new prescription with medications for this visit.</p>
                     </div>
 
@@ -24,7 +24,7 @@
 
                         <!-- Prescription Notes -->
                         <div>
-                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.prescription.notes') }}</label>
+                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.prescriptions.notes') }}</label>
                             <textarea name="notes" id="notes" rows="2"
                                       class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                       placeholder="General prescription notes...">{{ old('notes') }}</textarea>
