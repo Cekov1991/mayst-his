@@ -2,21 +2,20 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ $patient->full_name }} - {{ his_trans('patients.patient_details') }}
+                {{ $patient->full_name }} - {{ __('his.patients.patient_details') }}
             </h2>
             <div class="flex items-center space-x-4">
-                <x-locale-switcher />
 
                 <!-- Schedule Visit Button -->
                 <x-secondary-button onclick="window.location.href='{{ route('visits.create', ['patient_id' => $patient->id]) }}'">
                     <svg class="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
-                    {{ his_trans('visits.add_visit') }}
+                    {{ __('his.visits.add_visit') }}
                 </x-secondary-button>
 
                 <x-button onclick="window.location.href='{{ route('patients.edit', $patient) }}'">
-                    {{ his_trans('edit') }}
+                    {{ __('his.edit') }}
                 </x-button>
             </div>
         </div>
@@ -31,10 +30,10 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
-                                {{ his_trans('patients.patient_details') }}
+                                {{ __('his.patients.patient_details') }}
                             </h3>
                             <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-                                {{ his_trans('patients.created_at') }}: {{ $patient->created_at->format('d.m.Y H:i') }}
+                                {{ __('his.patients.created_at') }}: {{ $patient->created_at->format('d.m.Y H:i') }}
                             </p>
                         </div>
                     </div>
@@ -43,27 +42,27 @@
                 <div class="border-t border-gray-200 dark:border-gray-700">
                     <dl>
                         <div class="bg-gray-50 dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('patients.first_name') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.patients.first_name') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">{{ $patient->first_name }}</dd>
                         </div>
                         <div class="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('patients.last_name') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.patients.last_name') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">{{ $patient->last_name }}</dd>
                         </div>
                         <div class="bg-gray-50 dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('patients.sex') }}</dt>
-                            <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">{{ his_trans("sex_options.{$patient->sex}") }}</dd>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.patients.sex') }}</dt>
+                            <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">{{ __("his.sex_options.{$patient->sex}") }}</dd>
                         </div>
                         <div class="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('patients.dob') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.patients.dob') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
                                 {{ $patient->dob->format('d.m.Y') }}
-                                <span class="text-gray-500 dark:text-gray-400">({{ his_trans('patients.age') }}: {{ $patient->dob->age }})</span>
+                                <span class="text-gray-500 dark:text-gray-400">({{ __('his.patients.age') }}: {{ $patient->dob->age }})</span>
                             </dd>
                         </div>
                         @if($patient->phone)
                         <div class="bg-gray-50 dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('patients.phone') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.patients.phone') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
                                 <a href="tel:{{ $patient->phone }}" class="text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">{{ $patient->phone }}</a>
                             </dd>
@@ -71,7 +70,7 @@
                         @endif
                         @if($patient->email)
                         <div class="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('patients.email') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.patients.email') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
                                 <a href="mailto:{{ $patient->email }}" class="text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">{{ $patient->email }}</a>
                             </dd>
@@ -79,13 +78,13 @@
                         @endif
                         @if($patient->unique_master_citizen_number)
                         <div class="bg-gray-50 dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('patients.unique_master_citizen_number') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.patients.unique_master_citizen_number') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">{{ $patient->unique_master_citizen_number }}</dd>
                         </div>
                         @endif
                         @if($patient->address)
                         <div class="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('patients.address') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.patients.address') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
                                 {{ $patient->address }}
                                 @if($patient->city || $patient->country)
@@ -97,7 +96,7 @@
                         @endif
                         @if($patient->notes)
                         <div class="bg-gray-50 dark:bg-gray-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ his_trans('patients.notes') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.patients.notes') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">{{ $patient->notes }}</dd>
                         </div>
                         @endif
@@ -112,10 +111,10 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
                         <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
-                            Quick Actions
+                            {{__('his.patients.quick_actions')}}
                         </h3>
                         <div class="mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400">
-                            <p>Manage this patient's visits and information.</p>
+                            <p>{{__('his.patients.manage_visits_and_information')}}</p>
                         </div>
                         <div class="mt-5">
                             <div class="flex space-x-3">
@@ -123,14 +122,14 @@
                                     <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                                     </svg>
-                                    {{ his_trans('visits.add_visit') }}
+                                    {{ __('his.visits.add_visit') }}
                                 </x-button>
 
                                 <x-secondary-button onclick="window.location.href='{{ route('patients.edit', $patient) }}'">
                                     <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                     </svg>
-                                    {{ his_trans('patients.edit_patient') }}
+                                    {{ __('his.patients.edit_patient') }}
                                 </x-secondary-button>
                             </div>
                         </div>
@@ -147,10 +146,10 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
-                                    {{ his_trans('visits.title') }}
+                                    {{ __('his.visits.title') }}
                                 </h3>
                                 <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-                                    {{ his_trans('patients.visits_count') }}: {{ $patient->visits->count() }}
+                                    {{ __('his.patients.visits_count') }}: {{ $patient->visits->count() }}
                                 </p>
                             </div>
                         </div>
@@ -161,22 +160,22 @@
                             <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                        {{ his_trans('visits.scheduled_at') }}
+                                        {{ __('his.visits.scheduled_at') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                        {{ his_trans('visits.doctor') }}
+                                        {{ __('his.visits.doctor') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                        {{ his_trans('visits.type') }}
+                                        {{ __('his.visits.type') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                        {{ his_trans('visits.status') }}
+                                        {{ __('his.visits.status') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                        {{ his_trans('visits.reason_for_visit') }}
+                                        {{ __('his.visits.reason_for_visit') }}
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
-                                        <span class="sr-only">{{ his_trans('actions') }}</span>
+                                        <span class="sr-only">{{ __('his.actions') }}</span>
                                     </th>
                                 </tr>
                             </thead>
@@ -190,7 +189,7 @@
                                             {{ $visit->doctor->name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                            {{ his_trans("visit_types.{$visit->type}") }}
+                                            {{ __("his.visit_types.{$visit->type}") }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
@@ -199,7 +198,7 @@
                                                 @elseif($visit->status === 'arrived') bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100
                                                 @elseif($visit->status === 'cancelled') bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100
                                                 @else bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 @endif">
-                                                {{ his_trans("visit_status.{$visit->status}") }}
+                                                {{ __("his.visit_status.{$visit->status}") }}
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 max-w-xs truncate">
@@ -208,7 +207,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <a href="{{ route('visits.show', $visit) }}"
                                                class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                {{ his_trans('view') }}
+                                                {{ __('his.view') }}
                                             </a>
                                         </td>
                                     </tr>
@@ -231,7 +230,7 @@
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by scheduling the first visit for this patient.</p>
                             <div class="mt-6">
                                 <x-button onclick="window.location.href='{{ route('visits.create', ['patient_id' => $patient->id]) }}'">
-                                    {{ his_trans('visits.add_visit') }}
+                                    {{ __('his.visits.add_visit') }}
                                 </x-button>
                             </div>
                         </div>

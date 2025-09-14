@@ -52,7 +52,7 @@ class DoctorQueue extends Component
         if (!$visit || $visit->doctor_id !== Auth::id() || $visit->status !== 'arrived') {
             $this->dispatch('show-message', [
                 'type' => 'error',
-                'message' => his_trans('messages.unauthorized')
+                'message' => __('his.messages.unauthorized')
             ]);
             return;
         }
@@ -64,7 +64,7 @@ class DoctorQueue extends Component
 
         $this->dispatch('show-message', [
             'type' => 'success',
-            'message' => his_trans('visits.messages.status_updated')
+            'message' => __('his.visits.messages.status_updated')
         ]);
 
         // Refresh the component
@@ -78,7 +78,7 @@ class DoctorQueue extends Component
         if (!$visit || $visit->doctor_id !== Auth::id() || $visit->status !== 'in_progress') {
             $this->dispatch('show-message', [
                 'type' => 'error',
-                'message' => his_trans('messages.unauthorized')
+                'message' => __('his.messages.unauthorized')
             ]);
             return;
         }
@@ -90,7 +90,7 @@ class DoctorQueue extends Component
 
         $this->dispatch('show-message', [
             'type' => 'success',
-            'message' => his_trans('visits.messages.status_updated')
+            'message' => __('his.visits.messages.status_updated')
         ]);
 
         // Refresh the component

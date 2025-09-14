@@ -18,18 +18,18 @@
 
                     <!-- Patients Link -->
                     <x-nav-link href="{{ route('patients.index') }}" :active="request()->routeIs('patients.*')">
-                        {{ his_trans('patients.title') }}
+                        {{ __('his.patients.title') }}
                     </x-nav-link>
 
                     <!-- Visits Link -->
                     <x-nav-link href="{{ route('visits.index') }}" :active="request()->routeIs('visits.*')">
-                        {{ his_trans('visits.title') }}
+                        {{ __('his.visits.title') }}
                     </x-nav-link>
 
                     <!-- Doctor Queue Link (Only for Doctors) -->
                     @can('accessDoctorQueue')
                         <x-nav-link href="{{ route('doctor.queue') }}" :active="request()->routeIs('doctor.queue')">
-                            {{ his_trans('visits.queue') }}
+                            {{ __('his.visits.queue') }}
                         </x-nav-link>
                     @endcan
                 </div>
@@ -163,18 +163,18 @@
 
             <!-- Patients Link -->
             <x-responsive-nav-link href="{{ route('patients.index') }}" :active="request()->routeIs('patients.*')">
-                {{ his_trans('patients.title') }}
+                {{ __('his.patients.title') }}
             </x-responsive-nav-link>
 
             <!-- Visits Link -->
             <x-responsive-nav-link href="{{ route('visits.index') }}" :active="request()->routeIs('visits.*')">
-                {{ his_trans('visits.title') }}
+                {{ __('his.visits.title') }}
             </x-responsive-nav-link>
 
             <!-- Doctor Queue Link (Only for Doctors) -->
             @can('accessDoctorQueue')
                 <x-responsive-nav-link href="{{ route('doctor.queue') }}" :active="request()->routeIs('doctor.queue')">
-                    {{ his_trans('visits.queue') }}
+                    {{ __('his.visits.queue') }}
                 </x-responsive-nav-link>
             @endcan
         </div>

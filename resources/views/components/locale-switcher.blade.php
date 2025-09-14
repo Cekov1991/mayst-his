@@ -21,7 +21,7 @@
 
         <div class="py-1" role="menu" aria-orientation="vertical">
             @foreach($availableLocales as $locale => $info)
-                <a href="{{ his_switch_url($locale) }}"
+                <a href="{{ route('locale.switch', ['locale' => $locale]) }}"
                    class="@if($locale === $currentLocale) bg-gray-100 @endif text-gray-700 flex items-center px-4 py-2 text-sm hover:bg-gray-100 transition-colors duration-150"
                    role="menuitem">
                     <span class="mr-3">{{ $info['flag'] }}</span>

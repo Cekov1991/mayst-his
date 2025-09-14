@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ his_trans('workspace.prescriptions') }} - {{ $visit->patient->full_name }}
+            {{ __('his.workspace.prescriptions') }} - {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -14,9 +14,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ his_trans('prescription.prescriptions') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.prescription.prescriptions') }}</h3>
                         <a href="{{ route('visits.prescriptions.create', $visit) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                            + {{ his_trans('prescription.add_prescription') }}
+                            + {{ __('his.prescription.add_prescription') }}
                         </a>
                     </div>
 
@@ -34,7 +34,7 @@
                                         <div>
                                             <div class="flex items-center space-x-3">
                                                 <h4 class="text-md font-medium text-gray-900 dark:text-white">
-                                                    {{ his_trans('prescription.prescription') }} #{{ $prescription->id }}
+                                                    {{ __('his.prescription.prescription') }} #{{ $prescription->id }}
                                                 </h4>
                                                 <span class="text-sm text-gray-500 dark:text-gray-400">
                                                     by {{ $prescription->doctor->name }}
@@ -87,7 +87,7 @@
 
                                                         <x-table-cell>
                                                             <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
-                                                                {{ his_trans("drug_forms.{$item->form}") }}
+                                                                {{ __("his.drug_forms.{$item->form}") }}
                                                             </span>
                                                         </x-table-cell>
 
@@ -115,7 +115,7 @@
                     <!-- Back Button -->
                     <div class="flex justify-between mt-8">
                         <a href="{{ route('visits.show', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                            ← {{ his_trans('back') }}
+                            ← {{ __('his.back') }}
                         </a>
                     </div>
                 </div>

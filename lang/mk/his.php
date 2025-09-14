@@ -37,6 +37,39 @@ return [
         'tech' => 'Техничар',
     ],
 
+    'table_header' => [
+        'full_name' => 'Име и презиме',
+        'sex' => 'Пол',
+        'dob' => 'Датум на раѓање',
+        'phone' => 'Телефон',
+        'unique_master_citizen_number' => 'Матичен број',
+        'actions' => 'Акции',
+        'doctor' => 'Доктор',
+        'type' => 'Тип',
+        'status' => 'Статус',
+        'scheduled' => 'Закажано',
+        'room' => 'Соба',
+        'queue' => 'Ред',
+        'actions' => 'Акции',
+        'search' => 'Барај',
+        'all_statuses' => 'Сите статуси',
+        'all_doctors' => 'Сите доктори',
+        'date' => 'Датум',
+    ],
+
+    'table_cell' => [
+        'edit_patient' => 'Уреди',
+        'delete_patient' => 'Избриши',
+        'view_visit' => 'Преглед',
+        'edit_visit' => 'Уреди',
+        'details' => 'Детали',
+    ],
+
+    'clear_button' => 'Освежи',
+    'search_button' => 'Барај',
+    'updating' => 'Ажурирање...',
+    'last_updated' => 'Ажурирано',
+
     // Пациенти
     'patients' => [
         'title' => 'Пациенти',
@@ -45,7 +78,7 @@ return [
         'patient_details' => 'Детали за пациентот',
         'first_name' => 'Име',
         'last_name' => 'Презиме',
-        'full_name' => 'Полно име',
+        'full_name' => 'Име и презиме',
         'sex' => 'Пол',
         'dob' => 'Датум на раѓање',
         'age' => 'Возраст',
@@ -83,8 +116,14 @@ return [
         'completed_at' => 'Завршен во',
         'reason_for_visit' => 'Причина за прегледот',
         'room' => 'Соба',
-        'queue' => 'Ред за прегледи',
+        'queue' => 'Чекаат за преглед',
         'today_queue' => 'Денешен ред',
+        'quick_actions' => 'Брзи акцији',
+        'manage_visits_and_information' => 'Управувајте со прегледите и информациите за овој пациент.',
+        'add_prescription' => 'Додај рецепт',
+        'order_imaging' => 'Нарачај имиџинг',
+        'add_treatment_plan' => 'Додај план за третман',
+        'spectacle_prescription' => 'Препиши очила',
         'messages' => [
             'created_successfully' => 'Прегледот е успешно креиран.',
             'updated_successfully' => 'Прегледот е успешно ажуриран.',
@@ -101,14 +140,14 @@ return [
     ],
 
     'visit_status' => [
-        'scheduled' => 'Закажано',
-        'arrived' => 'Пристигнал',
+        'scheduled' => 'Закажани',
+        'arrived' => 'Пристигнаи',
         'in_progress' => 'Во тек',
         'completed' => 'Завршено',
         'cancelled' => 'Откажано',
-        'start' => 'Почни преглед',
+        'start' => 'Започни преглед',
         'complete' => 'Заврши преглед',
-        'mark_arrived' => 'Означи како пристигнал',
+        'mark_arrived' => 'Означи како пристигнат',
     ],
 
     // Работен простор за прегледи
@@ -301,11 +340,16 @@ return [
         'dashboard' => 'Контролна табла',
         'patients' => 'Пациенти',
         'visits' => 'Прегледи',
-        'queue' => 'Ред за прегледи',
+        'queue' => 'Чекаат за преглед',
         'reports' => 'Извештаи',
         'settings' => 'Поставки',
         'logout' => 'Одјави се',
         'profile' => 'Профил',
+    ],
+
+    'doctor_queue' => [
+        'title' => 'Денешен ред',
+        'manage_daily_patient_queue' => 'Управувајте со денешниот ред на пациенти за прегледи.',
     ],
 
     // Пораки и известувања

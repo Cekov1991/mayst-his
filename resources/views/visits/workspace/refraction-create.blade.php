@@ -14,7 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ his_trans('refraction.add_refraction') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.refraction.add_refraction') }}</h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Add a new refraction measurement for this examination.</p>
                     </div>
 
@@ -43,9 +43,9 @@
                                 <select name="method" id="method" required
                                         class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500">
                                     <option value="">Select Method</option>
-                                    <option value="autorefraction" {{ old('method') === 'autorefraction' ? 'selected' : '' }}>{{ his_trans('refraction_methods.autorefraction') }}</option>
-                                    <option value="lensmeter" {{ old('method') === 'lensmeter' ? 'selected' : '' }}>{{ his_trans('refraction_methods.lensmeter') }}</option>
-                                    <option value="subjective" {{ old('method') === 'subjective' ? 'selected' : '' }}>{{ his_trans('refraction_methods.subjective') }}</option>
+                                    <option value="autorefraction" {{ old('method') === 'autorefraction' ? 'selected' : '' }}>{{ __('his.refraction_methods.autorefraction') }}</option>
+                                    <option value="lensmeter" {{ old('method') === 'lensmeter' ? 'selected' : '' }}>{{ __('his.refraction_methods.lensmeter') }}</option>
+                                    <option value="subjective" {{ old('method') === 'subjective' ? 'selected' : '' }}>{{ __('his.refraction_methods.subjective') }}</option>
                                 </select>
                                 @error('method')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -56,7 +56,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <!-- Sphere -->
                             <div>
-                                <label for="sphere" class="block text-sm font-medium text-gray-900 dark:text-white">{{ his_trans('refraction.sphere') }}</label>
+                                <label for="sphere" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.refraction.sphere') }}</label>
                                 <input type="number" step="0.25" name="sphere" id="sphere" value="{{ old('sphere') }}"
                                        class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                        placeholder="0.00">
@@ -67,7 +67,7 @@
 
                             <!-- Cylinder -->
                             <div>
-                                <label for="cylinder" class="block text-sm font-medium text-gray-900 dark:text-white">{{ his_trans('refraction.cylinder') }}</label>
+                                <label for="cylinder" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.refraction.cylinder') }}</label>
                                 <input type="number" step="0.25" name="cylinder" id="cylinder" value="{{ old('cylinder') }}"
                                        class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                        placeholder="0.00">
@@ -78,7 +78,7 @@
 
                             <!-- Axis -->
                             <div>
-                                <label for="axis" class="block text-sm font-medium text-gray-900 dark:text-white">{{ his_trans('refraction.axis') }}</label>
+                                <label for="axis" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.refraction.axis') }}</label>
                                 <input type="number" min="1" max="180" name="axis" id="axis" value="{{ old('axis') }}"
                                        class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                        placeholder="90">
@@ -142,11 +142,11 @@
                         <!-- Submit Button -->
                         <div class="flex justify-between pt-6">
                             <a href="{{ route('visits.examination', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                ← {{ his_trans('back') }}
+                                ← {{ __('his.back') }}
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                                {{ his_trans('save') }} Refraction
+                                {{ __('his.save') }} Refraction
                             </button>
                         </div>
                     </form>

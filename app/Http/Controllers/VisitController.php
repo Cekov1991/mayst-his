@@ -114,7 +114,7 @@ class VisitController extends Controller
         $visit = Visit::create($validatedData);
 
         return redirect()->route('visits.show', $visit)
-            ->with('success', his_trans('visits.messages.created_successfully'));
+            ->with('success', __('his.visits.messages.created_successfully'));
     }
 
     /**
@@ -168,7 +168,7 @@ class VisitController extends Controller
         $visit->update($validatedData);
 
         return redirect()->route('visits.show', $visit)
-            ->with('success', his_trans('visits.messages.updated_successfully'));
+            ->with('success', __('his.visits.messages.updated_successfully'));
     }
 
     /**
@@ -180,10 +180,10 @@ class VisitController extends Controller
             $visit->delete();
 
             return redirect()->route('visits.index')
-                ->with('success', his_trans('visits.messages.deleted_successfully'));
+                ->with('success', __('his.visits.messages.deleted_successfully'));
         } catch (\Exception $e) {
             return redirect()->route('visits.index')
-                ->with('error', his_trans('visits.messages.delete_failed'));
+                ->with('error', __('his.visits.messages.delete_failed'));
         }
     }
 
@@ -224,7 +224,7 @@ class VisitController extends Controller
         $visit->update($updateData);
 
         return redirect()->back()
-            ->with('success', his_trans('visits.messages.status_updated'));
+            ->with('success', __('his.visits.messages.status_updated'));
     }
 
     /**
@@ -416,7 +416,7 @@ class VisitController extends Controller
             $request->only(['chief_complaint', 'history_of_present_illness', 'past_medical_history', 'family_history', 'medications_current', 'allergies', 'therapy_in_use', 'other_notes'])
         );
 
-        return redirect()->route('visits.anamnesis', $visit)->with('success', his_trans('messages.anamnesis_saved'));
+        return redirect()->route('visits.anamnesis', $visit)->with('success', __('his.messages.anamnesis_saved'));
     }
 
     /**
@@ -438,7 +438,7 @@ class VisitController extends Controller
             $request->only(['visus_od', 'visus_os', 'iop_od', 'iop_os', 'anterior_segment_findings', 'posterior_segment_findings'])
         );
 
-        return redirect()->route('visits.examination', $visit)->with('success', his_trans('messages.exam_saved'));
+        return redirect()->route('visits.examination', $visit)->with('success', __('his.messages.exam_saved'));
     }
 
     /**
@@ -533,7 +533,7 @@ class VisitController extends Controller
             $prescription->prescriptionItems()->create($item);
         }
 
-        return redirect()->route('visits.prescriptions', $visit)->with('success', his_trans('messages.prescription_saved'));
+        return redirect()->route('visits.prescriptions', $visit)->with('success', __('his.messages.prescription_saved'));
     }
 
     /**
@@ -722,7 +722,7 @@ class VisitController extends Controller
             $prescription->prescriptionItems()->create($item);
         }
 
-        return redirect()->route('visits.prescriptions', $visit)->with('success', his_trans('messages.prescription_saved'));
+        return redirect()->route('visits.prescriptions', $visit)->with('success', __('his.messages.prescription_saved'));
     }
 
     /**

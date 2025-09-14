@@ -14,7 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ his_trans('prescription.add_prescription') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.prescription.add_prescription') }}</h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Create a new prescription with medications for this visit.</p>
                     </div>
 
@@ -24,7 +24,7 @@
 
                         <!-- Prescription Notes -->
                         <div>
-                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ his_trans('prescription.notes') }}</label>
+                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.prescription.notes') }}</label>
                             <textarea name="notes" id="notes" rows="2"
                                       class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                       placeholder="General prescription notes...">{{ old('notes') }}</textarea>
@@ -103,11 +103,11 @@
                         <!-- Submit Button -->
                         <div class="flex justify-between pt-6">
                             <a href="{{ route('visits.prescriptions', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                ← {{ his_trans('back') }}
+                                ← {{ __('his.back') }}
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                                {{ his_trans('save') }} Prescription
+                                {{ __('his.save') }} Prescription
                             </button>
                         </div>
                     </form>

@@ -14,7 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ his_trans('treatment.add_plan') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.treatment.add_plan') }}</h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Create a new treatment plan for this visit.</p>
                     </div>
 
@@ -25,7 +25,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Plan Type -->
                             <div>
-                                <label for="plan_type" class="block text-sm font-medium text-gray-900 dark:text-white">{{ his_trans('treatment.plan_type') }}</label>
+                                <label for="plan_type" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.treatment.plan_type') }}</label>
                                 <select name="plan_type" id="plan_type" required
                                         class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500">
                                     <option value="">Select Type</option>
@@ -41,7 +41,7 @@
 
                             <!-- Status -->
                             <div>
-                                <label for="status" class="block text-sm font-medium text-gray-900 dark:text-white">{{ his_trans('treatment.status') }}</label>
+                                <label for="status" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.treatment.status') }}</label>
                                 <select name="status" id="status" required
                                         class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500">
                                     <option value="proposed" {{ old('status') === 'proposed' ? 'selected' : '' }}>Proposed</option>
@@ -58,7 +58,7 @@
 
                         <!-- Recommendation -->
                         <div>
-                            <label for="recommendation" class="block text-sm font-medium text-gray-900 dark:text-white">{{ his_trans('treatment.recommendation') }}</label>
+                            <label for="recommendation" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.treatment.recommendation') }}</label>
                             <input type="text" name="recommendation" id="recommendation" value="{{ old('recommendation') }}" required
                                    class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                    placeholder="Brief treatment recommendation...">
@@ -69,7 +69,7 @@
 
                         <!-- Details -->
                         <div>
-                            <label for="details" class="block text-sm font-medium text-gray-900 dark:text-white">{{ his_trans('treatment.details') }}</label>
+                            <label for="details" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.treatment.details') }}</label>
                             <textarea name="details" id="details" rows="4"
                                       class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                       placeholder="Detailed treatment plan and instructions...">{{ old('details') }}</textarea>
@@ -80,7 +80,7 @@
 
                         <!-- Planned Date -->
                         <div>
-                            <label for="planned_date" class="block text-sm font-medium text-gray-900 dark:text-white">{{ his_trans('treatment.planned_date') }}</label>
+                            <label for="planned_date" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.treatment.planned_date') }}</label>
                             <input type="date" name="planned_date" id="planned_date" value="{{ old('planned_date') }}"
                                    class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500">
                             @error('planned_date')
@@ -91,11 +91,11 @@
                         <!-- Submit Button -->
                         <div class="flex justify-between pt-6">
                             <a href="{{ route('visits.treatments', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                ← {{ his_trans('back') }}
+                                ← {{ __('his.back') }}
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                                {{ his_trans('save') }} Treatment Plan
+                                {{ __('his.save') }} Treatment Plan
                             </button>
                         </div>
                     </form>

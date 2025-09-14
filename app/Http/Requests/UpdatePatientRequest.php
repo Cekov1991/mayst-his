@@ -50,17 +50,17 @@ class UpdatePatientRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'first_name' => his_trans('patients.first_name'),
-            'last_name' => his_trans('patients.last_name'),
-            'sex' => his_trans('patients.sex'),
-            'dob' => his_trans('patients.dob'),
-            'phone' => his_trans('patients.phone'),
-            'email' => his_trans('patients.email'),
-            'address' => his_trans('patients.address'),
-            'city' => his_trans('patients.city'),
-            'country' => his_trans('patients.country'),
-            'unique_master_citizen_number' => his_trans('patients.unique_master_citizen_number'),
-            'notes' => his_trans('patients.notes'),
+            'first_name' => __('his.patients.first_name'),
+            'last_name' => __('his.patients.last_name'),
+            'sex' => __('his.patients.sex'),
+            'dob' => __('his.patients.dob'),
+            'phone' => __('his.patients.phone'),
+            'email' => __('his.patients.email'),
+            'address' => __('his.patients.address'),
+            'city' => __('his.patients.city'),
+            'country' => __('his.patients.country'),
+            'unique_master_citizen_number' => __('his.patients.unique_master_citizen_number'),
+            'notes' => __('his.patients.notes'),
         ];
     }
 
@@ -70,12 +70,12 @@ class UpdatePatientRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'required' => his_trans('validation.required'),
-            'email' => his_trans('validation.email'),
-            'date' => his_trans('validation.date'),
-            'before' => his_trans('patients.dob') . ' ' . strtolower(his_trans('validation.date')) . ' must be in the past.',
-            'unique' => his_trans('patients.unique_master_citizen_number') . ' has already been taken.',
-            'max' => his_trans('validation.max_length', ['max' => ':max']),
+            'required' => __('his.validation.required'),
+            'email' => __('his.validation.email'),
+            'date' => __('his.validation.date'),
+            'before' => __('his.patients.dob') . ' ' . strtolower(__('his.validation.date')) . ' must be in the past.',
+            'unique' => __('his.patients.unique_master_citizen_number') . ' has already been taken.',
+            'max' => __('his.validation.max_length', ['max' => ':max']),
             'in' => 'The selected :attribute is invalid.',
         ];
     }

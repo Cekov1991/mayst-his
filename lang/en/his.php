@@ -37,6 +37,37 @@ return [
         'tech' => 'Technician',
     ],
 
+    'table_header' => [
+        'full_name' => 'Full Name',
+        'sex' => 'Sex',
+        'dob' => 'Date of Birth',
+        'phone' => 'Phone',
+        'unique_master_citizen_number' => 'Citizen Number',
+        'actions' => 'Actions',
+        'doctor' => 'Doctor',
+        'type' => 'Type',
+        'status' => 'Status',
+        'scheduled' => 'Scheduled',
+        'room' => 'Room',
+        'search' => 'Search',
+        'all_statuses' => 'All Statuses',
+        'all_doctors' => 'All Doctors',
+        'date' => 'Date',
+        'details' => 'Details',
+    ],
+
+    'table_cell' => [
+        'edit_patient' => 'Edit',
+        'delete_patient' => 'Delete',
+        'view_visit' => 'View',
+        'edit_visit' => 'Edit',
+    ],
+
+    'clear_button' => 'Clear',
+    'search_button' => 'Search',
+    'updating' => 'Updating...',
+    'last_updated' => 'Last Updated',
+
     // Patients
     'patients' => [
         'title' => 'Patients',
@@ -85,6 +116,12 @@ return [
         'room' => 'Room',
         'queue' => 'Doctor Queue',
         'today_queue' => 'Today\'s Queue',
+        'quick_actions' => 'Quick Actions',
+        'manage_visits_and_information' => 'Manage this patient\'s visits and information.',
+        'add_prescription' => 'Add Prescription',
+        'order_imaging' => 'Order Imaging',
+        'add_treatment_plan' => 'Add Treatment Plan',
+        'spectacle_prescription' => 'Spectacle Prescription',
         'messages' => [
             'created_successfully' => 'Visit created successfully.',
             'updated_successfully' => 'Visit updated successfully.',
@@ -309,6 +346,11 @@ return [
         'settings' => 'Settings',
         'logout' => 'Logout',
         'profile' => 'Profile',
+    ],
+
+    'doctor_queue' => [
+        'title' => 'Doctor Queue',
+        'manage_daily_patient_queue' => 'Manage your daily patient queue and visit statuses in real-time.',
     ],
 
     // Messages & Notifications

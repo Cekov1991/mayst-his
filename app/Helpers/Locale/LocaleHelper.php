@@ -101,24 +101,7 @@ class LocaleHelper
         return route('locale.switch', ['locale' => $locale]);
     }
 
-    /**
-     * Get HIS translation key with fallback
-     */
-    public static function trans(string $key, array $replace = []): string
-    {
-        $fullKey = "his.{$key}";
 
-        if (trans($fullKey) !== $fullKey) {
-            return trans($fullKey, $replace);
-        }
-
-        // Fallback to English if current locale doesn't have the key
-        App::setLocale('en');
-        $translation = trans($fullKey, $replace);
-        App::setLocale(self::getCurrentLocale());
-
-        return $translation;
-    }
 
     /**
      * Get text direction for current locale (RTL support if needed later)

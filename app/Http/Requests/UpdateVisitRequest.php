@@ -38,13 +38,13 @@ class UpdateVisitRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'patient_id' => his_trans('visits.patient'),
-            'doctor_id' => his_trans('visits.doctor'),
-            'type' => his_trans('visits.type'),
-            'status' => his_trans('visits.status'),
-            'scheduled_at' => his_trans('visits.scheduled_at'),
-            'reason_for_visit' => his_trans('visits.reason_for_visit'),
-            'room' => his_trans('visits.room'),
+            'patient_id' => __('his.visits.patient'),
+            'doctor_id' => __('his.visits.doctor'),
+            'type' => __('his.visits.type'),
+            'status' => __('his.visits.status'),
+            'scheduled_at' => __('his.visits.scheduled_at'),
+            'reason_for_visit' => __('his.visits.reason_for_visit'),
+            'room' => __('his.visits.room'),
         ];
     }
 
@@ -54,10 +54,10 @@ class UpdateVisitRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'patient_id.exists' => his_trans('validation.exists', ['attribute' => his_trans('visits.patient')]),
-            'doctor_id.exists' => his_trans('validation.exists', ['attribute' => his_trans('visits.doctor')]),
-            'type.in' => his_trans('validation.in', ['attribute' => his_trans('visits.type')]),
-            'status.in' => his_trans('validation.in', ['attribute' => his_trans('visits.status')]),
+            'patient_id.exists' => __('his.validation.exists', ['attribute' => __('his.visits.patient')]),
+            'doctor_id.exists' => __('his.validation.exists', ['attribute' => __('his.visits.doctor')]),
+            'type.in' => __('his.validation.in', ['attribute' => __('his.visits.type')]),
+            'status.in' => __('his.validation.in', ['attribute' => __('his.visits.status')]),
         ];
     }
 }

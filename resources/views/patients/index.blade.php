@@ -2,9 +2,8 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ his_trans('patients.title') }}
+                {{ __('his.patients.title') }}
             </h2>
-            {{-- <x-locale-switcher /> --}}
         </div>
     </x-slot>
 
@@ -14,13 +13,13 @@
                 <!-- Header Section -->
                 <div class="sm:flex sm:items-center">
                     <div class="sm:flex-auto">
-                        <h1 class="text-base font-semibold text-gray-900 dark:text-white">{{ his_trans('patients.title') }}</h1>
+                        <h1 class="text-base font-semibold text-gray-900 dark:text-white">{{ __('his.patients.title') }}</h1>
                         <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">A complete list of all patients in the system including their personal information and contact details.</p>
                     </div>
                     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                         <a href="{{ route('patients.create') }}"
                            class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">
-                            Add Patient
+                            {{__('his.patients.add_patient')}}
                         </a>
                     </div>
                 </div>
@@ -38,18 +37,18 @@
                             <option value="">All</option>
                             @foreach(['male', 'female', 'other', 'unknown'] as $sexOption)
                                 <option value="{{ $sexOption }}" {{ request('sex') === $sexOption ? 'selected' : '' }}>
-                                    {{ his_trans("sex_options.{$sexOption}") }}
+                                    {{ __("his.sex_options.{$sexOption}") }}
                                 </option>
                             @endforeach
                         </select>
 
                         <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">
-                            Search
+                            {{__('his.search_button')}}
                         </button>
 
                         @if(request()->hasAny(['search', 'sex']))
                             <a href="{{ route('patients.index') }}" class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                                Clear
+                                {{__('his.clear_button')}}
                             </a>
                         @endif
                     </form>
@@ -58,12 +57,12 @@
                 <!-- Patients Table -->
                 <x-table>
                     <x-slot name="head">
-                        <x-table-header>Full Name</x-table-header>
-                        <x-table-header-secondary>Sex</x-table-header-secondary>
-                        <x-table-header-secondary>Date of Birth</x-table-header-secondary>
-                        <x-table-header-secondary>Phone</x-table-header-secondary>
-                        <x-table-header-secondary>Citizen Number</x-table-header-secondary>
-                        <x-table-action-header>Actions</x-table-action-header>
+                        <x-table-header>{{__('his.table_header.full_name')}}</x-table-header>
+                        <x-table-header-secondary>{{__('his.table_header.sex')}}</x-table-header-secondary>
+                        <x-table-header-secondary>{{__('his.table_header.dob')}}</x-table-header-secondary>
+                        <x-table-header-secondary>{{__('his.table_header.phone')}}</x-table-header-secondary>
+                        <x-table-header-secondary>{{__('his.table_header.unique_master_citizen_number')}}</x-table-header-secondary>
+                        <x-table-action-header>{{__('his.table_header.actions')}}</x-table-action-header>
                     </x-slot>
 
                     <x-slot name="body">
@@ -76,12 +75,12 @@
                                 </x-table-cell>
 
                                 <x-table-cell>
-                                    {{ his_trans("sex_options.{$patient->sex}") }}
+                                    {{ __("his.sex_options.{$patient->sex}") }}
                                 </x-table-cell>
 
                                 <x-table-cell>
                                     <div>{{ $patient->dob->format('M d, Y') }}</div>
-                                    <div class="text-xs text-gray-400 dark:text-gray-500">Age {{ $patient->dob->age }}</div>
+                                    <div class="text-xs text-gray-400 dark:text-gray-500">{{__('his.patients.age')}} {{ $patient->dob->age }}</div>
                                 </x-table-cell>
 
                                 <x-table-cell>
@@ -100,7 +99,7 @@
 
                                 <x-table-action-cell>
                                     <a href="{{ route('patients.edit', $patient) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                        Edit<span class="sr-only">, {{ $patient->full_name }}</span>
+                                        {{__('his.table_cell.edit_patient')}}<span class="sr-only">, {{ $patient->full_name }}</span>
                                     </a>
                                 </x-table-action-cell>
                             </x-table-row>
@@ -110,7 +109,7 @@
                                 title="No patients found"
                                 message="Get started by adding your first patient to the system."
                                 action-url="{{ route('patients.create') }}"
-                                action-text="Add Patient"
+                                action-text="{{__('his.patients.add_patient')}}"
                             />
                         @endforelse
                     </x-slot>
@@ -120,7 +119,7 @@
                 @if($patients->hasPages())
                     <div class="mt-6 flex items-center justify-between">
                         <div class="text-sm text-gray-700 dark:text-gray-300">
-                            Showing <span class="font-medium text-gray-900 dark:text-white">{{ $patients->firstItem() }}</span> to <span class="font-medium text-gray-900 dark:text-white">{{ $patients->lastItem() }}</span> of <span class="font-medium text-gray-900 dark:text-white">{{ $patients->total() }}</span> results
+                            {{__('his.patients.showing')}} <span class="font-medium text-gray-900 dark:text-white">{{ $patients->firstItem() }}</span> {{__('his.patients.to')}} <span class="font-medium text-gray-900 dark:text-white">{{ $patients->lastItem() }}</span> {{__('his.patients.of')}} <span class="font-medium text-gray-900 dark:text-white">{{ $patients->total() }}</span> {{__('his.patients.results')}}
                         </div>
                         <div>
                             {{ $patients->links() }}
