@@ -47,6 +47,7 @@ Route::middleware([
         Route::get('/treatments', [App\Http\Controllers\VisitController::class, 'showTreatments'])->name('visits.treatments');
         Route::get('/prescriptions', [App\Http\Controllers\VisitController::class, 'showPrescriptions'])->name('visits.prescriptions');
         Route::get('/spectacles', [App\Http\Controllers\VisitController::class, 'showSpectacles'])->name('visits.spectacles');
+        Route::get('/diagnoses', [App\Http\Controllers\VisitController::class, 'diagnoses'])->name('visits.diagnoses');
 
         // Individual form routes
         Route::get('/imaging/create', [App\Http\Controllers\VisitController::class, 'createImaging'])->name('visits.imaging.create');
@@ -58,6 +59,8 @@ Route::middleware([
         Route::get('/spectacles/create', [App\Http\Controllers\VisitController::class, 'createSpectacles'])->name('visits.spectacles.create');
         Route::get('/spectacles/{spectacle}/edit', [App\Http\Controllers\VisitController::class, 'editSpectacles'])->name('visits.spectacles.edit');
         Route::get('/refractions/create', [App\Http\Controllers\VisitController::class, 'createRefraction'])->name('visits.refractions.create');
+        Route::get('/diagnoses/create', [App\Http\Controllers\VisitController::class, 'diagnosisCreate'])->name('visits.diagnosis.create');
+        Route::get('/diagnoses/{diagnosis}/edit', [App\Http\Controllers\VisitController::class, 'diagnosisEdit'])->name('visits.diagnosis.edit');
 
         // Data submission routes (simplified, no form request classes)
         Route::post('/anamnesis', [App\Http\Controllers\VisitController::class, 'storeAnamnesis'])->name('visits.anamnesis.store');
@@ -71,6 +74,8 @@ Route::middleware([
         Route::put('/prescriptions/{prescription}', [App\Http\Controllers\VisitController::class, 'updatePrescription'])->name('visits.prescriptions.update');
         Route::post('/spectacles', [App\Http\Controllers\VisitController::class, 'storeSpectacles'])->name('visits.spectacles.store');
         Route::put('/spectacles/{spectacle}', [App\Http\Controllers\VisitController::class, 'updateSpectacles'])->name('visits.spectacles.update');
+        Route::post('/diagnoses', [App\Http\Controllers\VisitController::class, 'diagnosisStore'])->name('visits.diagnosis.store');
+        Route::put('/diagnoses/{diagnosis}', [App\Http\Controllers\VisitController::class, 'diagnosisUpdate'])->name('visits.diagnosis.update');
 
         // Delete routes
         Route::delete('/refractions/{refraction}', [App\Http\Controllers\VisitController::class, 'destroyRefraction'])->name('visits.refractions.destroy');
@@ -78,5 +83,6 @@ Route::middleware([
         Route::delete('/treatments/{treatment}', [App\Http\Controllers\VisitController::class, 'destroyTreatment'])->name('visits.treatments.destroy');
         Route::delete('/prescriptions/{prescription}', [App\Http\Controllers\VisitController::class, 'destroyPrescription'])->name('visits.prescriptions.destroy');
         Route::delete('/spectacles/{spectacle}', [App\Http\Controllers\VisitController::class, 'destroySpectacles'])->name('visits.spectacles.destroy');
+        Route::delete('/diagnoses/{diagnosis}', [App\Http\Controllers\VisitController::class, 'diagnosisDestroy'])->name('visits.diagnosis.destroy');
     })->middleware(['auth']);
 });

@@ -77,6 +77,11 @@ class Visit extends Model
         return $this->hasMany(SpectaclePrescription::class);
     }
 
+    public function diagnoses(): HasMany
+    {
+        return $this->hasMany(Diagnosis::class);
+    }
+
     // Scopes
     public function scopeForDoctor($query, $doctorId)
     {

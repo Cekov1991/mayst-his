@@ -2,28 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDiagnosisRequest;
 use App\Http\Requests\StoreVisitRequest;
+use App\Http\Requests\UpdateDiagnosisRequest;
 use App\Http\Requests\UpdateVisitRequest;
-use App\Models\Visit;
-use App\Models\Patient;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Anamnesis;
-use App\Models\OphthalmicExam;
-use App\Models\Refraction;
+use App\Models\Diagnosis;
 use App\Models\ImagingStudy;
-use App\Models\TreatmentPlan;
+use App\Models\Patient;
 use App\Models\Prescription;
-use App\Models\PrescriptionItem;
+use App\Models\Refraction;
 use App\Models\SpectaclePrescription;
-use App\Http\Requests\StoreAnamnesisRequest;
-use App\Http\Requests\StoreExamRequest;
-use App\Http\Requests\StoreRefractionRequest;
-use App\Http\Requests\StorePrescriptionWorkspaceRequest;
+use App\Models\TreatmentPlan;
+use App\Models\User;
+use App\Models\Visit;
+use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class VisitController extends Controller
 {
@@ -38,14 +35,14 @@ class VisitController extends Controller
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('reason_for_visit', 'LIKE', "%{$search}%")
-                  ->orWhere('room', 'LIKE', "%{$search}%")
-                  ->orWhereHas('patient', function ($patientQuery) use ($search) {
-                      $patientQuery->where('first_name', 'LIKE', "%{$search}%")
-                                   ->orWhere('last_name', 'LIKE', "%{$search}%");
-                  })
-                  ->orWhereHas('doctor', function ($doctorQuery) use ($search) {
-                      $doctorQuery->where('name', 'LIKE', "%{$search}%");
-                  });
+                    ->orWhere('room', 'LIKE', "%{$search}%")
+                    ->orWhereHas('patient', function ($patientQuery) use ($search) {
+                        $patientQuery->where('first_name', 'LIKE', "%{$search}%")
+                            ->orWhere('last_name', 'LIKE', "%{$search}%");
+                    })
+                    ->orWhereHas('doctor', function ($doctorQuery) use ($search) {
+                        $doctorQuery->where('name', 'LIKE', "%{$search}%");
+                    });
             });
         }
 
@@ -132,7 +129,7 @@ class VisitController extends Controller
             'treatmentPlans',
             'prescriptions.doctor',
             'prescriptions.prescriptionItems',
-            'spectaclePrescriptions.doctor'
+            'spectaclePrescriptions.doctor',
         ]);
 
         return view('visits.show', compact('visit'));
@@ -193,7 +190,7 @@ class VisitController extends Controller
     public function updateStatus(Request $request, Visit $visit): RedirectResponse
     {
         $request->validate([
-            'status' => 'required|in:scheduled,arrived,in_progress,completed,cancelled'
+            'status' => 'required|in:scheduled,arrived,in_progress,completed,cancelled',
         ]);
 
         $oldStatus = $visit->status;
@@ -263,26 +260,26 @@ class VisitController extends Controller
 
             switch ($newStatus) {
                 case 'arrived':
-                    if ($oldStatus === 'scheduled' && !$visit->arrived_at) {
+                    if ($oldStatus === 'scheduled' && ! $visit->arrived_at) {
                         $data['arrived_at'] = $now;
                     }
                     break;
                 case 'in_progress':
-                    if (!$visit->arrived_at) {
+                    if (! $visit->arrived_at) {
                         $data['arrived_at'] = $now;
                     }
-                    if ($oldStatus !== 'in_progress' && !$visit->started_at) {
+                    if ($oldStatus !== 'in_progress' && ! $visit->started_at) {
                         $data['started_at'] = $now;
                     }
                     break;
                 case 'completed':
-                    if (!$visit->arrived_at) {
+                    if (! $visit->arrived_at) {
                         $data['arrived_at'] = $now;
                     }
-                    if (!$visit->started_at) {
+                    if (! $visit->started_at) {
                         $data['started_at'] = $now;
                     }
-                    if ($oldStatus !== 'completed' && !$visit->completed_at) {
+                    if ($oldStatus !== 'completed' && ! $visit->completed_at) {
                         $data['completed_at'] = $now;
                     }
                     break;
@@ -298,6 +295,7 @@ class VisitController extends Controller
     public function showAnamnesis(Visit $visit): View
     {
         $visit->load(['patient', 'doctor', 'anamnesis']);
+
         return view('visits.workspace.anamnesis', compact('visit'));
     }
 
@@ -307,6 +305,7 @@ class VisitController extends Controller
     public function showExamination(Visit $visit): View
     {
         $visit->load(['patient', 'doctor', 'ophthalmicExam.refractions']);
+
         return view('visits.workspace.examination', compact('visit'));
     }
 
@@ -316,6 +315,7 @@ class VisitController extends Controller
     public function showImaging(Visit $visit): View
     {
         $visit->load(['patient', 'doctor', 'imagingStudies.orderedBy', 'imagingStudies.performedBy']);
+
         return view('visits.workspace.imaging', compact('visit'));
     }
 
@@ -325,6 +325,7 @@ class VisitController extends Controller
     public function showTreatments(Visit $visit): View
     {
         $visit->load(['patient', 'doctor', 'treatmentPlans']);
+
         return view('visits.workspace.treatments', compact('visit'));
     }
 
@@ -334,6 +335,7 @@ class VisitController extends Controller
     public function showPrescriptions(Visit $visit): View
     {
         $visit->load(['patient', 'doctor', 'prescriptions.doctor', 'prescriptions.prescriptionItems']);
+
         return view('visits.workspace.prescriptions', compact('visit'));
     }
 
@@ -343,6 +345,7 @@ class VisitController extends Controller
     public function showSpectacles(Visit $visit): View
     {
         $visit->load(['patient', 'doctor', 'spectaclePrescriptions.doctor']);
+
         return view('visits.workspace.spectacles', compact('visit'));
     }
 
@@ -354,6 +357,7 @@ class VisitController extends Controller
     public function createRefraction(Visit $visit): View
     {
         $visit->load(['patient', 'doctor']);
+
         return view('visits.workspace.refraction-create', compact('visit'));
     }
 
@@ -363,6 +367,7 @@ class VisitController extends Controller
     public function createImaging(Visit $visit): View
     {
         $visit->load(['patient', 'doctor']);
+
         return view('visits.workspace.imaging-create', compact('visit'));
     }
 
@@ -372,6 +377,7 @@ class VisitController extends Controller
     public function createTreatment(Visit $visit): View
     {
         $visit->load(['patient', 'doctor']);
+
         return view('visits.workspace.treatment-create', compact('visit'));
     }
 
@@ -381,6 +387,7 @@ class VisitController extends Controller
     public function createPrescription(Visit $visit): View
     {
         $visit->load(['patient', 'doctor']);
+
         return view('visits.workspace.prescription-create', compact('visit'));
     }
 
@@ -390,6 +397,7 @@ class VisitController extends Controller
     public function createSpectacles(Visit $visit): View
     {
         $visit->load(['patient', 'doctor']);
+
         return view('visits.workspace.spectacles-create', compact('visit'));
     }
 
@@ -623,6 +631,7 @@ class VisitController extends Controller
     public function editImaging(Visit $visit, ImagingStudy $imaging): View
     {
         $visit->load(['patient', 'doctor']);
+
         return view('visits.workspace.imaging-edit', compact('visit', 'imaging'));
     }
 
@@ -632,6 +641,7 @@ class VisitController extends Controller
     public function editTreatment(Visit $visit, TreatmentPlan $treatment): View
     {
         $visit->load(['patient', 'doctor']);
+
         return view('visits.workspace.treatment-edit', compact('visit', 'treatment'));
     }
 
@@ -642,6 +652,7 @@ class VisitController extends Controller
     {
         $visit->load(['patient', 'doctor']);
         $prescription->load('prescriptionItems');
+
         return view('visits.workspace.prescription-edit', compact('visit', 'prescription'));
     }
 
@@ -651,6 +662,7 @@ class VisitController extends Controller
     public function editSpectacles(Visit $visit, SpectaclePrescription $spectacle): View
     {
         $visit->load(['patient', 'doctor']);
+
         return view('visits.workspace.spectacles-edit', compact('visit', 'spectacle'));
     }
 
@@ -751,5 +763,76 @@ class VisitController extends Controller
         $spectacle->update($request->only(['type', 'od_sphere', 'od_cylinder', 'od_axis', 'od_add', 'os_sphere', 'os_cylinder', 'os_axis', 'os_add', 'pd_distance', 'pd_near', 'notes', 'valid_until']));
 
         return redirect()->route('visits.spectacles', $visit)->with('success', 'Spectacle prescription updated successfully.');
+    }
+
+    // Diagnosis methods
+    public function diagnoses(Visit $visit): View
+    {
+        $visit->load(['patient', 'diagnoses' => function ($query) {
+            $query->with('diagnosedBy');
+        }]);
+
+        return view('visits.workspace.diagnoses', compact('visit'));
+    }
+
+    public function diagnosisCreate(Visit $visit): View
+    {
+        $visit->load('patient');
+
+        $doctors = User::where('role', 'doctor')
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
+        return view('visits.workspace.diagnosis-create', compact('visit', 'doctors'));
+    }
+
+    public function diagnosisStore(StoreDiagnosisRequest $request, Visit $visit): RedirectResponse
+    {
+        $data = $request->validated();
+        $data['visit_id'] = $visit->id;
+        $data['patient_id'] = $visit->patient_id;
+
+        // If this is marked as primary, unset any other primary diagnoses for this visit
+        if ($data['is_primary'] ?? false) {
+            $visit->diagnoses()->update(['is_primary' => false]);
+        }
+
+        $visit->diagnoses()->create($data);
+
+        return redirect()->route('visits.diagnoses', $visit)->with('success', 'Diagnosis created successfully.');
+    }
+
+    public function diagnosisEdit(Visit $visit, Diagnosis $diagnosis): View
+    {
+        $visit->load('patient');
+
+        $doctors = User::where('role', 'doctor')
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
+        return view('visits.workspace.diagnosis-edit', compact('visit', 'diagnosis', 'doctors'));
+    }
+
+    public function diagnosisUpdate(UpdateDiagnosisRequest $request, Visit $visit, Diagnosis $diagnosis): RedirectResponse
+    {
+        $data = $request->validated();
+
+        // If this is marked as primary, unset any other primary diagnoses for this visit
+        if ($data['is_primary'] ?? false) {
+            $visit->diagnoses()->where('id', '!=', $diagnosis->id)->update(['is_primary' => false]);
+        }
+
+        $diagnosis->update($data);
+
+        return redirect()->route('visits.diagnoses', $visit)->with('success', 'Diagnosis updated successfully.');
+    }
+
+    public function diagnosisDestroy(Visit $visit, Diagnosis $diagnosis): RedirectResponse
+    {
+        $diagnosis->delete();
+
+        return redirect()->route('visits.diagnoses', $visit)->with('success', 'Diagnosis deleted successfully.');
     }
 }
