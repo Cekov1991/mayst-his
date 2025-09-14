@@ -427,6 +427,7 @@ return [
 
     // Workspace
     'workspace' => [
+        'title' => 'Visit Workspace',
         'anamnesis' => 'Anamnesis',
         'examination' => 'Ophthalmic Examination',
         'refraction' => 'Refraction',

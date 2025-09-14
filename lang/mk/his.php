@@ -425,6 +425,7 @@ return [
 
     // Работен простор
     'workspace' => [
+        'title' => 'Преглед',
         'anamnesis' => 'Анамнеза',
         'examination' => 'Офталмолошки преглед',
         'refraction' => 'Рефракција',
