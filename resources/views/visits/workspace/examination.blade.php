@@ -95,29 +95,56 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <!-- Anterior Segment -->
                             <div>
-                                <label for="anterior_segment_findings" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.anterior_segment_findings') }}
+                                <label for="anterior_segment_findings_od" class="block text-sm font-medium text-gray-900 dark:text-white">
+                                    {{ __('his.exam.anterior_segment_findings_od') }}
                                 </label>
-                                <textarea name="anterior_segment_findings" id="anterior_segment_findings" rows="4"
+                                <textarea name="anterior_segment_findings_od" id="anterior_segment_findings_od" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
-                                          placeholder="Describe anterior segment findings...">{{ old('anterior_segment_findings', $visit->ophthalmicExam?->anterior_segment_findings) }}</textarea>
-                                @error('anterior_segment_findings')
+                                          placeholder="Describe anterior segment findings...">{{ old('anterior_segment_findings_od', $visit->ophthalmicExam?->anterior_segment_findings_od) }}</textarea>
+                                @error('anterior_segment_findings_od')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <!-- Posterior Segment -->
                             <div>
-                                <label for="posterior_segment_findings" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.posterior_segment_findings') }}
+                                <label for="posterior_segment_findings_od" class="block text-sm font-medium text-gray-900 dark:text-white">
+                                    {{ __('his.exam.posterior_segment_findings_od') }}
                                 </label>
-                                <textarea name="posterior_segment_findings" id="posterior_segment_findings" rows="4"
+                                <textarea name="posterior_segment_findings_od" id="posterior_segment_findings_od" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
-                                          placeholder="Describe posterior segment findings...">{{ old('posterior_segment_findings', $visit->ophthalmicExam?->posterior_segment_findings) }}</textarea>
-                                @error('posterior_segment_findings')
+                                          placeholder="Describe posterior segment findings...">{{ old('posterior_segment_findings_od', $visit->ophthalmicExam?->posterior_segment_findings_od) }}</textarea>
+                                @error('posterior_segment_findings_od')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
+
+                            <!-- Anterior Segment -->
+                            <div>
+                                <label for="anterior_segment_findings_os" class="block text-sm font-medium text-gray-900 dark:text-white">
+                                    {{ __('his.exam.anterior_segment_findings_os') }}
+                                </label>
+                                <textarea name="anterior_segment_findings_os" id="anterior_segment_findings_os" rows="4"
+                                          class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
+                                          placeholder="Describe anterior segment findings...">{{ old('anterior_segment_findings_os', $visit->ophthalmicExam?->anterior_segment_findings_os) }}</textarea>
+                                @error('anterior_segment_findings_os')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Posterior Segment -->
+                            <div>
+                                <label for="posterior_segment_findings_os" class="block text-sm font-medium text-gray-900 dark:text-white">
+                                    {{ __('his.exam.posterior_segment_findings_os') }}
+                                </label>
+                                <textarea name="posterior_segment_findings_os" id="posterior_segment_findings_os" rows="4"
+                                          class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
+                                          placeholder="Describe posterior segment findings...">{{ old('posterior_segment_findings_os', $visit->ophthalmicExam?->posterior_segment_findings_os) }}</textarea>
+                                @error('posterior_segment_findings_os')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                @enderror
+                            </div>
+
                         </div>
 
                         <!-- Submit Button -->

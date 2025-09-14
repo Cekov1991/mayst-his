@@ -130,10 +130,10 @@
                                 <x-table-action-cell>
                                     <div class="flex space-x-2">
                                         <a href="{{ route('visits.show', $visit) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                            {{__('his.table_cell.view_visit')}}<span class="sr-only">, {{ $visit->patient->full_name }}</span>
+                                            {{__('his.table_cell.view')}}<span class="sr-only">, {{ $visit->patient->full_name }}</span>
                                         </a>
                                         <a href="{{ route('visits.edit', $visit) }}" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300">
-                                            {{__('his.table_cell.edit_visit')}}<span class="sr-only">, {{ $visit->patient->full_name }}</span>
+                                            {{__('his.table_cell.edit')}}<span class="sr-only">, {{ $visit->patient->full_name }}</span>
                                         </a>
                                     </div>
                                 </x-table-action-cell>

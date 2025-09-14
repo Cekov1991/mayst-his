@@ -14,9 +14,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.prescription.prescriptions') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.prescriptions.title') }}</h3>
                         <a href="{{ route('visits.prescriptions.create', $visit) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                            + {{ __('his.prescription.add_prescription') }}
+                            + {{ __('his.prescriptions.add_prescription') }}
                         </a>
                     </div>
 

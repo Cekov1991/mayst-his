@@ -57,10 +57,10 @@ return [
     ],
 
     'table_cell' => [
-        'edit_patient' => 'Edit',
-        'delete_patient' => 'Delete',
-        'view_visit' => 'View',
-        'edit_visit' => 'Edit',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+        'view' => 'View',
+        'details' => 'Details'
     ],
 
     'clear_button' => 'Clear',
@@ -182,11 +182,14 @@ return [
         'iop_od' => 'IOP OD',
         'iop_os' => 'IOP OS',
         'iop' => 'Intraocular Pressure',
-        'anterior_segment_findings' => 'Anterior Segment Findings',
-        'posterior_segment_findings' => 'Posterior Segment Findings',
+        'anterior_segment_findings_od' => 'Anterior Segment Findings OD',
+        'posterior_segment_findings_od' => 'Posterior Segment Findings OD',
+        'anterior_segment_findings_os' => 'Anterior Segment Findings OS',
+        'posterior_segment_findings_os' => 'Posterior Segment Findings OS',
         'od' => 'Right Eye (OD)',
         'os' => 'Left Eye (OS)',
         'ou' => 'Both Eyes (OU)',
+        'visual_acuity_and_iop' => 'Visual Acuty and IOP',
     ],
 
     // Refraction
@@ -317,7 +320,7 @@ return [
     // Spectacle Prescriptions
     'spectacles' => [
         'title' => 'Spectacle Prescription',
-        'add_spectacles' => 'Add Spectacle Prescription',
+        'add_prescription' => 'Add Spectacle Prescription',
         'doctor' => 'Doctor',
         'od_sphere' => 'OD Sphere',
         'od_cylinder' => 'OD Cylinder',

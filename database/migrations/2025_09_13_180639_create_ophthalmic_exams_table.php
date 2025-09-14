@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('visus_os')->nullable();
             $table->decimal('iop_od', 5, 2)->nullable();
             $table->decimal('iop_os', 5, 2)->nullable();
-            $table->text('anterior_segment_findings')->nullable();
-            $table->text('posterior_segment_findings')->nullable();
+            $table->text('anterior_segment_findings_od')->nullable();
+            $table->text('posterior_segment_findings_od')->nullable();
+            $table->text('anterior_segment_findings_os')->nullable();
+            $table->text('posterior_segment_findings_os')->nullable();
             $table->timestamps();
         });
     }

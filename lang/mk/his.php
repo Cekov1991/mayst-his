@@ -58,10 +58,9 @@ return [
     ],
 
     'table_cell' => [
-        'edit_patient' => 'Уреди',
-        'delete_patient' => 'Избриши',
-        'view_visit' => 'Преглед',
-        'edit_visit' => 'Уреди',
+        'edit' => 'Уреди',
+        'delete' => 'Избриши',
+        'view' => 'Преглед',
         'details' => 'Детали',
     ],
 
@@ -184,11 +183,15 @@ return [
         'iop_od' => 'Тонус ДО',
         'iop_os' => 'Тонус ЛО',
         'iop' => 'Очен притисок',
-        'anterior_segment_findings' => 'Наод на преден сегмент',
-        'posterior_segment_findings' => 'Наод на заден сегмент',
+        'anterior_segment_findings_od' => 'Наод на преден сегмент ДО',
+        'posterior_segment_findings_od' => 'Наод на заден сегмент ДО',
+        'anterior_segment_findings_os' => 'Наод на пресен сегмент ЛО',
+        'posterior_segment_findings_os' => 'Наод на заден сегмент ЛО',
         'od' => 'Десно око (ДО)',
         'os' => 'Лево око (ЛО)',
         'ou' => 'Двете очи (ОУ)',
+        'visual_acuity_and_iop' => 'Визус и очен притисок',
+        'visual_acuity' => 'Визус',
     ],
 
     // Рефракција
@@ -221,8 +224,8 @@ return [
 
     // Имиџинг студии
     'imaging' => [
-        'title' => 'Имиџинг студии',
-        'add_imaging' => 'Додај имиџинг студија',
+        'title' => 'Имиџинг',
+        'add_imaging' => 'Додај имиџинг',
         'modality' => 'Модалитет',
         'eye' => 'Око',
         'ordered_by' => 'Нарачано од',
@@ -231,6 +234,8 @@ return [
         'status' => 'Статус',
         'findings' => 'Наоди',
         'attachments' => 'Прилози',
+        'studies' => 'Испитувања',
+        'order_study' => 'Нарачај испитување',
     ],
 
     'imaging_modalities' => [
@@ -309,7 +314,7 @@ return [
     // Рецепти за очила
     'spectacles' => [
         'title' => 'Рецепт за очила',
-        'add_spectacles' => 'Додај рецепт за очила',
+        'add_prescription' => 'Додај рецепт за очила',
         'doctor' => 'Доктор',
         'od_sphere' => 'ДО Сфера',
         'od_cylinder' => 'ДО Цилиндер',

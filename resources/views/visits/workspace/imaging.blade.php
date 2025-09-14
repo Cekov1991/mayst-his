@@ -14,9 +14,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.imaging.studies') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.imaging.title') }}</h3>
                         <a href="{{ route('visits.imaging.create', $visit) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                            + {{ __('his.imaging.order_study') }}
+                            + {{ __('his.imaging.add_imaging') }}
                         </a>
                     </div>
 
@@ -29,12 +29,12 @@
                     @if($visit->imagingStudies->isNotEmpty())
                         <x-table>
                             <x-slot name="head">
-                                <x-table-header>Study</x-table-header>
-                                <x-table-header-secondary>Eye</x-table-header-secondary>
-                                <x-table-header-secondary>Status</x-table-header-secondary>
-                                <x-table-header-secondary>Ordered By</x-table-header-secondary>
-                                <x-table-header-secondary>Date</x-table-header-secondary>
-                                <x-table-action-header>Actions</x-table-action-header>
+                                <x-table-header>{{__('his.imaging.studies')}}</x-table-header>
+                                <x-table-header-secondary>{{__('his.imaging.eye')}}</x-table-header-secondary>
+                                <x-table-header-secondary>{{__('his.imaging.status')}}</x-table-header-secondary>
+                                <x-table-header-secondary>{{__('his.imaging.ordered_by')}}</x-table-header-secondary>
+                                <x-table-header-secondary>{{__('his.imaging.date')}}</x-table-header-secondary>
+                                <x-table-action-header>{{__('his.table_header.actions')}}</x-table-action-header>
                             </x-slot>
 
                             <x-slot name="body">
@@ -72,7 +72,7 @@
                                             <div class="flex items-center space-x-2">
                                                 <a href="{{ route('visits.imaging.edit', [$visit, $study]) }}"
                                                    class="text-sm font-medium text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                    Edit
+                                                    {{__('his.table_cell.edit')}}
                                                 </a>
                                                 <form action="{{ route('visits.imaging.destroy', [$visit, $study]) }}" method="POST" class="inline">
                                                     @csrf
@@ -80,7 +80,7 @@
                                                     <button type="submit"
                                                             onclick="return confirm('Are you sure?')"
                                                             class="text-sm font-medium text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                        Delete
+                                                        {{__('his.table_cell.delete')}}
                                                     </button>
                                                 </form>
                                             </div>

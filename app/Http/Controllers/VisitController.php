@@ -429,13 +429,15 @@ class VisitController extends Controller
             'visus_os' => 'nullable|string|max:50',
             'iop_od' => 'nullable|numeric|between:0,99.99',
             'iop_os' => 'nullable|numeric|between:0,99.99',
-            'anterior_segment_findings' => 'nullable|string',
-            'posterior_segment_findings' => 'nullable|string',
+            'anterior_segment_findings_od' => 'nullable|string',
+            'posterior_segment_findings_od' => 'nullable|string',
+            'anterior_segment_findings_os' => 'nullable|string',
+            'posterior_segment_findings_os' => 'nullable|string',
         ]);
 
         $visit->ophthalmicExam()->updateOrCreate(
             ['visit_id' => $visit->id],
-            $request->only(['visus_od', 'visus_os', 'iop_od', 'iop_os', 'anterior_segment_findings', 'posterior_segment_findings'])
+            $request->only(['visus_od', 'visus_os', 'iop_od', 'iop_os', 'anterior_segment_findings_od', 'posterior_segment_findings_od', 'anterior_segment_findings_os', 'posterior_segment_findings_os'])
         );
 
         return redirect()->route('visits.examination', $visit)->with('success', __('his.messages.exam_saved'));

@@ -17,8 +17,10 @@ class OphthalmicExam extends Model
         'visus_os',
         'iop_od',
         'iop_os',
-        'anterior_segment_findings',
-        'posterior_segment_findings',
+        'anterior_segment_findings_od',
+        'posterior_segment_findings_od',
+        'anterior_segment_findings_os',
+        'posterior_segment_findings_os',
     ];
 
     protected function casts(): array

@@ -99,7 +99,7 @@
 
                                 <x-table-action-cell>
                                     <a href="{{ route('patients.edit', $patient) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                        {{__('his.table_cell.edit_patient')}}<span class="sr-only">, {{ $patient->full_name }}</span>
+                                        {{__('his.table_cell.edit')}}<span class="sr-only">, {{ $patient->full_name }}</span>
                                     </a>
                                 </x-table-action-cell>
                             </x-table-row>
