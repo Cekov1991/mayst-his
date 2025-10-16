@@ -20,9 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Doctor Queue Authorization Gate
+        // Doctor Queue Authorization - now handled by Spatie permissions
         Gate::define('accessDoctorQueue', function ($user) {
-            return $user->getRoleNames()->contains('doctor') && $user->is_active;
+            return $user->hasPermissionTo('access-doctor-queue') && $user->is_active;
         });
     }
 }
