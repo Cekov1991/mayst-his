@@ -61,7 +61,7 @@ class VisitController extends Controller
             ->withQueryString();
 
         // Get doctors for filter dropdown
-        $doctors = User::where('role', 'doctor')
+        $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
             ->get();
@@ -78,7 +78,7 @@ class VisitController extends Controller
             ->orderBy('first_name')
             ->get();
 
-        $doctors = User::where('role', 'doctor')
+        $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
             ->get();
@@ -134,7 +134,7 @@ class VisitController extends Controller
             ->orderBy('first_name')
             ->get();
 
-        $doctors = User::where('role', 'doctor')
+        $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
             ->get();

@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Doctor Queue Authorization Gate
         Gate::define('accessDoctorQueue', function ($user) {
-            return $user->role === 'doctor' && $user->is_active;
+            return $user->getRoleNames()->contains('doctor') && $user->is_active;
         });
     }
 }
