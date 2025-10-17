@@ -88,6 +88,22 @@ class Visit extends Model
         return $query->where('doctor_id', $doctorId);
     }
 
+    public function scopeVisibleTo($query, User $user)
+    {
+        // Admins and receptionists can see all visits
+        if ($user->hasRole(['admin', 'receptionist'])) {
+            return $query;
+        }
+
+        // Doctors can only see their own visits
+        if ($user->hasRole('doctor')) {
+            return $query->where('doctor_id', $user->id);
+        }
+
+        // Default: no visits visible
+        return $query->whereRaw('1 = 0');
+    }
+
     public function scopeByStatus($query, $status)
     {
         return $query->where('status', $status);

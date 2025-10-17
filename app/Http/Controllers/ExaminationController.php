@@ -15,6 +15,8 @@ class ExaminationController extends Controller
      */
     public function show(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor', 'ophthalmicExam.refractions']);
 
         return view('visits.workspace.examination', compact('visit'));
@@ -25,6 +27,8 @@ class ExaminationController extends Controller
      */
     public function store(Request $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'visus_od' => 'nullable|string|max:50',
             'visus_os' => 'nullable|string|max:50',
@@ -49,6 +53,8 @@ class ExaminationController extends Controller
      */
     public function createRefraction(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor']);
 
         return view('visits.workspace.refraction-create', compact('visit'));
@@ -59,6 +65,8 @@ class ExaminationController extends Controller
      */
     public function storeRefraction(Request $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'eye' => 'required|in:OD,OS',
             'method' => 'required|in:autorefraction,lensmeter,subjective',
@@ -84,6 +92,8 @@ class ExaminationController extends Controller
      */
     public function destroyRefraction(Visit $visit, Refraction $refraction): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $refraction->delete();
 
         return redirect()->route('visits.examination', $visit)->with('success', 'Refraction deleted successfully.');

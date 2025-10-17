@@ -14,6 +14,8 @@ class AnamnesisController extends Controller
      */
     public function show(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor', 'anamnesis']);
 
         return view('visits.workspace.anamnesis', compact('visit'));
@@ -24,6 +26,8 @@ class AnamnesisController extends Controller
      */
     public function store(Request $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'chief_complaint' => 'nullable|string',
             'history_of_present_illness' => 'nullable|string',

@@ -17,6 +17,8 @@ class DiagnosisController extends Controller
      */
     public function index(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'diagnoses' => function ($query) {
             $query->with('diagnosedBy');
         }]);
@@ -29,9 +31,11 @@ class DiagnosisController extends Controller
      */
     public function create(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load('patient');
 
-        $doctors = User::where('role', 'doctor')
+        $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
             ->get();
@@ -44,6 +48,8 @@ class DiagnosisController extends Controller
      */
     public function store(StoreDiagnosisRequest $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $data = $request->validated();
         $data['visit_id'] = $visit->id;
         $data['patient_id'] = $visit->patient_id;
@@ -63,9 +69,11 @@ class DiagnosisController extends Controller
      */
     public function edit(Visit $visit, Diagnosis $diagnosis): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load('patient');
 
-        $doctors = User::where('role', 'doctor')
+        $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
             ->get();
@@ -78,6 +86,8 @@ class DiagnosisController extends Controller
      */
     public function update(UpdateDiagnosisRequest $request, Visit $visit, Diagnosis $diagnosis): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $data = $request->validated();
 
         // If this is marked as primary, unset any other primary diagnoses for this visit
@@ -95,6 +105,8 @@ class DiagnosisController extends Controller
      */
     public function destroy(Visit $visit, Diagnosis $diagnosis): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $diagnosis->delete();
 
         return redirect()->route('visits.diagnoses', $visit)->with('success', 'Diagnosis deleted successfully.');

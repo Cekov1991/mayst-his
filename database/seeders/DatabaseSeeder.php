@@ -16,6 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->command->info('🔐 Creating Route-Based Roles & Permissions...');
+
+        $this->call([
+            RoleAndPermissionSeeder::class,
+        ]);
+
+        $this->command->info('🏥 Seeding HIS Demo Users...');
+
         $this->command->info('🏥 Seeding HIS Demo Users...');
 
         // Create demo users for each role
@@ -23,41 +31,38 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@his.local',
             'password' => Hash::make('password'),
-            'role' => 'admin',
             'is_active' => true,
         ]);
+
+        $admin->assignRole('admin');
 
         $doctor = User::factory()->withPersonalTeam()->create([
             'name' => 'Dr. Stefan Cekov',
             'email' => 'doctor@his.local',
             'password' => Hash::make('password'),
-            'role' => 'doctor',
             'is_active' => true,
         ]);
+
+        $doctor->assignRole('doctor');
 
         $doctor2 = User::factory()->withPersonalTeam()->create([
             'name' => 'Dr. Ana Petkovska',
             'email' => 'doctor2@his.local',
             'password' => Hash::make('password'),
-            'role' => 'doctor',
             'is_active' => true,
         ]);
+
+        $doctor2->assignRole('doctor');
 
         $reception = User::factory()->withPersonalTeam()->create([
             'name' => 'Marija Receptionist',
             'email' => 'reception@his.local',
             'password' => Hash::make('password'),
-            'role' => 'reception',
             'is_active' => true,
         ]);
 
-        $tech = User::factory()->withPersonalTeam()->create([
-            'name' => 'Petar Technician',
-            'email' => 'tech@his.local',
-            'password' => Hash::make('password'),
-            'role' => 'tech',
-            'is_active' => true,
-        ]);
+        $reception->assignRole('receptionist');
+
 
         $this->command->info('✅ Created demo users:');
         $this->command->line("   👑 Admin: admin@his.local / password");

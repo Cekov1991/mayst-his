@@ -16,6 +16,8 @@ class ImagingController extends Controller
      */
     public function show(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor', 'imagingStudies.orderedBy', 'imagingStudies.performedBy']);
 
         return view('visits.workspace.imaging', compact('visit'));
@@ -26,6 +28,8 @@ class ImagingController extends Controller
      */
     public function create(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor']);
 
         return view('visits.workspace.imaging-create', compact('visit'));
@@ -36,6 +40,8 @@ class ImagingController extends Controller
      */
     public function store(Request $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'modality' => 'required|in:OCT,VF,US,FA,Biometry,Photo,Other',
             'eye' => 'required|in:OD,OS,OU,NA',
@@ -60,6 +66,8 @@ class ImagingController extends Controller
      */
     public function edit(Visit $visit, ImagingStudy $imaging): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor']);
 
         return view('visits.workspace.imaging-edit', compact('visit', 'imaging'));
@@ -70,6 +78,8 @@ class ImagingController extends Controller
      */
     public function update(Request $request, Visit $visit, ImagingStudy $imaging): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'modality' => 'required|in:OCT,VF,US,FA,Biometry,Photo,Other',
             'eye' => 'required|in:OD,OS,OU,NA',
@@ -93,6 +103,8 @@ class ImagingController extends Controller
      */
     public function destroy(Visit $visit, ImagingStudy $imaging): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $imaging->delete();
 
         return redirect()->route('visits.imaging', $visit)->with('success', 'Imaging study deleted successfully.');

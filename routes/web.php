@@ -38,8 +38,8 @@ Route::middleware([
     Route::resource('visits', App\Http\Controllers\VisitController::class);
     Route::patch('/visits/{visit}/status', [App\Http\Controllers\VisitController::class, 'updateStatus'])->name('visits.updateStatus');
 
-    // Visit workspace routes
-    Route::prefix('visits/{visit}')->group(function () {
+    // Visit workspace routes - Medical workspace requires doctor access
+    Route::prefix('visits/{visit}')->middleware(['auth'])->group(function () {
         // Workspace page routes (individual pages)
         Route::get('/anamnesis', [App\Http\Controllers\AnamnesisController::class, 'show'])->name('visits.anamnesis');
         Route::get('/examination', [App\Http\Controllers\ExaminationController::class, 'show'])->name('visits.examination');
@@ -84,5 +84,5 @@ Route::middleware([
         Route::delete('/prescriptions/{prescription}', [App\Http\Controllers\PrescriptionController::class, 'destroy'])->name('visits.prescriptions.destroy');
         Route::delete('/spectacles/{spectacle}', [App\Http\Controllers\SpectacleController::class, 'destroy'])->name('visits.spectacles.destroy');
         Route::delete('/diagnoses/{diagnosis}', [App\Http\Controllers\DiagnosisController::class, 'destroy'])->name('visits.diagnosis.destroy');
-    })->middleware(['auth']);
+    });
 });

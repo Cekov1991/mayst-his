@@ -19,7 +19,10 @@ class VisitController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Visit::with(['patient', 'doctor']);
+        $this->authorize('viewAny', Visit::class);
+
+        $query = Visit::with(['patient', 'doctor'])
+            ->visibleTo(auth()->user());
 
         // Handle search
         if ($search = $request->get('search')) {
@@ -61,7 +64,7 @@ class VisitController extends Controller
             ->withQueryString();
 
         // Get doctors for filter dropdown
-        $doctors = User::where('role', 'doctor')
+        $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
             ->get();
@@ -74,11 +77,13 @@ class VisitController extends Controller
      */
     public function create(Request $request): View
     {
+        $this->authorize('create', Visit::class);
+
         $patients = Patient::orderBy('last_name')
             ->orderBy('first_name')
             ->get();
 
-        $doctors = User::where('role', 'doctor')
+        $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
             ->get();
@@ -93,6 +98,8 @@ class VisitController extends Controller
      */
     public function store(StoreVisitRequest $request): RedirectResponse
     {
+        $this->authorize('create', Visit::class);
+
         $validatedData = $request->validated();
 
         // Set timestamps based on status
@@ -109,6 +116,8 @@ class VisitController extends Controller
      */
     public function show(Visit $visit): View
     {
+        $this->authorize('view', $visit);
+
         $visit->load([
             'patient',
             'doctor',
@@ -130,11 +139,13 @@ class VisitController extends Controller
      */
     public function edit(Visit $visit): View
     {
+        $this->authorize('update', $visit);
+
         $patients = Patient::orderBy('last_name')
             ->orderBy('first_name')
             ->get();
 
-        $doctors = User::where('role', 'doctor')
+        $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
             ->get();
@@ -147,6 +158,8 @@ class VisitController extends Controller
      */
     public function update(UpdateVisitRequest $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('update', $visit);
+
         $validatedData = $request->validated();
 
         // Handle status changes and timestamps
@@ -163,6 +176,8 @@ class VisitController extends Controller
      */
     public function destroy(Visit $visit): RedirectResponse
     {
+        $this->authorize('delete', $visit);
+
         try {
             $visit->delete();
 
@@ -179,6 +194,8 @@ class VisitController extends Controller
      */
     public function updateStatus(Request $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('updateStatus', $visit);
+
         $request->validate([
             'status' => 'required|in:scheduled,arrived,in_progress,completed,cancelled',
         ]);

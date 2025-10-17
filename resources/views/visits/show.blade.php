@@ -102,7 +102,8 @@
                 </div>
             </div>
 
-            <!-- Workspace Navigation -->
+            <!-- Workspace Navigation - Medical workspace (Doctors only) -->
+            @can('accessMedicalWorkspace', $visit)
             <div class="bg-white dark:bg-gray-800 shadow-xl sm:rounded-lg">
                 <div class="border-b border-gray-200 dark:border-gray-700">
                     <nav class="-mb-px flex space-x-8 px-6" aria-label="Tabs">
@@ -218,6 +219,7 @@
                     @endif
                 </div>
             </div>
+            @endcan
 
             <!-- Back Button -->
             <div class="flex justify-between">

@@ -15,6 +15,8 @@ class TreatmentController extends Controller
      */
     public function show(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor', 'treatmentPlans']);
 
         return view('visits.workspace.treatments', compact('visit'));
@@ -25,6 +27,8 @@ class TreatmentController extends Controller
      */
     public function create(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor']);
 
         return view('visits.workspace.treatment-create', compact('visit'));
@@ -35,6 +39,8 @@ class TreatmentController extends Controller
      */
     public function store(Request $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'plan_type' => 'required|in:surgery,injection,medical,advice',
             'recommendation' => 'required|string|max:255',
@@ -53,6 +59,8 @@ class TreatmentController extends Controller
      */
     public function edit(Visit $visit, TreatmentPlan $treatment): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor']);
 
         return view('visits.workspace.treatment-edit', compact('visit', 'treatment'));
@@ -63,6 +71,8 @@ class TreatmentController extends Controller
      */
     public function update(Request $request, Visit $visit, TreatmentPlan $treatment): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'plan_type' => 'required|in:surgery,injection,medical,advice',
             'recommendation' => 'required|string|max:255',
@@ -81,6 +91,8 @@ class TreatmentController extends Controller
      */
     public function destroy(Visit $visit, TreatmentPlan $treatment): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $treatment->delete();
 
         return redirect()->route('visits.treatments', $visit)->with('success', 'Treatment plan deleted successfully.');

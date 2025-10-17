@@ -7,6 +7,18 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @can('delete', $visit)
+                <div class="flex justify-end mb-4">
+                    <form action="{{ route('visits.destroy', $visit) }}" method="POST"
+                        onsubmit="return confirm('{{ __('his.confirm_delete') }}');" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:bg-red-500 dark:hover:bg-red-600">
+                            {{ __('his.delete') }}
+                        </button>
+                    </form>
+                </div>
+            @endcan
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <form action="{{ route('visits.update', $visit) }}" method="POST">
@@ -96,19 +108,7 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-between mt-6">
-                            <!-- Delete Button -->
-                            <div>
-                                <form action="{{ route('visits.destroy', $visit) }}" method="POST"
-                                      onsubmit="return confirm('{{ __('his.confirm_delete') }}');" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:bg-red-500 dark:hover:bg-red-600">
-                                        {{ __('his.delete') }}
-                                    </button>
-                                </form>
-                            </div>
-
+                        <div class="flex justify-end mt-6">
                             <!-- Action Buttons -->
                             <div class="flex space-x-3">
                                 <a href="{{ route('visits.show', $visit) }}" class="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">

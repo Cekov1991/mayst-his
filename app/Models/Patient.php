@@ -38,6 +38,25 @@ class Patient extends Model
         return $this->hasMany(Visit::class);
     }
 
+    // Scopes
+    public function scopeVisibleTo($query, User $user)
+    {
+        // Admins and receptionists can see all patients
+        if ($user->hasRole(['admin', 'receptionist'])) {
+            return $query;
+        }
+
+        // Doctors can only see patients they have visits with
+        if ($user->hasRole('doctor')) {
+            return $query->whereHas('visits', function ($q) use ($user) {
+                $q->where('doctor_id', $user->id);
+            });
+        }
+
+        // Default: no patients visible
+        return $query->whereRaw('1 = 0');
+    }
+
     // Accessors
     public function getFullNameAttribute(): string
     {
