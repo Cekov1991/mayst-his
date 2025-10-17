@@ -16,6 +16,8 @@ class SpectacleController extends Controller
      */
     public function show(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor', 'spectaclePrescriptions.doctor']);
 
         return view('visits.workspace.spectacles', compact('visit'));
@@ -26,6 +28,8 @@ class SpectacleController extends Controller
      */
     public function create(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor']);
 
         return view('visits.workspace.spectacles-create', compact('visit'));
@@ -36,6 +40,8 @@ class SpectacleController extends Controller
      */
     public function store(Request $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'type' => 'required|in:distance,near,bifocal,progressive',
             'od_sphere' => 'nullable|numeric|between:-30,30',
@@ -65,6 +71,8 @@ class SpectacleController extends Controller
      */
     public function edit(Visit $visit, SpectaclePrescription $spectacle): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor']);
 
         return view('visits.workspace.spectacles-edit', compact('visit', 'spectacle'));
@@ -75,6 +83,8 @@ class SpectacleController extends Controller
      */
     public function update(Request $request, Visit $visit, SpectaclePrescription $spectacle): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'type' => 'required|in:distance,near,bifocal,progressive',
             'od_sphere' => 'nullable|numeric|between:-30,30',
@@ -101,6 +111,8 @@ class SpectacleController extends Controller
      */
     public function destroy(Visit $visit, SpectaclePrescription $spectacle): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $spectacle->delete();
 
         return redirect()->route('visits.spectacles', $visit)->with('success', 'Spectacle prescription deleted successfully.');

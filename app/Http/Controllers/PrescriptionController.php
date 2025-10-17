@@ -16,6 +16,8 @@ class PrescriptionController extends Controller
      */
     public function show(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor', 'prescriptions.doctor', 'prescriptions.prescriptionItems']);
 
         return view('visits.workspace.prescriptions', compact('visit'));
@@ -26,6 +28,8 @@ class PrescriptionController extends Controller
      */
     public function create(Visit $visit): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor']);
 
         return view('visits.workspace.prescription-create', compact('visit'));
@@ -36,6 +40,8 @@ class PrescriptionController extends Controller
      */
     public function store(Request $request, Visit $visit): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'notes' => 'nullable|string',
             'items' => 'required|array|min:1',
@@ -64,6 +70,8 @@ class PrescriptionController extends Controller
      */
     public function edit(Visit $visit, Prescription $prescription): View
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $visit->load(['patient', 'doctor']);
         $prescription->load('prescriptionItems');
 
@@ -75,6 +83,8 @@ class PrescriptionController extends Controller
      */
     public function update(Request $request, Visit $visit, Prescription $prescription): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $request->validate([
             'notes' => 'nullable|string',
             'items' => 'required|array|min:1',
@@ -105,6 +115,8 @@ class PrescriptionController extends Controller
      */
     public function destroy(Visit $visit, Prescription $prescription): RedirectResponse
     {
+        $this->authorize('accessMedicalWorkspace', $visit);
+
         $prescription->delete(); // This will also delete related items due to cascade
 
         return redirect()->route('visits.prescriptions', $visit)->with('success', 'Prescription deleted successfully.');

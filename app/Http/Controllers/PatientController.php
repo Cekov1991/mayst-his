@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Patient;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 
 class PatientController extends Controller
 {
@@ -16,16 +16,19 @@ class PatientController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Patient::query();
+        $this->authorize('viewAny', Patient::class);
+
+        // Start with patients visible to the current user
+        $query = Patient::visibleTo(auth()->user());
 
         // Handle search
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'LIKE', "%{$search}%")
-                  ->orWhere('last_name', 'LIKE', "%{$search}%")
-                  ->orWhere('email', 'LIKE', "%{$search}%")
-                  ->orWhere('phone', 'LIKE', "%{$search}%")
-                  ->orWhere('unique_master_citizen_number', 'LIKE', "%{$search}%");
+                    ->orWhere('last_name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhere('phone', 'LIKE', "%{$search}%")
+                    ->orWhere('unique_master_citizen_number', 'LIKE', "%{$search}%");
             });
         }
 
@@ -47,6 +50,8 @@ class PatientController extends Controller
      */
     public function create(): View
     {
+        $this->authorize('create', Patient::class);
+
         return view('patients.create');
     }
 
@@ -55,6 +60,8 @@ class PatientController extends Controller
      */
     public function store(StorePatientRequest $request): RedirectResponse
     {
+        $this->authorize('create', Patient::class);
+
         $patient = Patient::create($request->validated());
 
         return redirect()
@@ -67,13 +74,15 @@ class PatientController extends Controller
      */
     public function show(Patient $patient): View
     {
+        $this->authorize('view', $patient);
+
         // Load visits with relationships for display
         $patient->load([
             'visits' => function ($query) {
                 $query->with(['doctor'])
-                      ->orderBy('scheduled_at', 'desc')
-                      ->limit(10);
-            }
+                    ->orderBy('scheduled_at', 'desc')
+                    ->limit(10);
+            },
         ]);
 
         return view('patients.show', compact('patient'));
@@ -84,6 +93,8 @@ class PatientController extends Controller
      */
     public function edit(Patient $patient): View
     {
+        $this->authorize('update', $patient);
+
         return view('patients.edit', compact('patient'));
     }
 
@@ -92,6 +103,8 @@ class PatientController extends Controller
      */
     public function update(UpdatePatientRequest $request, Patient $patient): RedirectResponse
     {
+        $this->authorize('update', $patient);
+
         $patient->update($request->validated());
 
         return redirect()
@@ -104,6 +117,8 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient): RedirectResponse
     {
+        $this->authorize('delete', $patient);
+
         // Check if patient has any visits before deletion
         if ($patient->visits()->exists()) {
             return redirect()
@@ -123,26 +138,29 @@ class PatientController extends Controller
      */
     public function search(Request $request)
     {
+        $this->authorize('viewAny', Patient::class);
+
         $query = $request->get('q', '');
 
         if (strlen($query) < 2) {
             return response()->json([]);
         }
 
-        $patients = Patient::where(function ($q) use ($query) {
-            $q->where('first_name', 'LIKE', "%{$query}%")
-              ->orWhere('last_name', 'LIKE', "%{$query}%")
-              ->orWhere('unique_master_citizen_number', 'LIKE', "%{$query}%");
-        })
-        ->limit(10)
-        ->get()
-        ->map(function ($patient) {
-            return [
-                'id' => $patient->id,
-                'text' => $patient->full_name,
-                'subtitle' => $patient->unique_master_citizen_number ?: $patient->dob->format('Y-m-d'),
-            ];
-        });
+        $patients = Patient::visibleTo(auth()->user())
+            ->where(function ($q) use ($query) {
+                $q->where('first_name', 'LIKE', "%{$query}%")
+                    ->orWhere('last_name', 'LIKE', "%{$query}%")
+                    ->orWhere('unique_master_citizen_number', 'LIKE', "%{$query}%");
+            })
+            ->limit(10)
+            ->get()
+            ->map(function ($patient) {
+                return [
+                    'id' => $patient->id,
+                    'text' => $patient->full_name,
+                    'subtitle' => $patient->unique_master_citizen_number ?: $patient->dob->format('Y-m-d'),
+                ];
+            });
 
         return response()->json($patients);
     }
