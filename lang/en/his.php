@@ -19,7 +19,10 @@ return [
     'loading' => 'Loading...',
     'no_records' => 'No records found.',
     'confirm_delete' => 'Are you sure you want to delete this record?',
-
+    'yes' => 'Yes',
+    'no' => 'No',
+    'notes' => 'Notes',
+    'date' => 'Date',
     // Users & Roles
     'users' => [
         'title' => 'Users',
@@ -94,8 +97,7 @@ return [
     'sex_options' => [
         'male' => 'Male',
         'female' => 'Female',
-        'other' => 'Other',
-        'unknown' => 'Unknown',
+
     ],
 
     // Visits
@@ -315,6 +317,11 @@ return [
         'dosage_instructions' => 'Dosage Instructions',
         'duration_days' => 'Duration (Days)',
         'repeats' => 'Repeats',
+        'medication_name' => 'Medication Name',
+        'dosage' => 'Dosage',
+        'frequency' => 'Frequency',
+        'duration' => 'Duration',
+        'instructions' => 'Instructions',
     ],
 
     // Spectacle Prescriptions
@@ -436,6 +443,25 @@ return [
         'prescriptions' => 'Prescriptions',
         'spectacles' => 'Spectacle Prescriptions',
         'diagnoses' => 'Diagnoses',
+    ],
+
+    // PDF Reports
+    'pdf' => [
+        'generate_pdf' => 'Generate PDF',
+        'visit_report' => 'Visit Report',
+        'generated_on' => 'Generated on',
+        'patient_information' => 'Patient Information',
+        'visit_information' => 'Visit Information',
+        'doctor_signature' => 'Doctor Signature',
+        'date' => 'Date',
+        'report_validation' => 'This report is electronically generated and valid without signature.',
+        'no_anamnesis_recorded' => 'No anamnesis recorded for this visit.',
+        'no_examination_recorded' => 'No examination recorded for this visit.',
+        'no_diagnoses_recorded' => 'No diagnoses recorded for this visit.',
+        'no_imaging_recorded' => 'No imaging studies recorded for this visit.',
+        'no_treatments_recorded' => 'No treatment plans recorded for this visit.',
+        'no_prescriptions_recorded' => 'No prescriptions recorded for this visit.',
+        'no_spectacles_recorded' => 'No spectacle prescriptions recorded for this visit.',
     ],
 
     // Forms & Validation

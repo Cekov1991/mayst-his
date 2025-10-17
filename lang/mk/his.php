@@ -19,6 +19,10 @@ return [
     'loading' => 'Се вчитува...',
     'no_records' => 'Нема пронајдени записи.',
     'confirm_delete' => 'Дали сте сигурни дека сакате да го избришете овој запис?',
+    'yes' => 'Да',
+    'no' => 'Не',
+    'notes' => 'Наоди',
+    'date' => 'Датум',
 
     // Корисници и улоги
     'users' => [
@@ -300,7 +304,12 @@ return [
         'strength' => 'Јачина',
         'dosage_instructions' => 'Инструкции за дозирање',
         'duration_days' => 'Времетраење (денови)',
-        'repeats' => 'Повторувања',
+        'repeats' => 'Колку пати',
+        'medication_name' => 'Назив на лекот',
+        'dosage' => 'Дозирање',
+        'frequency' => 'Колку често',
+        'duration' => 'Времетраење',
+        'instructions' => 'Инструкции',
     ],
 
     'drug_forms' => [
@@ -434,6 +443,25 @@ return [
         'prescriptions' => 'Рецепти',
         'spectacles' => 'Рецепти за очила',
         'diagnoses' => 'Дијагнози',
+    ],
+
+    // PDF Извештаи
+    'pdf' => [
+        'generate_pdf' => 'Генерирај PDF',
+        'visit_report' => 'Извештај',
+        'generated_on' => 'Генериран на',
+        'patient_information' => 'Информации за пациентот',
+        'visit_information' => 'Информации за визитата',
+        'doctor_signature' => 'Потпис на доктор',
+        'date' => 'Датум',
+        'report_validation' => 'Овој извештај е електронски генериран и важечки без потпис.',
+        'no_anamnesis_recorded' => 'Нема забележана анамнеза за оваа визита.',
+        'no_examination_recorded' => 'Нема забележан преглед за оваа визита.',
+        'no_diagnoses_recorded' => 'Нема забележани дијагнози за оваа визита.',
+        'no_imaging_recorded' => 'Нема забележани студии за сликање за оваа визита.',
+        'no_treatments_recorded' => 'Нема забележани планови за третман за оваа визита.',
+        'no_prescriptions_recorded' => 'Нема забележани рецепти за оваа визита.',
+        'no_spectacles_recorded' => 'Нема забележани рецепти за очила за оваа визита.',
     ],
 
     // Форми и валидација

@@ -156,17 +156,17 @@ class VisitPolicy
      */
     public function accessMedicalWorkspace(User $user, Visit $visit): bool
     {
-        // Must have medical workspace permission (doctors only)
-        if (! $user->hasPermissionTo('access-medical-workspace')) {
-            return false;
-        }
-
         // Admins can access all medical workspaces
         if ($user->hasRole('admin')) {
             return true;
         }
 
         // Doctors can only access medical workspace for their own visits
-        return $visit->doctor_id === $user->id;
+        if ($user->hasRole('doctor')) {
+            return $visit->doctor_id === $user->id;
+        }
+
+        // Other roles (receptionist, etc.) cannot access medical workspace
+        return false;
     }
 }

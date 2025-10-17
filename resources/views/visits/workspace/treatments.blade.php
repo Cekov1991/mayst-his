@@ -29,12 +29,12 @@
                     @if($visit->treatmentPlans->isNotEmpty())
                         <x-table>
                             <x-slot name="head">
-                                <x-table-header>Plan Type</x-table-header>
-                                <x-table-header-secondary>Recommendation</x-table-header-secondary>
-                                <x-table-header-secondary>Status</x-table-header-secondary>
-                                <x-table-header-secondary>Planned Date</x-table-header-secondary>
-                                <x-table-header-secondary>Created</x-table-header-secondary>
-                                <x-table-action-header>Actions</x-table-action-header>
+                                <x-table-header>{{ __('his.treatment.plan_type') }}</x-table-header>
+                                <x-table-header-secondary>{{ __('his.treatment.recommendation') }}</x-table-header-secondary>
+                                <x-table-header-secondary>{{ __('his.treatment.status') }}</x-table-header-secondary>
+                                <x-table-header-secondary>{{ __('his.treatment.planned_date') }}</x-table-header-secondary>
+                                <x-table-header-secondary>{{ __('his.date') }}</x-table-header-secondary>
+                                <x-table-action-header>{{ __('his.actions') }}</x-table-action-header>
                             </x-slot>
 
                             <x-slot name="body">
