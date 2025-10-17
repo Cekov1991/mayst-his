@@ -48,7 +48,7 @@
                                     <x-label for="sex" value="{{ __('his.patients.sex') }}" />
                                     <select id="sex" name="sex" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" required>
                                         <option value="">{{ __('his.patients.sex') }}...</option>
-                                        @foreach(['male', 'female', 'other', 'unknown'] as $sexOption)
+                                        @foreach(['male', 'female'] as $sexOption)
                                             <option value="{{ $sexOption }}" {{ old('sex') === $sexOption ? 'selected' : '' }}>
                                                 {{ __("his.sex_options.{$sexOption}") }}
                                             </option>

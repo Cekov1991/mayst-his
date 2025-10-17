@@ -40,6 +40,9 @@ Route::middleware([
 
     // Visit workspace routes - Medical workspace requires doctor access
     Route::prefix('visits/{visit}')->middleware(['auth'])->group(function () {
+        // PDF Report Generation
+        Route::get('/pdf', [App\Http\Controllers\VisitPdfController::class, 'generatePdf'])->name('visits.pdf');
+
         // Workspace page routes (individual pages)
         Route::get('/anamnesis', [App\Http\Controllers\AnamnesisController::class, 'show'])->name('visits.anamnesis');
         Route::get('/examination', [App\Http\Controllers\ExaminationController::class, 'show'])->name('visits.examination');
