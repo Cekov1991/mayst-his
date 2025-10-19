@@ -89,7 +89,7 @@
         </x-action-message>
 
         <x-button wire:loading.attr="disabled" wire:target="photo">
-            {{ __('Save') }}
+            {{ __('common.save') }}
         </x-button>
     </x-slot>
 </x-form-section>

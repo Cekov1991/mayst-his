@@ -66,7 +66,7 @@ class PatientController extends Controller
 
         return redirect()
             ->route('patients.show', $patient)
-            ->with('success', __('his.messages.patient_created'));
+            ->with('success', __('messages.patient_created'));
     }
 
     /**
@@ -109,7 +109,7 @@ class PatientController extends Controller
 
         return redirect()
             ->route('patients.show', $patient)
-            ->with('success', __('his.messages.patient_updated'));
+            ->with('success', __('messages.patient_updated'));
     }
 
     /**
@@ -130,7 +130,7 @@ class PatientController extends Controller
 
         return redirect()
             ->route('patients.index')
-            ->with('success', __('his.messages.patient_deleted'));
+            ->with('success', __('messages.patient_deleted'));
     }
 
     /**

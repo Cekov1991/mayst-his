@@ -43,7 +43,7 @@
             </x-action-message>
 
             <x-button>
-                {{ __('Save') }}
+                {{ __('common.save') }}
             </x-button>
         </x-slot>
     @endif

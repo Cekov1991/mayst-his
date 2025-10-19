@@ -44,6 +44,6 @@ class AnamnesisController extends Controller
             $request->only(['chief_complaint', 'history_of_present_illness', 'past_medical_history', 'family_history', 'medications_current', 'allergies', 'therapy_in_use', 'other_notes'])
         );
 
-        return redirect()->route('visits.anamnesis', $visit)->with('success', __('his.messages.anamnesis_saved'));
+        return redirect()->route('visits.anamnesis', $visit)->with('success', __('messages.anamnesis_saved'));
     }
 }

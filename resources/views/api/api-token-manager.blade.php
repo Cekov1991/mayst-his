@@ -141,7 +141,7 @@
             </x-secondary-button>
 
             <x-button class="ms-3" wire:click="updateApiToken" wire:loading.attr="disabled">
-                {{ __('Save') }}
+                {{ __('common.save') }}
             </x-button>
         </x-slot>
     </x-dialog-modal>

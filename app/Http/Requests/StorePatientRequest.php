@@ -42,17 +42,17 @@ class StorePatientRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'first_name' => __('his.patients.first_name'),
-            'last_name' => __('his.patients.last_name'),
-            'sex' => __('his.patients.sex'),
-            'dob' => __('his.patients.dob'),
-            'phone' => __('his.patients.phone'),
-            'email' => __('his.patients.email'),
-            'address' => __('his.patients.address'),
-            'city' => __('his.patients.city'),
-            'country' => __('his.patients.country'),
-            'unique_master_citizen_number' => __('his.patients.unique_master_citizen_number'),
-            'notes' => __('his.patients.notes'),
+            'first_name' => __('patients.first_name'),
+            'last_name' => __('patients.last_name'),
+            'sex' => __('patients.sex'),
+            'dob' => __('patients.dob'),
+            'phone' => __('patients.phone'),
+            'email' => __('patients.email'),
+            'address' => __('patients.address'),
+            'city' => __('patients.city'),
+            'country' => __('patients.country'),
+            'unique_master_citizen_number' => __('patients.unique_master_citizen_number'),
+            'notes' => __('patients.notes'),
         ];
     }
 
@@ -62,12 +62,12 @@ class StorePatientRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'required' => __('his.validation.required'),
-            'email' => __('his.validation.email'),
-            'date' => __('his.validation.date'),
-            'before' => __('his.patients.dob') . ' ' . strtolower(__('his.validation.date')) . ' must be in the past.',
-            'unique' => __('his.patients.unique_master_citizen_number') . ' has already been taken.',
-            'max' => __('his.validation.max_length', ['max' => ':max']),
+            'required' => __('validation.required'),
+            'email' => __('validation.email'),
+            'date' => __('validation.date'),
+            'before' => __('patients.dob') . ' ' . strtolower(__('validation.date')) . ' must be in the past.',
+            'unique' => __('patients.unique_master_citizen_number') . ' has already been taken.',
+            'max' => __('validation.max_length', ['max' => ':max']),
             'in' => 'The selected :attribute is invalid.',
         ];
     }

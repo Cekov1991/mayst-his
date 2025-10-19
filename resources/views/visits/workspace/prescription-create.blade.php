@@ -14,8 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.prescriptions.add_prescription') }}</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Create a new prescription with medications for this visit.</p>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('prescriptions.add_prescription') }}</h3>
                     </div>
 
                     <!-- Prescription Form -->
@@ -24,7 +23,7 @@
 
                         <!-- Prescription Notes -->
                         <div>
-                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.prescriptions.notes') }}</label>
+                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('prescriptions.notes') }}</label>
                             <textarea name="notes" id="notes" rows="2"
                                       class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                       placeholder="General prescription notes...">{{ old('notes') }}</textarea>
@@ -36,10 +35,10 @@
                         <!-- Medication Items -->
                         <div>
                             <div class="flex justify-between items-center mb-4">
-                                <label class="block text-sm font-medium text-gray-900 dark:text-white">Medications</label>
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('prescriptions.items') }}</label>
                                 <button type="button" onclick="addMedicationRow()"
                                         class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-900/20 dark:text-indigo-300 dark:hover:bg-indigo-900/40">
-                                    + Add Medication
+                                    + {{ __('prescriptions.add_item') }}
                                 </button>
                             </div>
 
@@ -48,29 +47,29 @@
                                 <div class="medication-item p-4 bg-gray-50 dark:bg-gray-900/20 rounded-lg">
                                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                         <div>
-                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Drug Name</label>
+                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('prescriptions.drug_name') }}</label>
                                             <input type="text" name="items[0][drug_name]" required
                                                    class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500">
                                         </div>
                                         <div>
-                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Form</label>
+                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('prescriptions.form') }}</label>
                                             <select name="items[0][form]" required
                                                     class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500">
-                                                <option value="drops">Eye Drops</option>
-                                                <option value="ointment">Ointment</option>
-                                                <option value="tablet">Tablet</option>
-                                                <option value="capsule">Capsule</option>
-                                                <option value="other">Other</option>
+                                                <option value="drops">{{ __('prescriptions.drug_forms.drops') }}</option>
+                                                <option value="ointment">{{ __('prescriptions.drug_forms.ointment') }}</option>
+                                                <option value="tablet">{{ __('prescriptions.drug_forms.tablet') }}</option>
+                                                <option value="capsule">{{ __('prescriptions.drug_forms.capsule') }}</option>
+                                                <option value="other">{{ __('prescriptions.drug_forms.other') }}</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Strength</label>
+                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('prescriptions.strength') }}</label>
                                             <input type="text" name="items[0][strength]"
                                                    class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                                    placeholder="e.g. 0.5mg">
                                         </div>
                                         <div class="md:col-span-2">
-                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Dosage Instructions</label>
+                                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('prescriptions.dosage_instructions') }}</label>
                                             <input type="text" name="items[0][dosage_instructions]" required
                                                    class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                                    placeholder="e.g. 1 drop twice daily">
@@ -78,12 +77,12 @@
                                         <div class="flex justify-between items-end">
                                             <div class="flex space-x-2">
                                                 <div>
-                                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Duration (days)</label>
+                                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('prescriptions.duration_days') }}</label>
                                                     <input type="number" name="items[0][duration_days]" min="1"
                                                            class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500">
                                                 </div>
                                                 <div>
-                                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Repeats</label>
+                                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('prescriptions.repeats') }}</label>
                                                     <input type="number" name="items[0][repeats]" min="0"
                                                            class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500">
                                                 </div>
@@ -103,11 +102,11 @@
                         <!-- Submit Button -->
                         <div class="flex justify-between pt-6">
                             <a href="{{ route('visits.prescriptions', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                ← {{ __('his.back') }}
+                                ← {{ __('common.back') }}
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                                {{ __('his.save') }} Prescription
+                                {{ __('common.save') }} Prescription
                             </button>
                         </div>
                     </form>

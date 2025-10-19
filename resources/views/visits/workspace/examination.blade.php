@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('his.workspace.examination') }} - {{ $visit->patient->full_name }}
+            {{ __('workspace.examination') }} - {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -14,10 +14,10 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.exam.visual_acuity_and_iop') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('examination.visual_acuity_and_iop') }}</h3>
                         @if($visit->ophthalmicExam && $visit->ophthalmicExam->updated_at)
                             <div class="text-sm text-gray-500 dark:text-gray-400">
-                                Last updated: {{ $visit->ophthalmicExam->updated_at->format('M d, Y g:i A') }}
+                                {{ __('common.last_updated') }}: {{ $visit->ophthalmicExam->updated_at->format('M d, Y g:i A') }}
                             </div>
                         @endif
                     </div>
@@ -37,7 +37,7 @@
                             <!-- Visual Acuity OD -->
                             <div>
                                 <label for="visus_od" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.visus_od') }}
+                                    {{ __('examination.visus_od') }}
                                 </label>
                                 <input type="text" name="visus_od" id="visus_od"
                                        value="{{ old('visus_od', $visit->ophthalmicExam?->visus_od) }}"
@@ -51,7 +51,7 @@
                             <!-- Visual Acuity OS -->
                             <div>
                                 <label for="visus_os" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.visus_os') }}
+                                    {{ __('examination.visus_os') }}
                                 </label>
                                 <input type="text" name="visus_os" id="visus_os"
                                        value="{{ old('visus_os', $visit->ophthalmicExam?->visus_os) }}"
@@ -65,7 +65,7 @@
                             <!-- IOP OD -->
                             <div>
                                 <label for="iop_od" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.iop_od') }} (mmHg)
+                                    {{ __('examination.iop_od') }} (mmHg)
                                 </label>
                                 <input type="number" step="0.1" name="iop_od" id="iop_od"
                                        value="{{ old('iop_od', $visit->ophthalmicExam?->iop_od) }}"
@@ -79,7 +79,7 @@
                             <!-- IOP OS -->
                             <div>
                                 <label for="iop_os" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.iop_os') }} (mmHg)
+                                    {{ __('examination.iop_os') }} (mmHg)
                                 </label>
                                 <input type="number" step="0.1" name="iop_os" id="iop_os"
                                        value="{{ old('iop_os', $visit->ophthalmicExam?->iop_os) }}"
@@ -96,7 +96,7 @@
                             <!-- Anterior Segment -->
                             <div>
                                 <label for="anterior_segment_findings_od" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.anterior_segment_findings_od') }}
+                                    {{ __('examination.anterior_segment_findings_od') }}
                                 </label>
                                 <textarea name="anterior_segment_findings_od" id="anterior_segment_findings_od" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -109,7 +109,7 @@
                             <!-- Posterior Segment -->
                             <div>
                                 <label for="posterior_segment_findings_od" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.posterior_segment_findings_od') }}
+                                    {{ __('examination.posterior_segment_findings_od') }}
                                 </label>
                                 <textarea name="posterior_segment_findings_od" id="posterior_segment_findings_od" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -122,7 +122,7 @@
                             <!-- Anterior Segment -->
                             <div>
                                 <label for="anterior_segment_findings_os" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.anterior_segment_findings_os') }}
+                                    {{ __('examination.anterior_segment_findings_os') }}
                                 </label>
                                 <textarea name="anterior_segment_findings_os" id="anterior_segment_findings_os" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -135,7 +135,7 @@
                             <!-- Posterior Segment -->
                             <div>
                                 <label for="posterior_segment_findings_os" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.exam.posterior_segment_findings_os') }}
+                                    {{ __('examination.posterior_segment_findings_os') }}
                                 </label>
                                 <textarea name="posterior_segment_findings_os" id="posterior_segment_findings_os" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -150,14 +150,14 @@
                         <!-- Submit Button -->
                         <div class="flex justify-between pt-6">
                             <a href="{{ route('visits.show', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                ← {{ __('his.back') }}
+                                ← {{ __('common.back') }}
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
                                 @if($visit->ophthalmicExam)
-                                    {{ __('his.update') }} {{ __('his.workspace.examination') }}
+                                    {{ __('update') }} {{ __('workspace.examination') }}
                                 @else
-                                    {{ __('his.save') }} {{ __('his.workspace.examination') }}
+                                    {{ __('common.save') }} {{ __('workspace.examination') }}
                                 @endif
                             </button>
                         </div>
@@ -170,9 +170,9 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 lg:p-8">
                         <div class="flex justify-between items-center mb-6">
-                            <h4 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.refraction.title') }}</h4>
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('refraction.title') }}</h4>
                             <a href="{{ route('visits.refractions.create', $visit) }}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                                + {{ __('his.refraction.add_refraction') }}
+                                + {{ __('refraction.add_refraction') }}
                             </a>
                         </div>
 
@@ -180,13 +180,13 @@
                             <!-- Refractions Table -->
                             <x-table>
                                 <x-slot name="head">
-                                    <x-table-header>Eye</x-table-header>
-                                    <x-table-header-secondary>Method</x-table-header-secondary>
-                                    <x-table-header-secondary>Sphere</x-table-header-secondary>
-                                    <x-table-header-secondary>Cylinder</x-table-header-secondary>
-                                    <x-table-header-secondary>Axis</x-table-header-secondary>
-                                    <x-table-header-secondary>Add</x-table-header-secondary>
-                                    <x-table-action-header>Actions</x-table-action-header>
+                                    <x-table-header>{{ __('refraction.eye') }}</x-table-header>
+                                    <x-table-header-secondary>{{ __('refraction.method') }}</x-table-header-secondary>
+                                    <x-table-header-secondary>{{ __('refraction.sphere') }}</x-table-header-secondary>
+                                    <x-table-header-secondary>{{ __('refraction.cylinder') }}</x-table-header-secondary>
+                                    <x-table-header-secondary>{{ __('refraction.axis') }}</x-table-header-secondary>
+                                    <x-table-header-secondary>{{ __('refraction.add_power') }}</x-table-header-secondary>
+                                    <x-table-action-header>{{ __('common.actions') }}</x-table-action-header>
                                 </x-slot>
 
                                 <x-slot name="body">
@@ -198,7 +198,7 @@
 
                                             <x-table-cell>
                                                 <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
-                                                    {{ __("his.refraction_methods.{$refraction->method}") }}
+                                                    {{ __("examination.refraction_methods.{$refraction->method}") }}
                                                 </span>
                                             </x-table-cell>
 
@@ -212,9 +212,9 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                            onclick="return confirm('Are you sure?')"
+                                                            onclick="return confirm('{{ __('common.confirm_delete') }}')"
                                                             class="text-sm font-medium text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                        Delete
+                                                        {{ __('common.delete') }}
                                                     </button>
                                                 </form>
                                             </x-table-action-cell>
@@ -225,10 +225,10 @@
                         @else
                             <x-table-empty
                                 colspan="7"
-                                title="No refractions recorded"
-                                message="Add refraction measurements for this examination."
+                                title="{{ __('common.no_records') }}"
+                                message="{{ __('common.no_records_message') }}"
                                 :actionUrl="route('visits.refractions.create', $visit)"
-                                actionText="Add First Refraction"
+                                actionText="{{ __('common.add_first_refraction') }}"
                             />
                         @endif
                     </div>

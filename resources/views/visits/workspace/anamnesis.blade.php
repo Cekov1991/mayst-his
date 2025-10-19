@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('his.workspace.anamnesis') }} - {{ $visit->patient->full_name }}
+            {{ __('workspace.anamnesis') }} - {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -14,7 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.anamnesis.title') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('anamnesis.title') }}</h3>
                         @if($visit->anamnesis && $visit->anamnesis->updated_at)
                             <div class="text-sm text-gray-500 dark:text-gray-400">
                                 Last updated: {{ $visit->anamnesis->updated_at->format('M d, Y g:i A') }}
@@ -36,7 +36,7 @@
                             <!-- Chief Complaint -->
                             <div class="lg:col-span-2">
                                 <label for="chief_complaint" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.anamnesis.chief_complaint') }}
+                                    {{ __('anamnesis.chief_complaint') }}
                                 </label>
                                 <textarea name="chief_complaint" id="chief_complaint" rows="3"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -49,7 +49,7 @@
                             <!-- History of Present Illness -->
                             <div class="lg:col-span-2">
                                 <label for="history_of_present_illness" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.anamnesis.history_of_present_illness') }}
+                                    {{ __('anamnesis.history_of_present_illness') }}
                                 </label>
                                 <textarea name="history_of_present_illness" id="history_of_present_illness" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -62,7 +62,7 @@
                             <!-- Past Medical History -->
                             <div>
                                 <label for="past_medical_history" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.anamnesis.past_medical_history') }}
+                                    {{ __('anamnesis.past_medical_history') }}
                                 </label>
                                 <textarea name="past_medical_history" id="past_medical_history" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -75,7 +75,7 @@
                             <!-- Family History -->
                             <div>
                                 <label for="family_history" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.anamnesis.family_history') }}
+                                    {{ __('anamnesis.family_history') }}
                                 </label>
                                 <textarea name="family_history" id="family_history" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -88,7 +88,7 @@
                             <!-- Current Medications -->
                             <div>
                                 <label for="medications_current" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.anamnesis.medications_current') }}
+                                    {{ __('anamnesis.medications_current') }}
                                 </label>
                                 <textarea name="medications_current" id="medications_current" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -101,7 +101,7 @@
                             <!-- Allergies -->
                             <div>
                                 <label for="allergies" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.anamnesis.allergies') }}
+                                    {{ __('anamnesis.allergies') }}
                                 </label>
                                 <textarea name="allergies" id="allergies" rows="4"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -114,7 +114,7 @@
                             <!-- Other Notes -->
                             <div class="lg:col-span-2">
                                 <label for="other_notes" class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ __('his.anamnesis.other_notes') }}
+                                    {{ __('anamnesis.other_notes') }}
                                 </label>
                                 <textarea name="other_notes" id="other_notes" rows="3"
                                           class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
@@ -128,14 +128,14 @@
                         <!-- Submit Button -->
                         <div class="flex justify-between pt-6">
                             <a href="{{ route('visits.show', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                ← {{ __('his.back') }}
+                                ← {{ __('common.back') }}
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
                                 @if($visit->anamnesis)
-                                    {{ __('his.update') }} {{ __('his.anamnesis.title') }}
+                                    {{ __('update') }} {{ __('anamnesis.title') }}
                                 @else
-                                    {{ __('his.save') }} {{ __('his.anamnesis.title') }}
+                                    {{ __('common.save') }} {{ __('anamnesis.title') }}
                                 @endif
                             </button>
                         </div>

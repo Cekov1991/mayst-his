@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('his.workspace.treatments') }} - {{ $visit->patient->full_name }}
+            {{ __('workspace.treatments') }} - {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -14,9 +14,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.treatment.title') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('treatments.title') }}</h3>
                         <a href="{{ route('visits.treatments.create', $visit) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                            + {{ __('his.treatment.add_treatment') }}
+                            + {{ __('treatments.add_treatment') }}
                         </a>
                     </div>
 
@@ -29,12 +29,12 @@
                     @if($visit->treatmentPlans->isNotEmpty())
                         <x-table>
                             <x-slot name="head">
-                                <x-table-header>{{ __('his.treatment.plan_type') }}</x-table-header>
-                                <x-table-header-secondary>{{ __('his.treatment.recommendation') }}</x-table-header-secondary>
-                                <x-table-header-secondary>{{ __('his.treatment.status') }}</x-table-header-secondary>
-                                <x-table-header-secondary>{{ __('his.treatment.planned_date') }}</x-table-header-secondary>
-                                <x-table-header-secondary>{{ __('his.date') }}</x-table-header-secondary>
-                                <x-table-action-header>{{ __('his.actions') }}</x-table-action-header>
+                                <x-table-header>{{ __('treatments.plan_type') }}</x-table-header>
+                                <x-table-header-secondary>{{ __('treatments.recommendation') }}</x-table-header-secondary>
+                                <x-table-header-secondary>{{ __('treatments.status') }}</x-table-header-secondary>
+                                <x-table-header-secondary>{{ __('treatments.planned_date') }}</x-table-header-secondary>
+                                <x-table-header-secondary>{{ __('date') }}</x-table-header-secondary>
+                                <x-table-action-header>{{ __('actions') }}</x-table-action-header>
                             </x-slot>
 
                             <x-slot name="body">
@@ -46,7 +46,7 @@
                                                 @elseif($plan->plan_type === 'injection') bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300
                                                 @elseif($plan->plan_type === 'medical') bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300
                                                 @else bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-300 @endif">
-                                                {{ __("his.treatment_types.{$plan->plan_type}") }}
+                                                {{ __("treatments.types.{$plan->plan_type}") }}
                                             </span>
                                         </x-table-cell>
 
@@ -66,7 +66,7 @@
                                                 @elseif($plan->status === 'scheduled') bg-indigo-100 text-indigo-800 dark:bg-indigo-900/20 dark:text-indigo-300
                                                 @elseif($plan->status === 'done') bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300
                                                 @else bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300 @endif">
-                                                {{ __("his.treatment_status.{$plan->status}") }}
+                                                {{ __("treatments.statuses.{$plan->status}") }}
                                             </span>
                                         </x-table-cell>
 
@@ -85,7 +85,7 @@
                                             <div class="flex items-center space-x-2">
                                                 <a href="{{ route('visits.treatments.edit', [$visit, $plan]) }}"
                                                    class="text-sm font-medium text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                    Edit
+                                                    {{ __('common.edit') }}
                                                 </a>
                                                 <form action="{{ route('visits.treatments.destroy', [$visit, $plan]) }}" method="POST" class="inline">
                                                     @csrf
@@ -93,7 +93,7 @@
                                                     <button type="submit"
                                                             onclick="return confirm('Are you sure?')"
                                                             class="text-sm font-medium text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                        Delete
+                                                        {{ __('common.delete') }}
                                                     </button>
                                                 </form>
                                             </div>
@@ -104,17 +104,17 @@
                         </x-table>
                     @else
                         <x-table-empty
-                            title="No treatment plans created"
-                            message="Create treatment plans and recommendations for this visit."
+                            :title="__('common.table_empty.title')"
+                            :message="__('common.table_empty.message')"
                             :actionUrl="route('visits.treatments.create', $visit)"
-                            actionText="Create First Plan"
+                            :actionText="__('common.table_empty.action_text')"
                         />
                     @endif
 
                     <!-- Back Button -->
                     <div class="flex justify-between mt-8">
                         <a href="{{ route('visits.show', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                            ← {{ __('his.back') }}
+                            ← {{ __('common.back') }}
                         </a>
                     </div>
                 </div>

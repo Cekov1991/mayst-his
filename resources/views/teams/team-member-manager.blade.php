@@ -69,7 +69,7 @@
                     </x-action-message>
 
                     <x-button>
-                        {{ __('Add') }}
+                        {{ __('common.add') }}
                     </x-button>
                 </x-slot>
             </x-form-section>
@@ -211,7 +211,7 @@
             </x-secondary-button>
 
             <x-button class="ms-3" wire:click="updateRole" wire:loading.attr="disabled">
-                {{ __('Save') }}
+                {{ __('common.save') }}
             </x-button>
         </x-slot>
     </x-dialog-modal>

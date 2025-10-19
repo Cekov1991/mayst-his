@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('his.workspace.spectacles') }} - {{ $visit->patient->full_name }}
+            {{ __('workspace.spectacles') }} - {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -14,9 +14,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.spectacles.title') }}</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('spectacles.title') }}</h3>
                         <a href="{{ route('visits.spectacles.create', $visit) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                            + {{ __('his.spectacles.add_prescription') }}
+                            + {{ __('spectacles.add_prescription') }}
                         </a>
                     </div>
 
@@ -34,14 +34,14 @@
                                         <div>
                                             <div class="flex items-center space-x-3">
                                                 <h4 class="text-md font-medium text-gray-900 dark:text-white">
-                                                    {{ __('his.spectacles.prescription') }} #{{ $prescription->id }}
+                                                    {{ __('spectacles.prescription') }} #{{ $prescription->id }}
                                                 </h4>
                                                 <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
                                                     @if($prescription->type === 'distance') bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300
                                                     @elseif($prescription->type === 'near') bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300
                                                     @elseif($prescription->type === 'bifocal') bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300
                                                     @else bg-indigo-100 text-indigo-800 dark:bg-indigo-900/20 dark:text-indigo-300 @endif">
-                                                    {{ __("his.spectacle_types.{$prescription->type}") }}
+                                                    {{ __("spectacles.types.{$prescription->type}") }}
                                                 </span>
                                             </div>
                                             <div class="text-sm text-gray-500 dark:text-gray-400">
@@ -149,17 +149,17 @@
                         </div>
                     @else
                         <x-table-empty
-                            title="No spectacle prescriptions created"
-                            message="Create spectacle prescriptions for this visit."
+                            :title="__('common.table_empty.title')"
+                            :message="__('common.table_empty.message')"
                             :actionUrl="route('visits.spectacles.create', $visit)"
-                            actionText="Create First Prescription"
+                            :actionText="__('common.table_empty.action_text')"
                         />
                     @endif
 
                     <!-- Back Button -->
                     <div class="flex justify-between mt-8">
                         <a href="{{ route('visits.show', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                            ← {{ __('his.back') }}
+                            ← {{ __('common.back') }}
                         </a>
                     </div>
                 </div>

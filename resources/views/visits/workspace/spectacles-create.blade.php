@@ -14,8 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.spectacles.add_prescription') }}</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Create a new spectacle prescription for this visit.</p>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('spectacles.add_prescription') }}</h3>
                     </div>
 
                     <!-- Spectacle Form -->
@@ -25,7 +24,7 @@
                         <!-- Prescription Type and Validity -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="type" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.spectacles.type') }}</label>
+                                <label for="type" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('spectacles.type') }}</label>
                                 <select name="type" id="type" required
                                         class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500"
                                         onchange="toggleAddFields()">
@@ -40,7 +39,7 @@
                             </div>
 
                             <div>
-                                <label for="valid_until" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.spectacles.valid_until') }}</label>
+                                <label for="valid_until" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('spectacles.valid_until') }}</label>
                                 <input type="date" name="valid_until" id="valid_until" value="{{ old('valid_until') }}"
                                        class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500">
                                 @error('valid_until')
@@ -51,10 +50,10 @@
 
                         <!-- Right Eye (OD) -->
                         <div class="bg-gray-50 dark:bg-gray-900/20 p-6 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">OD (Right Eye)</h4>
+                            <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">{{ __('spectacles.right_eye') }}</h4>
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
-                                    <label for="od_sphere" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sphere</label>
+                                    <label for="od_sphere" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('spectacles.od_sphere') }}</label>
                                     <input type="number" step="0.25" name="od_sphere" id="od_sphere" value="{{ old('od_sphere') }}"
                                            class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                            placeholder="0.00">
@@ -63,7 +62,7 @@
                                     @enderror
                                 </div>
                                 <div>
-                                    <label for="od_cylinder" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cylinder</label>
+                                    <label for="od_cylinder" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('spectacles.od_cylinder') }}</label>
                                     <input type="number" step="0.25" name="od_cylinder" id="od_cylinder" value="{{ old('od_cylinder') }}"
                                            class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                            placeholder="0.00">
@@ -72,7 +71,7 @@
                                     @enderror
                                 </div>
                                 <div>
-                                    <label for="od_axis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Axis</label>
+                                    <label for="od_axis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('spectacles.od_axis') }}</label>
                                     <input type="number" min="1" max="180" name="od_axis" id="od_axis" value="{{ old('od_axis') }}"
                                            class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                            placeholder="90">
@@ -94,10 +93,10 @@
 
                         <!-- Left Eye (OS) -->
                         <div class="bg-gray-50 dark:bg-gray-900/20 p-6 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">OS (Left Eye)</h4>
+                            <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">{{ __('spectacles.left_eye') }}</h4>
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
-                                    <label for="os_sphere" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sphere</label>
+                                    <label for="os_sphere" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('spectacles.os_sphere') }}</label>
                                     <input type="number" step="0.25" name="os_sphere" id="os_sphere" value="{{ old('os_sphere') }}"
                                            class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                            placeholder="0.00">
@@ -106,7 +105,7 @@
                                     @enderror
                                 </div>
                                 <div>
-                                    <label for="os_cylinder" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cylinder</label>
+                                    <label for="os_cylinder" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('spectacles.os_cylinder') }}</label>
                                     <input type="number" step="0.25" name="os_cylinder" id="os_cylinder" value="{{ old('os_cylinder') }}"
                                            class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                            placeholder="0.00">
@@ -115,7 +114,7 @@
                                     @enderror
                                 </div>
                                 <div>
-                                    <label for="os_axis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Axis</label>
+                                    <label for="os_axis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('spectacles.os_axis') }}</label>
                                     <input type="number" min="1" max="180" name="os_axis" id="os_axis" value="{{ old('os_axis') }}"
                                            class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                            placeholder="90">
@@ -138,7 +137,7 @@
                         <!-- PD and Notes -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="pd_distance" class="block text-sm font-medium text-gray-900 dark:text-white">PD Distance (mm)</label>
+                                <label for="pd_distance" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('spectacles.pd_distance') }}</label>
                                 <input type="number" step="0.5" name="pd_distance" id="pd_distance" value="{{ old('pd_distance') }}"
                                        class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                        placeholder="63.0">
@@ -147,7 +146,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="pd_near" class="block text-sm font-medium text-gray-900 dark:text-white">PD Near (mm)</label>
+                                <label for="pd_near" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('spectacles.pd_near') }}</label>
                                 <input type="number" step="0.5" name="pd_near" id="pd_near" value="{{ old('pd_near') }}"
                                        class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                        placeholder="60.0">
@@ -159,7 +158,7 @@
 
                         <!-- Notes -->
                         <div>
-                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.spectacles.notes') }}</label>
+                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('spectacles.notes') }}</label>
                             <textarea name="notes" id="notes" rows="3"
                                       class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                       placeholder="Additional notes for the optician...">{{ old('notes') }}</textarea>
@@ -171,11 +170,11 @@
                         <!-- Submit Button -->
                         <div class="flex justify-between pt-6">
                             <a href="{{ route('visits.spectacles', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                ← {{ __('his.back') }}
+                                ← {{ __('common.back') }}
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                                {{ __('his.save') }} Prescription
+                                {{ __('common.save') }}
                             </button>
                         </div>
                     </form>
