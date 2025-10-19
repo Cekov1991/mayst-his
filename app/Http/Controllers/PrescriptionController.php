@@ -62,7 +62,7 @@ class PrescriptionController extends Controller
             $prescription->prescriptionItems()->create($item);
         }
 
-        return redirect()->route('visits.prescriptions', $visit)->with('success', __('his.messages.prescription_saved'));
+        return redirect()->route('visits.prescriptions', $visit)->with('success', __('messages.prescription_saved'));
     }
 
     /**
@@ -107,7 +107,7 @@ class PrescriptionController extends Controller
             $prescription->prescriptionItems()->create($item);
         }
 
-        return redirect()->route('visits.prescriptions', $visit)->with('success', __('his.messages.prescription_saved'));
+        return redirect()->route('visits.prescriptions', $visit)->with('success', __('messages.prescription_saved'));
     }
 
     /**

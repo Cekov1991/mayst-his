@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('his.workspace.title') }} - {{ $visit->patient->full_name }}
+            {{ __('workspace.title') }} - {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -12,8 +12,7 @@
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-start mb-6">
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('his.visits.visit_details') }}</h3>
-                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Visit information and status</p>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('visits.visit_details') }}</h3>
                         </div>
 
                         <!-- Quick Status Update Buttons -->
@@ -24,7 +23,7 @@
                                     @method('PATCH')
                                     <input type="hidden" name="status" value="arrived">
                                     <button type="submit" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:bg-yellow-500 dark:hover:bg-yellow-600">
-                                        {{ __('his.visit_status.mark_arrived') }}
+                                        {{ __('visits.statuses.mark_arrived') }}
                                     </button>
                                 </form>
                             @endif
@@ -35,7 +34,7 @@
                                     @method('PATCH')
                                     <input type="hidden" name="status" value="in_progress">
                                     <button type="submit" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600">
-                                        {{ __('his.visit_status.start') }}
+                                        {{ __('visit_status.start') }}
                                     </button>
                                 </form>
                             @endif
@@ -46,7 +45,7 @@
                                     @method('PATCH')
                                     <input type="hidden" name="status" value="completed">
                                     <button type="submit" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-green-500 dark:hover:bg-green-600">
-                                        {{ __('his.visit_status.complete') }}
+                                        {{ __('visit_status.complete') }}
                                     </button>
                                 </form>
                             @endif
@@ -56,12 +55,12 @@
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                                     </svg>
-                                    {{ __('his.pdf.generate_pdf') }}
+                                    {{ __('pdf.generate_pdf') }}
                                 </a>
                             @endcan
 
                             <a href="{{ route('visits.edit', $visit) }}" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                {{ __('his.edit') }}
+                                {{ __('common.edit') }}
                             </a>
                         </div>
                     </div>
@@ -69,7 +68,7 @@
                     <!-- Visit Details Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.visits.patient') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('visits.patient') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white">
                                 <a href="{{ route('patients.show', $visit->patient) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
                                     {{ $visit->patient->full_name }}
@@ -78,19 +77,19 @@
                         </div>
 
                         <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.visits.type') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('visits.type') }}</dt>
                             <dd class="mt-1">
                                 <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
                                     @if($visit->type === 'exam') bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300
                                     @elseif($visit->type === 'control') bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300
                                     @else bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300 @endif">
-                                    {{ __("his.visit_types.{$visit->type}") }}
+                                    {{ __("visits.types.{$visit->type}") }}
                                 </span>
                             </dd>
                         </div>
 
                         <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.visits.status') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('visits.status') }}</dt>
                             <dd class="mt-1">
                                 <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
                                     @if($visit->status === 'scheduled') bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-300
@@ -98,13 +97,13 @@
                                     @elseif($visit->status === 'in_progress') bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300
                                     @elseif($visit->status === 'completed') bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300
                                     @else bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300 @endif">
-                                    {{ __("his.visit_status.{$visit->status}") }}
+                                    {{ __("visits.statuses.{$visit->status}") }}
                                 </span>
                             </dd>
                         </div>
 
                         <div>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('his.visits.scheduled_at') }}</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('visits.scheduled_at') }}</dt>
                             <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $visit->scheduled_at->format('M d, Y g:i A') }}</dd>
                         </div>
                     </div>
@@ -118,48 +117,48 @@
                     <nav class="-mb-px flex space-x-8 px-6" aria-label="Tabs">
                         <a href="{{ route('visits.anamnesis', $visit) }}"
                            class="@if(request()->routeIs('visits.anamnesis')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                            {{ __('his.workspace.anamnesis') }}
+                            {{ __('workspace.anamnesis') }}
                         </a>
 
                         <a href="{{ route('visits.examination', $visit) }}"
                            class="@if(request()->routeIs('visits.examination*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                            {{ __('his.workspace.examination') }}
+                            {{ __('workspace.examination') }}
                         </a>
 
                         <a href="{{ route('visits.imaging', $visit) }}"
                            class="@if(request()->routeIs('visits.imaging*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                            {{ __('his.workspace.imaging') }}
+                            {{ __('workspace.imaging') }}
                         </a>
 
                         <a href="{{ route('visits.treatments', $visit) }}"
                            class="@if(request()->routeIs('visits.treatments*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                            {{ __('his.workspace.treatments') }}
+                            {{ __('workspace.treatments') }}
                         </a>
 
                         <a href="{{ route('visits.prescriptions', $visit) }}"
                            class="@if(request()->routeIs('visits.prescriptions*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                            {{ __('his.workspace.prescriptions') }}
+                            {{ __('workspace.prescriptions') }}
                         </a>
 
                         <a href="{{ route('visits.spectacles', $visit) }}"
                            class="@if(request()->routeIs('visits.spectacles*')) border-indigo-500 text-indigo-600 dark:text-indigo-400 @else border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 @endif whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-                            {{ __('his.workspace.spectacles') }}
+                            {{ __('workspace.spectacles') }}
                         </a>
                     </nav>
                 </div>
 
                 <!-- Workspace Overview Content -->
                 <div class="p-6 lg:p-8">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-6">{{ __('his.workspace.title') }}</h3>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-6">{{ __('workspace.title') }}</h3>
 
                     <!-- Quick Overview Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- Anamnesis Card -->
                         <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
                             <div class="flex items-center justify-between mb-4">
-                                <h4 class="text-md font-medium text-gray-900 dark:text-white">{{ __('his.workspace.anamnesis') }}</h4>
+                                <h4 class="text-md font-medium text-gray-900 dark:text-white">{{ __('workspace.anamnesis') }}</h4>
                                 <a href="{{ route('visits.anamnesis', $visit) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
-                                    @if($visit->anamnesis) {{ __('his.edit') }} @else {{ __('his.add') }} @endif
+                                    @if($visit->anamnesis) {{ __('common.edit') }} @else {{ __('common.add') }} @endif
                                 </a>
                             </div>
                             @if($visit->anamnesis)
@@ -173,9 +172,9 @@
                         <!-- Examination Card -->
                         <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
                             <div class="flex items-center justify-between mb-4">
-                                <h4 class="text-md font-medium text-gray-900 dark:text-white">{{ __('his.workspace.examination') }}</h4>
+                                <h4 class="text-md font-medium text-gray-900 dark:text-white">{{ __('workspace.examination') }}</h4>
                                 <a href="{{ route('visits.examination', $visit) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
-                                    @if($visit->ophthalmicExam) {{ __('his.edit') }} @else {{ __('his.add') }} @endif
+                                    @if($visit->ophthalmicExam) {{ __('common.edit') }} @else {{ __('common.add') }} @endif
                                 </a>
                             </div>
                             @if($visit->ophthalmicExam)
@@ -191,12 +190,12 @@
 
                         <!-- Quick Actions Card -->
                         <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
-                            <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">{{__('his.visits.quick_actions')}}</h4>
+                            <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">{{__('visits.quick_actions')}}</h4>
                             <div class="space-y-2">
-                                <a href="{{ route('visits.prescriptions.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ {{__('his.visits.add_prescription')}}</a>
-                                <a href="{{ route('visits.imaging.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ {{__('his.visits.order_imaging')}}</a>
-                                <a href="{{ route('visits.treatments.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ {{__('his.visits.add_treatment_plan')}}</a>
-                                <a href="{{ route('visits.spectacles.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ {{__('his.visits.spectacle_prescription')}}</a>
+                                <a href="{{ route('visits.prescriptions.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ {{__('visits.add_prescription')}}</a>
+                                <a href="{{ route('visits.imaging.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ {{__('visits.order_imaging')}}</a>
+                                <a href="{{ route('visits.treatments.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ {{__('visits.add_treatment_plan')}}</a>
+                                <a href="{{ route('visits.spectacles.create', $visit) }}" class="block text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">+ {{__('visits.spectacle_prescription')}}</a>
                             </div>
                         </div>
                     </div>
@@ -219,7 +218,7 @@
                                         <span class="@if($study->status === 'done') text-green-600 dark:text-green-400 @else text-yellow-600 dark:text-yellow-400 @endif mr-2">
                                             @if($study->status === 'done') ✓ @else ○ @endif
                                         </span>
-                                        <span class="text-gray-900 dark:text-white">{{ __("his.imaging_modalities.{$study->modality}") }} {{ __("his.imaging_eyes.{$study->eye}") }}</span>
+                                        <span class="text-gray-900 dark:text-white">{{ __("imaging.modalities.{$study->modality}") }} {{ __("imaging.eyes.{$study->eye}") }}</span>
                                         <span class="text-gray-500 dark:text-gray-400 ml-auto">{{ $study->created_at->diffForHumans() }}</span>
                                     </div>
                                 @endforeach
@@ -233,7 +232,7 @@
             <!-- Back Button -->
             <div class="flex justify-between">
                 <a href="{{ route('visits.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                    ← {{ __('his.back') }}
+                    ← {{ __('common.back') }}
                 </a>
             </div>
         </div>

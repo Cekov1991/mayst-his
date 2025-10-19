@@ -18,18 +18,18 @@
 
                     <!-- Patients Link -->
                     <x-nav-link href="{{ route('patients.index') }}" :active="request()->routeIs('patients.*')">
-                        {{ __('his.patients.title') }}
+                        {{ __('patients.title') }}
                     </x-nav-link>
 
                     <!-- Visits Link -->
                     <x-nav-link href="{{ route('visits.index') }}" :active="request()->routeIs('visits.*')">
-                        {{ __('his.visits.title') }}
+                        {{ __('visits.title') }}
                     </x-nav-link>
 
                     <!-- Doctor Queue Link (Only for Doctors) -->
                     @can('accessDoctorQueue')
                         <x-nav-link href="{{ route('doctor.queue') }}" :active="request()->routeIs('doctor.queue')">
-                            {{ __('his.visits.queue') }}
+                            {{ __('visits.queue') }}
                         </x-nav-link>
                     @endcan
                 </div>
@@ -163,18 +163,18 @@
 
             <!-- Patients Link -->
             <x-responsive-nav-link href="{{ route('patients.index') }}" :active="request()->routeIs('patients.*')">
-                {{ __('his.patients.title') }}
+                {{ __('patients.title') }}
             </x-responsive-nav-link>
 
             <!-- Visits Link -->
             <x-responsive-nav-link href="{{ route('visits.index') }}" :active="request()->routeIs('visits.*')">
-                {{ __('his.visits.title') }}
+                {{ __('visits.title') }}
             </x-responsive-nav-link>
 
             <!-- Doctor Queue Link (Only for Doctors) -->
             @can('accessDoctorQueue')
                 <x-responsive-nav-link href="{{ route('doctor.queue') }}" :active="request()->routeIs('doctor.queue')">
-                    {{ __('his.visits.queue') }}
+                    {{ __('visits.queue') }}
                 </x-responsive-nav-link>
             @endcan
         </div>

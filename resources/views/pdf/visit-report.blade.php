@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ __('his.pdf.visit_report') }} - {{ $visit->patient->full_name }}</title>
+    <title>{{ __('pdf.visit_report') }} - {{ $visit->patient->full_name }}</title>
     <style>
         * {
             margin: 0;
@@ -178,41 +178,41 @@
 <body>
     <!-- Header -->
     <div class="header">
-        <h1>{{ __('his.pdf.visit_report') }}</h1>
-        <div class="subtitle">{{ __('his.pdf.generated_on') }}: {{ now()->format('d/m/Y H:i') }}</div>
+        <h1>{{ __('pdf.visit_report') }}</h1>
+        <div class="subtitle">{{ __('pdf.generated_on') }}: {{ now()->format('d/m/Y H:i') }}</div>
     </div>
 
     <!-- Patient Demographics -->
     <div class="section">
-        <h2 class="section-title">{{ __('his.pdf.patient_information') }}</h2>
+        <h2 class="section-title">{{ __('pdf.patient_information') }}</h2>
         <div class="grid">
             <div class="grid-row">
                 <div class="grid-col grid-col-2">
-                    <div class="label">{{ __('his.patients.full_name') }}</div>
+                    <div class="label">{{ __('patients.full_name') }}</div>
                     <div class="value">{{ $visit->patient->full_name }}</div>
                 </div>
                 <div class="grid-col grid-col-2">
-                    <div class="label">{{ __('his.patients.dob') }}</div>
+                    <div class="label">{{ __('patients.dob') }}</div>
                     <div class="value">{{ $visit->patient->dob?->format('d/m/Y') ?? '—' }}</div>
                 </div>
             </div>
             <div class="grid-row">
                 <div class="grid-col grid-col-2">
-                    <div class="label">{{ __('his.patients.sex') }}</div>
-                    <div class="value">{{ __("his.sex_options.{$visit->patient->sex}") }}</div>
+                    <div class="label">{{ __('patients.sex') }}</div>
+                    <div class="value">{{ __("common.sex_options.{$visit->patient->sex}") }}</div>
                 </div>
                 <div class="grid-col grid-col-2">
-                    <div class="label">{{ __('his.patients.unique_master_citizen_number') }}</div>
+                    <div class="label">{{ __('patients.unique_master_citizen_number') }}</div>
                     <div class="value">{{ $visit->patient->unique_master_citizen_number ?? '—' }}</div>
                 </div>
             </div>
             <div class="grid-row">
                 <div class="grid-col grid-col-2">
-                    <div class="label">{{ __('his.patients.phone') }}</div>
+                    <div class="label">{{ __('patients.phone') }}</div>
                     <div class="value">{{ $visit->patient->phone ?? '—' }}</div>
                 </div>
                 <div class="grid-col grid-col-2">
-                    <div class="label">{{ __('his.patients.email') }}</div>
+                    <div class="label">{{ __('patients.email') }}</div>
                     <div class="value">{{ $visit->patient->email ?? '—' }}</div>
                 </div>
             </div>
@@ -221,29 +221,29 @@
 
     <!-- Visit Information -->
     <div class="section">
-        <h2 class="section-title">{{ __('his.pdf.visit_information') }}</h2>
+        <h2 class="section-title">{{ __('pdf.visit_information') }}</h2>
         <div class="grid">
             <div class="grid-row">
                 <div class="grid-col grid-col-3">
-                    <div class="label">{{ __('his.visits.scheduled_at') }}</div>
+                    <div class="label">{{ __('visits.scheduled_at') }}</div>
                     <div class="value">{{ $visit->scheduled_at->format('d/m/Y H:i') }}</div>
                 </div>
                 <div class="grid-col grid-col-3">
-                    <div class="label">{{ __('his.visits.type') }}</div>
-                    <div class="value">{{ __("his.visit_types.{$visit->type}") }}</div>
+                    <div class="label">{{ __('visits.type') }}</div>
+                    <div class="value">{{ __("visits.types.{$visit->type}") }}</div>
                 </div>
                 <div class="grid-col grid-col-3">
-                    <div class="label">{{ __('his.visits.status') }}</div>
-                    <div class="value">{{ __("his.visit_status.{$visit->status}") }}</div>
+                    <div class="label">{{ __('visits.status') }}</div>
+                    <div class="value">{{ __("visits.statuses.{$visit->status}") }}</div>
                 </div>
             </div>
             <div class="grid-row">
                 <div class="grid-col grid-col-2">
-                    <div class="label">{{ __('his.visits.doctor') }}</div>
+                    <div class="label">{{ __('visits.doctor') }}</div>
                     <div class="value">{{ $visit->doctor->name }}</div>
                 </div>
                 <div class="grid-col grid-col-2">
-                    <div class="label">{{ __('his.visits.reason_for_visit') }}</div>
+                    <div class="label">{{ __('visits.reason_for_visit') }}</div>
                     <div class="value">{{ $visit->reason_for_visit ?? '—' }}</div>
                 </div>
             </div>
@@ -252,13 +252,13 @@
 
     <!-- Anamnesis -->
     <div class="section">
-        <h2 class="section-title">{{ __('his.workspace.anamnesis') }}</h2>
+        <h2 class="section-title">{{ __('workspace.anamnesis') }}</h2>
         @if($visit->anamnesis)
             <div class="grid">
                 @if($visit->anamnesis->chief_complaint)
                     <div class="grid-row">
                         <div class="grid-col">
-                            <div class="label">{{ __('his.anamnesis.chief_complaint') }}</div>
+                            <div class="label">{{ __('anamnesis.chief_complaint') }}</div>
                             <div class="value text-content">{{ $visit->anamnesis->chief_complaint }}</div>
                         </div>
                     </div>
@@ -267,7 +267,7 @@
                 @if($visit->anamnesis->history_of_present_illness)
                     <div class="grid-row">
                         <div class="grid-col">
-                            <div class="label">{{ __('his.anamnesis.history_of_present_illness') }}</div>
+                            <div class="label">{{ __('anamnesis.history_of_present_illness') }}</div>
                             <div class="value text-content">{{ $visit->anamnesis->history_of_present_illness }}</div>
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                 @if($visit->anamnesis->past_medical_history)
                     <div class="grid-row">
                         <div class="grid-col">
-                            <div class="label">{{ __('his.anamnesis.past_medical_history') }}</div>
+                            <div class="label">{{ __('anamnesis.past_medical_history') }}</div>
                             <div class="value text-content">{{ $visit->anamnesis->past_medical_history }}</div>
                         </div>
                     </div>
@@ -285,7 +285,7 @@
                 @if($visit->anamnesis->family_history)
                     <div class="grid-row">
                         <div class="grid-col">
-                            <div class="label">{{ __('his.anamnesis.family_history') }}</div>
+                            <div class="label">{{ __('anamnesis.family_history') }}</div>
                             <div class="value text-content">{{ $visit->anamnesis->family_history }}</div>
                         </div>
                     </div>
@@ -294,7 +294,7 @@
                 @if($visit->anamnesis->medications_current)
                     <div class="grid-row">
                         <div class="grid-col">
-                            <div class="label">{{ __('his.anamnesis.medications_current') }}</div>
+                            <div class="label">{{ __('anamnesis.medications_current') }}</div>
                             <div class="value text-content">{{ $visit->anamnesis->medications_current }}</div>
                         </div>
                     </div>
@@ -303,7 +303,7 @@
                 @if($visit->anamnesis->allergies)
                     <div class="grid-row">
                         <div class="grid-col">
-                            <div class="label">{{ __('his.anamnesis.allergies') }}</div>
+                            <div class="label">{{ __('anamnesis.allergies') }}</div>
                             <div class="value text-content">{{ $visit->anamnesis->allergies }}</div>
                         </div>
                     </div>
@@ -312,7 +312,7 @@
                 @if($visit->anamnesis->therapy_in_use)
                     <div class="grid-row">
                         <div class="grid-col">
-                            <div class="label">{{ __('his.anamnesis.therapy_in_use') }}</div>
+                            <div class="label">{{ __('anamnesis.therapy_in_use') }}</div>
                             <div class="value text-content">{{ $visit->anamnesis->therapy_in_use }}</div>
                         </div>
                     </div>
@@ -321,53 +321,53 @@
                 @if($visit->anamnesis->other_notes)
                     <div class="grid-row">
                         <div class="grid-col">
-                            <div class="label">{{ __('his.anamnesis.other_notes') }}</div>
+                            <div class="label">{{ __('anamnesis.other_notes') }}</div>
                             <div class="value text-content">{{ $visit->anamnesis->other_notes }}</div>
                         </div>
                     </div>
                 @endif
             </div>
         @else
-            <div class="empty-state">{{ __('his.pdf.no_anamnesis_recorded') }}</div>
+            <div class="empty-state">{{ __('pdf.no_anamnesis_recorded') }}</div>
         @endif
     </div>
 
     <!-- Ophthalmic Examination -->
     <div class="section">
-        <h2 class="section-title">{{ __('his.workspace.examination') }}</h2>
+        <h2 class="section-title">{{ __('workspace.examination') }}</h2>
         @if($visit->ophthalmicExam)
             <div class="grid">
                 <div class="grid-row">
                     <div class="grid-col grid-col-2">
-                        <div class="label">{{ __('his.exam.visus_od') }}</div>
+                        <div class="label">{{ __('examination.visus_od') }}</div>
                         <div class="value">{{ $visit->ophthalmicExam->visus_od ?? '—' }}</div>
                     </div>
                     <div class="grid-col grid-col-2">
-                        <div class="label">{{ __('his.exam.visus_os') }}</div>
+                        <div class="label">{{ __('examination.visus_os') }}</div>
                         <div class="value">{{ $visit->ophthalmicExam->visus_os ?? '—' }}</div>
                     </div>
                 </div>
                 <div class="grid-row">
                     <div class="grid-col grid-col-2">
-                        <div class="label">{{ __('his.exam.iop_od') }}</div>
+                        <div class="label">{{ __('examination.iop_od') }}</div>
                         <div class="value">{{ $visit->ophthalmicExam->iop_od ?? '—' }}</div>
                     </div>
                     <div class="grid-col grid-col-2">
-                        <div class="label">{{ __('his.exam.iop_os') }}</div>
+                        <div class="label">{{ __('examination.iop_os') }}</div>
                         <div class="value">{{ $visit->ophthalmicExam->iop_os ?? '—' }}</div>
                     </div>
                 </div>
                 <div class="grid-row">
                     @if($visit->ophthalmicExam->anterior_segment_findings_od)
                         <div class="grid-col grid-col-2">
-                            <div class="label">{{ __('his.exam.anterior_segment_findings_od') }}</div>
+                            <div class="label">{{ __('examination.anterior_segment_findings_od') }}</div>
                             <div class="value text-content">{{ $visit->ophthalmicExam->anterior_segment_findings_od }}</div>
                         </div>
                     @endif
 
                     @if($visit->ophthalmicExam->anterior_segment_findings_os)
                         <div class="grid-col grid-col-2">
-                            <div class="label">{{ __('his.exam.anterior_segment_findings_os') }}</div>
+                            <div class="label">{{ __('examination.anterior_segment_findings_os') }}</div>
                             <div class="value text-content">{{ $visit->ophthalmicExam->anterior_segment_findings_os }}</div>
                         </div>
                     @endif
@@ -376,14 +376,14 @@
                 <div class="grid-row">
                     @if($visit->ophthalmicExam->posterior_segment_findings_od)
                         <div class="grid-col grid-col-2">
-                            <div class="label">{{ __('his.exam.posterior_segment_findings_od') }}</div>
+                            <div class="label">{{ __('examination.posterior_segment_findings_od') }}</div>
                             <div class="value text-content">{{ $visit->ophthalmicExam->posterior_segment_findings_od }}</div>
                         </div>
                     @endif
 
                     @if($visit->ophthalmicExam->posterior_segment_findings_os)
                         <div class="grid-col grid-col-2">
-                            <div class="label">{{ __('his.exam.posterior_segment_findings_os') }}</div>
+                            <div class="label">{{ __('examination.posterior_segment_findings_os') }}</div>
                             <div class="value text-content">{{ $visit->ophthalmicExam->posterior_segment_findings_os }}</div>
                         </div>
                     @endif
@@ -392,23 +392,23 @@
 
             <!-- Refraction Data -->
             @if($visit->ophthalmicExam->refractions->isNotEmpty())
-                <h3 style="margin-top: 15px; margin-bottom: 10px; font-size: 12pt;">{{ __('his.refraction.title') }}</h3>
+                <h3 style="margin-top: 15px; margin-bottom: 10px; font-size: 12pt;">{{ __('refraction.title') }}</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th>{{ __('his.refraction.eye') }}</th>
-                            <th>{{ __('his.refraction.method') }}</th>
-                            <th>{{ __('his.refraction.sphere') }}</th>
-                            <th>{{ __('his.refraction.cylinder') }}</th>
-                            <th>{{ __('his.refraction.axis') }}</th>
-                            <th>{{ __('his.refraction.add_power') }}</th>
-                            <th>{{ __('his.refraction.notes') }}</th>
+                            <th>{{ __('refraction.eye') }}</th>
+                            <th>{{ __('refraction.method') }}</th>
+                            <th>{{ __('refraction.sphere') }}</th>
+                            <th>{{ __('refraction.cylinder') }}</th>
+                            <th>{{ __('refraction.axis') }}</th>
+                            <th>{{ __('refraction.add_power') }}</th>
+                            <th>{{ __('refraction.notes') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($visit->ophthalmicExam->refractions as $refraction)
                             <tr>
-                                <td>{{ __("his.exam.{$refraction->eye}") }}</td>
+                                <td>{{ __("examination.{$refraction->eye}") }}</td>
                                 <td>{{ $refraction->method ?? '—' }}</td>
                                 <td>{{ $refraction->sphere ?? '—' }}</td>
                                 <td>{{ $refraction->cylinder ?? '—' }}</td>
@@ -421,22 +421,22 @@
                 </table>
             @endif
         @else
-            <div class="empty-state">{{ __('his.pdf.no_examination_recorded') }}</div>
+            <div class="empty-state">{{ __('pdf.no_examination_recorded') }}</div>
         @endif
     </div>
 
     <!-- Diagnoses -->
     <div class="section">
-        <h2 class="section-title">{{ __('his.workspace.diagnoses') }}</h2>
+        <h2 class="section-title">{{ __('workspace.diagnoses') }}</h2>
         @if($visit->diagnoses->isNotEmpty())
             <table>
                 <thead>
                     <tr>
-                        <th>{{ __('his.diagnoses.code') }}</th>
-                        <th>{{ __('his.diagnoses.term') }}</th>
-                        <th>{{ __('his.diagnoses.onset_date') }}</th>
-                        <th>{{ __('his.diagnoses.is_primary') }}</th>
-                        <th>{{ __('his.diagnoses.notes_placeholder') }}</th>
+                        <th>{{ __('diagnoses.code') }}</th>
+                        <th>{{ __('diagnoses.term') }}</th>
+                        <th>{{ __('diagnoses.onset_date') }}</th>
+                        <th>{{ __('diagnoses.is_primary') }}</th>
+                        <th>{{ __('diagnoses.notes_placeholder') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -445,57 +445,57 @@
                             <td>{{ $diagnosis->code ?? '—' }}</td>
                             <td>{{ $diagnosis->term }}</td>
                             <td>{{ $diagnosis->onset_date?->format('d/m/Y') ?? '—' }}</td>
-                            <td>{{ $diagnosis->is_primary ? __('his.yes') : __('his.no') }}</td>
+                            <td>{{ $diagnosis->is_primary ? __('yes') : __('no') }}</td>
                             <td>{{ $diagnosis->notes ?? '—' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         @else
-            <div class="empty-state">{{ __('his.pdf.no_diagnoses_recorded') }}</div>
+            <div class="empty-state">{{ __('pdf.no_diagnoses_recorded') }}</div>
         @endif
     </div>
 
     <!-- Imaging Studies -->
     <div class="section">
-        <h2 class="section-title">{{ __('his.workspace.imaging') }}</h2>
+        <h2 class="section-title">{{ __('workspace.imaging') }}</h2>
         @if($visit->imagingStudies->isNotEmpty())
             <table>
                 <thead>
                     <tr>
-                        <th>{{ __('his.imaging.modality') }}</th>
-                        <th>{{ __('his.imaging.eye') }}</th>
-                        <th>{{ __('his.imaging.status') }}</th>
-                        <th>{{ __('his.imaging.findings') }}</th>
+                        <th>{{ __('imaging.modality') }}</th>
+                        <th>{{ __('imaging.eye') }}</th>
+                        <th>{{ __('imaging.status') }}</th>
+                        <th>{{ __('imaging.findings') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($visit->imagingStudies as $imaging)
                         <tr>
-                            <td>{{ __("his.imaging_modalities.{$imaging->modality}") }}</td>
-                            <td>{{ __("his.imaging_eyes.{$imaging->eye}") }}</td>
-                            <td>{{ __("his.imaging_status.{$imaging->status}") }}</td>
+                            <td>{{ __("imaging.modalities.{$imaging->modality}") }}</td>
+                            <td>{{ __("imaging.eyes.{$imaging->eye}") }}</td>
+                            <td>{{ __("imaging.statuses.{$imaging->status}") }}</td>
                             <td>{{ $imaging->findings ?? '—' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         @else
-            <div class="empty-state">{{ __('his.pdf.no_imaging_recorded') }}</div>
+            <div class="empty-state">{{ __('pdf.no_imaging_recorded') }}</div>
         @endif
     </div>
 
     <!-- Treatment Plans -->
     <div class="section">
-        <h2 class="section-title">{{ __('his.workspace.treatments') }}</h2>
+        <h2 class="section-title">{{ __('workspace.treatments') }}</h2>
         @if($visit->treatmentPlans->isNotEmpty())
             <table>
                 <thead>
                     <tr>
-                        <th>{{ __('his.treatment.plan_type') }}</th>
-                        <th>{{ __('his.treatment.recommendation') }}</th>
-                        <th>{{ __('his.treatment.details') }}</th>
-                        <th>{{ __('his.treatment.planned_date') }}</th>
+                        <th>{{ __('treatments.plan_type') }}</th>
+                        <th>{{ __('treatments.recommendation') }}</th>
+                        <th>{{ __('treatments.details') }}</th>
+                        <th>{{ __('treatments.planned_date') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -510,13 +510,13 @@
                 </tbody>
             </table>
         @else
-            <div class="empty-state">{{ __('his.pdf.no_treatments_recorded') }}</div>
+            <div class="empty-state">{{ __('pdf.no_treatments_recorded') }}</div>
         @endif
     </div>
 
     <!-- Prescriptions -->
     <div class="section">
-        <h2 class="section-title">{{ __('his.workspace.prescriptions') }}</h2>
+        <h2 class="section-title">{{ __('workspace.prescriptions') }}</h2>
         @if($visit->prescriptions->isNotEmpty())
             @foreach($visit->prescriptions as $prescription)
                 <div style="margin-bottom: 15px;">
@@ -527,11 +527,11 @@
                     <table style="margin-top: 10px;">
                         <thead>
                             <tr>
-                                <th>{{ __('his.prescriptions.medication_name') }}</th>
-                                <th>{{ __('his.prescriptions.dosage') }}</th>
-                                <th>{{ __('his.prescriptions.frequency') }}</th>
-                                <th>{{ __('his.prescriptions.duration') }}</th>
-                                <th>{{ __('his.prescriptions.instructions') }}</th>
+                                <th>{{ __('prescriptions.medication_name') }}</th>
+                                <th>{{ __('prescriptions.dosage') }}</th>
+                                <th>{{ __('prescriptions.frequency') }}</th>
+                                <th>{{ __('prescriptions.duration') }}</th>
+                                <th>{{ __('prescriptions.instructions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -549,30 +549,30 @@
                 </div>
             @endforeach
         @else
-            <div class="empty-state">{{ __('his.pdf.no_prescriptions_recorded') }}</div>
+            <div class="empty-state">{{ __('pdf.no_prescriptions_recorded') }}</div>
         @endif
     </div>
 
     <!-- Spectacle Prescriptions -->
     <div class="section">
-        <h2 class="section-title">{{ __('his.workspace.spectacles') }}</h2>
+        <h2 class="section-title">{{ __('workspace.spectacles') }}</h2>
         @if($visit->spectaclePrescriptions->isNotEmpty())
             <table>
                 <thead>
                     <tr>
-                        <th>{{ __('his.spectacles.eye') }}</th>
-                        <th>{{ __('his.spectacles.sphere') }}</th>
-                        <th>{{ __('his.spectacles.cylinder') }}</th>
-                        <th>{{ __('his.spectacles.axis') }}</th>
-                        <th>{{ __('his.spectacles.add') }}</th>
-                        <th>{{ __('his.spectacles.prism') }}</th>
-                        <th>{{ __('his.spectacles.pd') }}</th>
+                        <th>{{ __('spectacles.eye') }}</th>
+                        <th>{{ __('spectacles.sphere') }}</th>
+                        <th>{{ __('spectacles.cylinder') }}</th>
+                        <th>{{ __('spectacles.axis') }}</th>
+                        <th>{{ __('spectacles.add') }}</th>
+                        <th>{{ __('spectacles.prism') }}</th>
+                        <th>{{ __('spectacles.pd') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($visit->spectaclePrescriptions as $spectacle)
                         <tr>
-                            <td>{{ __("his.exam.{$spectacle->eye}") }}</td>
+                            <td>{{ __("examination.{$spectacle->eye}") }}</td>
                             <td>{{ $spectacle->sphere ?? '—' }}</td>
                             <td>{{ $spectacle->cylinder ?? '—' }}</td>
                             <td>{{ $spectacle->axis ?? '—' }}</td>
@@ -584,7 +584,7 @@
                 </tbody>
             </table>
         @else
-            <div class="empty-state">{{ __('his.pdf.no_spectacles_recorded') }}</div>
+            <div class="empty-state">{{ __('pdf.no_spectacles_recorded') }}</div>
         @endif
     </div>
 
@@ -593,19 +593,19 @@
         <div class="signature-area">
             <div class="signature-box">
                 <div class="signature-line">
-                    {{ __('his.pdf.doctor_signature') }}<br>
+                    {{ __('pdf.doctor_signature') }}<br>
                     {{ $visit->doctor->name }}
                 </div>
             </div>
             <div class="signature-box">
                 <div class="signature-line">
-                    {{ __('his.pdf.date') }}<br>
+                    {{ __('pdf.date') }}<br>
                     {{ now()->format('d/m/Y') }}
                 </div>
             </div>
         </div>
         {{-- <div style="text-align: center; margin-top: 20px;">
-            {{ __('his.pdf.report_validation') }}
+            {{ __('pdf.report_validation') }}
         </div> --}}
     </div>
 </body>

@@ -108,7 +108,7 @@ class VisitController extends Controller
         $visit = Visit::create($validatedData);
 
         return redirect()->route('visits.show', $visit)
-            ->with('success', __('his.visits.messages.created_successfully'));
+            ->with('success', __('visits.messages.created_successfully'));
     }
 
     /**
@@ -168,7 +168,7 @@ class VisitController extends Controller
         $visit->update($validatedData);
 
         return redirect()->route('visits.show', $visit)
-            ->with('success', __('his.visits.messages.updated_successfully'));
+            ->with('success', __('visits.messages.updated_successfully'));
     }
 
     /**
@@ -182,10 +182,10 @@ class VisitController extends Controller
             $visit->delete();
 
             return redirect()->route('visits.index')
-                ->with('success', __('his.visits.messages.deleted_successfully'));
+                ->with('success', __('visits.messages.deleted_successfully'));
         } catch (\Exception $e) {
             return redirect()->route('visits.index')
-                ->with('error', __('his.visits.messages.delete_failed'));
+                ->with('error', __('visits.messages.delete_failed'));
         }
     }
 
@@ -228,7 +228,7 @@ class VisitController extends Controller
         $visit->update($updateData);
 
         return redirect()->back()
-            ->with('success', __('his.visits.messages.status_updated'));
+            ->with('success', __('visits.messages.status_updated'));
     }
 
     /**

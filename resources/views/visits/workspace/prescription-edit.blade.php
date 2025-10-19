@@ -25,7 +25,7 @@
 
                         <!-- Prescription Notes -->
                         <div>
-                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('his.prescription.notes') }}</label>
+                            <label for="notes" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('prescription.notes') }}</label>
                             <textarea name="notes" id="notes" rows="2"
                                       class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
                                       placeholder="General prescription notes...">{{ old('notes', $prescription->notes) }}</textarea>
@@ -40,7 +40,7 @@
                                 <label class="block text-sm font-medium text-gray-900 dark:text-white">Medications</label>
                                 <button type="button" onclick="addMedicationRow()"
                                         class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-900/20 dark:text-indigo-300 dark:hover:bg-indigo-900/40">
-                                    + Add Medication
+                                    + {{ __('prescriptions.add_item') }}
                                 </button>
                             </div>
 
@@ -159,11 +159,11 @@
                         <!-- Submit Button -->
                         <div class="flex justify-between pt-6">
                             <a href="{{ route('visits.prescriptions', $visit) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                ← {{ __('his.back') }}
+                                ← {{ __('back') }}
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                                {{ __('his.update') }} Prescription
+                                {{ __('update') }} Prescription
                             </button>
                         </div>
                     </form>

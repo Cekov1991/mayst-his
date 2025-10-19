@@ -45,7 +45,7 @@ class ExaminationController extends Controller
             $request->only(['visus_od', 'visus_os', 'iop_od', 'iop_os', 'anterior_segment_findings_od', 'posterior_segment_findings_od', 'anterior_segment_findings_os', 'posterior_segment_findings_os'])
         );
 
-        return redirect()->route('visits.examination', $visit)->with('success', __('his.messages.exam_saved'));
+        return redirect()->route('visits.examination', $visit)->with('success', __('messages.exam_saved'));
     }
 
     /**
