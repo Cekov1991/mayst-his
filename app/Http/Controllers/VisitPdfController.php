@@ -35,7 +35,6 @@ class VisitPdfController extends Controller
 
         return Pdf::view('pdf.visit-report', ['visit' => $visit])
             ->format('a4')
-            ->noSandbox()
             ->name($filename);
     }
 }
