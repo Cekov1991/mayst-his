@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PdfHelper;
 use App\Models\Visit;
 use Spatie\LaravelPdf\Facades\Pdf;
 
@@ -35,6 +36,7 @@ class VisitPdfController extends Controller
 
         return Pdf::view('pdf.visit-report', ['visit' => $visit])
             ->format('a4')
-            ->name($filename);
+            ->name($filename)
+            ->withBrowsershot(fn ($browsershot) => PdfHelper::configureBrowsershot($browsershot));
     }
 }
