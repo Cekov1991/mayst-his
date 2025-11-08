@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Create Treatment Plan - {{ $visit->patient->full_name }}
+            {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -21,7 +21,7 @@
                     <form action="{{ route('visits.treatments.store', $visit) }}" method="POST" class="space-y-6">
                         @csrf
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
                             <!-- Plan Type -->
                             <div>
                                 <label for="plan_type" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('treatments.plan_type') }}</label>
@@ -37,33 +37,6 @@
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
-
-                            <!-- Status -->
-                            <div>
-                                <label for="status" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('treatments.status') }}</label>
-                                <select name="status" id="status" required
-                                        class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:focus:ring-indigo-500">
-                                    <option value="proposed" {{ old('status') === 'proposed' ? 'selected' : '' }}>Proposed</option>
-                                    <option value="accepted" {{ old('status') === 'accepted' ? 'selected' : '' }}>Accepted</option>
-                                    <option value="scheduled" {{ old('status') === 'scheduled' ? 'selected' : '' }}>Scheduled</option>
-                                    <option value="done" {{ old('status') === 'done' ? 'selected' : '' }}>Done</option>
-                                    <option value="declined" {{ old('status') === 'declined' ? 'selected' : '' }}>Declined</option>
-                                </select>
-                                @error('status')
-                                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- Recommendation -->
-                        <div>
-                            <label for="recommendation" class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('treatments.recommendation') }}</label>
-                            <input type="text" name="recommendation" id="recommendation" value="{{ old('recommendation') }}" required
-                                   class="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:placeholder:text-gray-500 dark:focus:ring-indigo-500"
-                                   placeholder="Brief treatment recommendation...">
-                            @error('recommendation')
-                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                            @enderror
                         </div>
 
                         <!-- Details -->
@@ -94,7 +67,7 @@
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                                {{ __('common.save') }} Treatment Plan
+                                {{ __('common.save') }}
                             </button>
                         </div>
                     </form>

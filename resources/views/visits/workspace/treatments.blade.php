@@ -30,10 +30,8 @@
                         <x-table>
                             <x-slot name="head">
                                 <x-table-header>{{ __('treatments.plan_type') }}</x-table-header>
-                                <x-table-header-secondary>{{ __('treatments.recommendation') }}</x-table-header-secondary>
-                                <x-table-header-secondary>{{ __('treatments.status') }}</x-table-header-secondary>
                                 <x-table-header-secondary>{{ __('treatments.planned_date') }}</x-table-header-secondary>
-                                <x-table-header-secondary>{{ __('date') }}</x-table-header-secondary>
+                                <x-table-header-secondary>{{ __('common.date') }}</x-table-header-secondary>
                                 <x-table-action-header>{{ __('actions') }}</x-table-action-header>
                             </x-slot>
 
@@ -47,26 +45,6 @@
                                                 @elseif($plan->plan_type === 'medical') bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300
                                                 @else bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-300 @endif">
                                                 {{ __("treatments.types.{$plan->plan_type}") }}
-                                            </span>
-                                        </x-table-cell>
-
-                                        <x-table-cell>
-                                            <div class="max-w-xs">
-                                                <div class="font-medium text-gray-900 dark:text-white">{{ $plan->recommendation }}</div>
-                                                @if($plan->details)
-                                                    <div class="text-sm text-gray-500 dark:text-gray-400 truncate">{{ Str::limit($plan->details, 60) }}</div>
-                                                @endif
-                                            </div>
-                                        </x-table-cell>
-
-                                        <x-table-cell>
-                                            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
-                                                @if($plan->status === 'proposed') bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300
-                                                @elseif($plan->status === 'accepted') bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300
-                                                @elseif($plan->status === 'scheduled') bg-indigo-100 text-indigo-800 dark:bg-indigo-900/20 dark:text-indigo-300
-                                                @elseif($plan->status === 'done') bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300
-                                                @else bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300 @endif">
-                                                {{ __("treatments.statuses.{$plan->status}") }}
                                             </span>
                                         </x-table-cell>
 

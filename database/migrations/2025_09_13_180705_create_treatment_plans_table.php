@@ -15,10 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('visit_id')->constrained()->cascadeOnDelete();
             $table->string('plan_type'); // surgery|injection|medical|advice
-            $table->string('recommendation');
             $table->text('details')->nullable();
             $table->date('planned_date')->nullable();
-            $table->string('status'); // proposed|accepted|scheduled|done|declined
             $table->timestamps();
         });
     }

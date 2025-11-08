@@ -155,9 +155,9 @@
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
                                 @if($visit->ophthalmicExam)
-                                    {{ __('update') }} {{ __('workspace.examination') }}
+                                    {{ __('common.update') }}
                                 @else
-                                    {{ __('common.save') }} {{ __('workspace.examination') }}
+                                    {{ __('common.save') }}
                                 @endif
                             </button>
                         </div>
@@ -225,10 +225,10 @@
                         @else
                             <x-table-empty
                                 colspan="7"
-                                title="{{ __('common.no_records') }}"
-                                message="{{ __('common.no_records_message') }}"
+                                title="{{ __('common.table_empty.title') }}"
+                                message="{{ __('common.table_empty.message') }}"
                                 :actionUrl="route('visits.refractions.create', $visit)"
-                                actionText="{{ __('common.add_first_refraction') }}"
+                                actionText="{{ __('common.table_empty.action_text') }}"
                             />
                         @endif
                     </div>

@@ -33,7 +33,7 @@
                                 <x-table-header-secondary>{{__('imaging.eye')}}</x-table-header-secondary>
                                 <x-table-header-secondary>{{__('imaging.status')}}</x-table-header-secondary>
                                 <x-table-header-secondary>{{__('imaging.ordered_by')}}</x-table-header-secondary>
-                                <x-table-header-secondary>{{__('date')}}</x-table-header-secondary>
+                                <x-table-header-secondary>{{__('imaging.date')}}</x-table-header-secondary>
                                 <x-table-action-header>{{__('common.table_header.actions')}}</x-table-action-header>
                             </x-slot>
 

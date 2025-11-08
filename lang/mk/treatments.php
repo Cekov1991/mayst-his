@@ -3,11 +3,10 @@
 return [
     'title' => 'План за третман',
     'add_treatment' => 'Додај план за третман',
+    'update_treatment' => 'Ажурирај план за третман',
     'plan_type' => 'Тип на план',
-    'recommendation' => 'Препорака',
     'details' => 'Детали',
     'planned_date' => 'Планирана дата',
-    'status' => 'Статус',
 
     // Types
     'types' => [

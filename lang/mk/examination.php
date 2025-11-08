@@ -10,7 +10,7 @@ return [
     'iop' => 'Очен притисок',
     'anterior_segment_findings_od' => 'Наод на преден сегмент ДО',
     'posterior_segment_findings_od' => 'Наод на заден сегмент ДО',
-    'anterior_segment_findings_os' => 'Наод на пресен сегмент ЛО',
+    'anterior_segment_findings_os' => 'Наод на преден сегмент ЛО',
     'posterior_segment_findings_os' => 'Наод на заден сегмент ЛО',
     'od' => 'Десно око (ДО)',
     'os' => 'Лево око (ЛО)',
