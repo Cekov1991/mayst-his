@@ -10,6 +10,7 @@ use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class VisitController extends Controller
@@ -22,7 +23,7 @@ class VisitController extends Controller
         $this->authorize('viewAny', Visit::class);
 
         $query = Visit::with(['patient', 'doctor'])
-            ->visibleTo(auth()->user());
+            ->visibleTo(Auth::user());
 
         // Handle search
         if ($search = $request->get('search')) {
@@ -32,9 +33,6 @@ class VisitController extends Controller
                     ->orWhereHas('patient', function ($patientQuery) use ($search) {
                         $patientQuery->where('first_name', 'LIKE', "%{$search}%")
                             ->orWhere('last_name', 'LIKE', "%{$search}%");
-                    })
-                    ->orWhereHas('doctor', function ($doctorQuery) use ($search) {
-                        $doctorQuery->where('name', 'LIKE', "%{$search}%");
                     });
             });
         }
