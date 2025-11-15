@@ -10,6 +10,7 @@ return [
     'add' => 'Add',
     'edit' => 'Edit',
     'delete' => 'Delete',
+    'select_all' => 'Select all',
     'save' => 'Save',
     'update' => 'Update',
     'cancel' => 'Cancel',
