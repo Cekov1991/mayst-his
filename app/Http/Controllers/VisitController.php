@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CopyVisitDataRequest;
 use App\Http\Requests\StoreVisitRequest;
 use App\Http\Requests\UpdateVisitRequest;
-use App\Http\Requests\CopyVisitDataRequest;
 use App\Models\Patient;
 use App\Models\User;
 use App\Models\Visit;
@@ -79,10 +79,6 @@ class VisitController extends Controller
     {
         $this->authorize('create', Visit::class);
 
-        $patients = Patient::orderBy('last_name')
-            ->orderBy('first_name')
-            ->get();
-
         $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
@@ -90,7 +86,7 @@ class VisitController extends Controller
 
         $selectedPatientId = $request->get('patient_id');
 
-        return view('visits.create', compact('patients', 'doctors', 'selectedPatientId'));
+        return view('visits.create', compact('doctors', 'selectedPatientId'));
     }
 
     /**
@@ -313,9 +309,9 @@ class VisitController extends Controller
             'treatmentPlans',
             'prescriptions.prescriptionItems',
             'spectaclePrescriptions',
-            'diagnoses' => function($query) {
+            'diagnoses' => function ($query) {
                 $query->whereIn('status', ['confirmed', 'working', 'provisional']);
-            }
+            },
         ]);
 
         return view('visits.copy-selection', compact('visit', 'previousVisit'));
@@ -408,11 +404,11 @@ class VisitController extends Controller
                 'onset_date' => $diagnosis->onset_date,
                 'severity' => $diagnosis->severity,
                 'acuity' => $diagnosis->acuity,
-                'notes' => ($diagnosis->notes ?? '') . ' (Copied from previous visit)',
+                'notes' => ($diagnosis->notes ?? '').' (Copied from previous visit)',
             ]);
         }
 
-        $copiedItems[] = __('visits.diagnoses') . ' (' . count($selectedDiagnoses) . ')';
+        $copiedItems[] = __('visits.diagnoses').' ('.count($selectedDiagnoses).')';
     }
 
     /**
@@ -443,15 +439,15 @@ class VisitController extends Controller
 
         foreach ($selectedRefractions as $refraction) {
             $refractionData = $refraction->only([
-                'eye', 'method', 'sphere', 'cylinder', 'axis', 'add_power', 'prism', 'base'
+                'eye', 'method', 'sphere', 'cylinder', 'axis', 'add_power', 'prism', 'base',
             ]);
             $refractionData['ophthalmic_exam_id'] = $exam->id;
-            $refractionData['notes'] = 'Baseline from previous visit: ' . ($refraction->notes ?? '');
+            $refractionData['notes'] = 'Baseline from previous visit: '.($refraction->notes ?? '');
 
             $exam->refractions()->create($refractionData);
         }
 
-        $copiedItems[] = __('visits.refractions') . ' (' . count($selectedRefractions) . ')';
+        $copiedItems[] = __('visits.refractions').' ('.count($selectedRefractions).')';
     }
 
     /**
@@ -464,7 +460,7 @@ class VisitController extends Controller
         foreach ($selectedPrescriptions as $prescription) {
             $newPrescription = $visit->prescriptions()->create([
                 'doctor_id' => Auth::id(),
-                'notes' => ($prescription->notes ?? '') . ' (Copied from previous visit)',
+                'notes' => ($prescription->notes ?? '').' (Copied from previous visit)',
             ]);
 
             // Copy prescription items
@@ -480,7 +476,7 @@ class VisitController extends Controller
             }
         }
 
-        $copiedItems[] = __('visits.prescriptions') . ' (' . count($selectedPrescriptions) . ')';
+        $copiedItems[] = __('visits.prescriptions').' ('.count($selectedPrescriptions).')';
     }
 
     /**
@@ -494,17 +490,17 @@ class VisitController extends Controller
             $spectacleData = $spectacle->only([
                 'od_sphere', 'od_cylinder', 'od_axis', 'od_add',
                 'os_sphere', 'os_cylinder', 'os_axis', 'os_add',
-                'pd_distance', 'pd_near', 'type'
+                'pd_distance', 'pd_near', 'type',
             ]);
             $spectacleData['visit_id'] = $visit->id;
             $spectacleData['doctor_id'] = Auth::id();
-            $spectacleData['notes'] = ($spectacle->notes ?? '') . ' (Copied from previous visit)';
+            $spectacleData['notes'] = ($spectacle->notes ?? '').' (Copied from previous visit)';
             $spectacleData['valid_until'] = $spectacle->valid_until;
 
             $visit->spectaclePrescriptions()->create($spectacleData);
         }
 
-        $copiedItems[] = __('visits.spectacle_prescriptions') . ' (' . count($selectedSpectacles) . ')';
+        $copiedItems[] = __('visits.spectacle_prescriptions').' ('.count($selectedSpectacles).')';
     }
 
     /**
@@ -517,11 +513,11 @@ class VisitController extends Controller
         foreach ($selectedPlans as $plan) {
             $visit->treatmentPlans()->create([
                 'plan_type' => $plan->plan_type,
-                'details' => ($plan->details ?? '') . ' (Continued from previous visit)',
+                'details' => ($plan->details ?? '').' (Continued from previous visit)',
                 'planned_date' => $plan->planned_date,
             ]);
         }
 
-        $copiedItems[] = __('visits.treatment_plans') . ' (' . count($selectedPlans) . ')';
+        $copiedItems[] = __('visits.treatment_plans').' ('.count($selectedPlans).')';
     }
 }

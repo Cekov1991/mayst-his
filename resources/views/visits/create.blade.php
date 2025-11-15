@@ -15,19 +15,15 @@
                         <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
                             <!-- Patient Selection -->
                             <div class="sm:col-span-2">
-                                <x-label for="patient_id" value="{{ __('visits.patient') }}" />
-                                <select id="patient_id" name="patient_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-white" required>
-                                    <option value="">{{ __('visits.patient') }}</option>
-                                    @foreach($patients as $patient)
-                                        <option value="{{ $patient->id }}" {{ old('patient_id', $selectedPatientId) == $patient->id ? 'selected' : '' }}>
-                                            {{ $patient->full_name }} - {{ $patient->dob->format('M d, Y') }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @livewire('patient-search-select', [
+                                    'value' => old('patient_id', $selectedPatientId),
+                                    'label' => __('visits.patient'),
+                                ])
                                 <x-input-error for="patient_id" class="mt-2" />
                             </div>
 
                             <!-- Doctor Selection -->
+                            @can('create-visits-for-other-doctors')
                             <div>
                                 <x-label for="doctor_id" value="{{ __('visits.doctor') }}" />
                                 <select id="doctor_id" name="doctor_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-white" required>
@@ -40,6 +36,9 @@
                                 </select>
                                 <x-input-error for="doctor_id" class="mt-2" />
                             </div>
+                            @else
+                            <input type="hidden" name="doctor_id" value="{{ auth()->user()->id }}">
+                            @endcan
 
                             <!-- Visit Type -->
                             <div>

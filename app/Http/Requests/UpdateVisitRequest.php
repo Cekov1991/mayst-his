@@ -22,7 +22,6 @@ class UpdateVisitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'patient_id' => ['required', 'exists:patients,id'],
             'doctor_id' => ['required', 'exists:users,id'],
             'type' => ['required', 'in:exam,control,surgery'],
             'status' => ['required', 'in:scheduled,arrived,in_progress,completed,cancelled'],

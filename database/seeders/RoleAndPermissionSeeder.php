@@ -25,7 +25,9 @@ class RoleAndPermissionSeeder extends Seeder
             // Visit Management (lines 38-39)
             'view-visits',
             'create-visits',
+            'create-visits-for-other-doctors',
             'edit-visits',
+            'edit-visits-for-other-doctors',
             'delete-visits',
             'manage-visit-status',
 
@@ -100,7 +102,9 @@ class RoleAndPermissionSeeder extends Seeder
             'edit-patients',
             'view-visits',
             'create-visits',
+            'create-visits-for-other-doctors',
             'edit-visits',
+            'edit-visits-for-other-doctors',
             'manage-visit-status',
 
             // NO medical workspace access
