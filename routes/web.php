@@ -37,6 +37,8 @@ Route::middleware([
     // Visit management routes
     Route::resource('visits', App\Http\Controllers\VisitController::class);
     Route::patch('/visits/{visit}/status', [App\Http\Controllers\VisitController::class, 'updateStatus'])->name('visits.updateStatus');
+    Route::get('/visits/{visit}/copy-from-previous-visit/{previousVisit}', [App\Http\Controllers\VisitController::class, 'showCopySelection'])->name('visits.copy_selection');
+    Route::post('/visits/{visit}/copy-from-previous-visit/{previousVisit}', [App\Http\Controllers\VisitController::class, 'processCopy'])->name('visits.process_copy');
 
     // Visit workspace routes - Medical workspace requires doctor access
     Route::prefix('visits/{visit}')->middleware(['auth'])->group(function () {

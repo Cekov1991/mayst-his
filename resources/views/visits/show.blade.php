@@ -62,6 +62,11 @@
                             <a href="{{ route('visits.edit', $visit) }}" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
                                 {{ __('common.edit') }}
                             </a>
+                            @if($previousVisit)
+                                <a href="{{ route('visits.copy_selection', [$visit, $previousVisit]) }}" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
+                                    {{ __('visits.copy_from_previous_visit') }} →
+                                </a>
+                            @endif
                         </div>
                     </div>
 
