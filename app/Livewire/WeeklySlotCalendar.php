@@ -23,7 +23,7 @@ class WeeklySlotCalendar extends Component
     public function mount($doctorId = null)
     {
         $this->doctorId = $doctorId;
-        $this->weekStartDate = '2025-11-25'; //now()->startOfWeek()->format('Y-m-d');
+        $this->weekStartDate = now()->startOfWeek()->format('Y-m-d');
     }
 
     public function previousWeek()

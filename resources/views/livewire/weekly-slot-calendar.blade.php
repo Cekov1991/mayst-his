@@ -43,14 +43,13 @@
 
     <div class="grid grid-cols-3 gap-4 text-center">
 
-        {{-- @dd($this->slots) --}}
     @forelse ($this->slots as $date => $timeSlots)
     <div class="mb-4 border-b border-gray-200 dark:border-gray-700 pb-4 flex flex-col gap-2 bg-white dark:bg-gray-800 rounded-md p-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ \Carbon\Carbon::parse($date)->format('D j') }}</h3>
         <div class="gap-2 grid grid-cols-2">
             @foreach($timeSlots as $time => $timeSlot)
             <div wire:click="handleSlotClick({{ $timeSlot[0]->id }})" class="border border-gray-200 dark:border-gray-700 p-2 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                <h1 class="text-gray-500 dark:text-gray-400">{{ $time }}</h1>
+                <h1 class="{{ $timeSlot[0]->status == 'blocked' ? 'bg-yellow-500 text-white' : 'text-gray-500 dark:text-gray-400' }}">{{ $time }}</h1>
             </div>
             @endforeach
         </div>

@@ -13,6 +13,7 @@ class Slot extends Model
 
     protected $fillable = [
         'doctor_id',
+        'schedule_id',
         'start_time',
         'end_time',
         'status',
@@ -30,6 +31,11 @@ class Slot extends Model
     public function doctor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'doctor_id');
+    }
+
+    public function schedule(): BelongsTo
+    {
+        return $this->belongsTo(Schedule::class);
     }
 
     public function visit(): HasOne

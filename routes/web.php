@@ -41,8 +41,11 @@ Route::middleware([
     Route::post('/visits/{visit}/copy-from-previous-visit/{previousVisit}', [App\Http\Controllers\VisitController::class, 'processCopy'])->name('visits.process_copy');
 
     // Slot management routes
-    Route::resource('slots', App\Http\Controllers\SlotController::class);
+    // Route::resource('slots', App\Http\Controllers\SlotController::class);
     Route::patch('/slots/{slot}/status', [App\Http\Controllers\SlotController::class, 'updateStatus'])->name('slots.updateStatus');
+
+    // Schedule management routes
+    Route::resource('schedules', App\Http\Controllers\ScheduleController::class);
 
     // Visit workspace routes - Medical workspace requires doctor access
     Route::prefix('visits/{visit}')->middleware(['auth'])->group(function () {
