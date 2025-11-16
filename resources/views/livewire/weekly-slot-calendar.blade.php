@@ -44,12 +44,42 @@
     <div class="grid grid-cols-3 gap-4 text-center">
 
     @forelse ($this->slots as $date => $timeSlots)
-    <div class="mb-4 border-b border-gray-200 dark:border-gray-700 pb-4 flex flex-col gap-2 bg-white dark:bg-gray-800 rounded-md p-4">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ \Carbon\Carbon::parse($date)->format('D j') }}</h3>
+    <div class="shadow-md mb-4 border-b border-gray-200 dark:border-gray-700 pb-4 flex flex-col gap-2 bg-white dark:bg-gray-800 rounded-md p-4">
+        <div class="flex flex-col items-center justify-center">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/>
+            </svg>
+
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ \Carbon\Carbon::parse($date)->format('D j') }}</h3>
+        </div>
         <div class="gap-2 grid grid-cols-2">
             @foreach($timeSlots as $time => $timeSlot)
-            <div wire:click="handleSlotClick({{ $timeSlot[0]->id }})" class="border border-gray-200 dark:border-gray-700 p-2 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                <h1 class="{{ $timeSlot[0]->status == 'blocked' ? 'bg-yellow-500 text-white' : 'text-gray-500 dark:text-gray-400' }}">{{ $time }}</h1>
+
+            <div class="{{ $timeSlot[0]->status == 'blocked' ? 'border-yellow-500 text-yellow-500' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700' }} border rounded-md border-gray-200 dark:border-gray-700 p-2 bg-white dark:bg-gray-800 cursor-pointer">
+                <div class="">
+                    <h1 class="text-xl font-bold">{{ $time }}</h1>
+                </div>
+                <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-2">
+                    @if($timeSlot[0]->status == 'available')
+                    <x-warning-button class="ms-3" wire:click="confirmBlockSlot({{ $timeSlot[0]->id }})" wire:loading.attr="disabled">
+                        <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                          </svg>
+                    </x-warning-button>
+                    @endif
+                    @if($timeSlot[0]->status == 'blocked')
+                    <x-danger-button class="ms-3" wire:click="confirmUnblockSlot({{ $timeSlot[0]->id }})" wire:loading.attr="disabled">
+                        <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4"/>
+                        </svg>
+                    </x-danger-button>
+                    @endif
+                    <x-danger-button class="ms-3" wire:click="confirmDeleteSlot({{ $timeSlot[0]->id }})" wire:loading.attr="disabled">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </x-danger-button>
+                </div>
             </div>
             @endforeach
         </div>
@@ -57,34 +87,4 @@
     @empty
         <div class="text-center text-gray-500 dark:text-gray-400">{{ __('slots.no_slots') }}</div>
     @endforelse
-
-    @if($selectedSlot)
-    <x-confirmation-modal wire:model.live="showSlotModal">
-        <x-slot name="title">
-            {{ __('slots.modal.title') }}
-        </x-slot>
-
-        <x-slot name="content">
-            {{ __('slots.modal.content') }}
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-secondary-button wire:click="closeModal" wire:loading.attr="disabled">
-                {{ __('common.cancel') }}
-            </x-secondary-button>
-            @if($selectedSlot->status == 'available')
-                <x-warning-button class="ms-3" wire:click="blockSlot({{ $selectedSlot->id }})" wire:loading.attr="disabled">
-                    {{ __('slots.block') }}
-                </x-warning-button>
-            @else
-                <x-danger-button class="ms-3" wire:click="unblockSlot({{ $selectedSlot->id }})" wire:loading.attr="disabled">
-                    {{ __('slots.unblock') }}
-                </x-danger-button>
-            @endif
-            <x-danger-button class="ms-3" wire:click="deleteSlot({{ $selectedSlot->id }})" wire:loading.attr="disabled">
-                {{ __('common.delete') }}
-            </x-danger-button>
-        </x-slot>
-    </x-confirmation-modal>
-    @endif
 </div>

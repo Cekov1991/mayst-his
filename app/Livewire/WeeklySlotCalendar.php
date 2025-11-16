@@ -18,8 +18,6 @@ class WeeklySlotCalendar extends Component
 
     public $doctorId = null;
 
-    public $timeSlots = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30'];
-
     public function mount($doctorId = null)
     {
         $this->doctorId = $doctorId;
@@ -66,6 +64,7 @@ class WeeklySlotCalendar extends Component
             fn ($slot) => $slot->start_time->format('Y-m-d'),
             fn ($slot) => $slot->start_time->format('H:i'),
         ]);
+
         return $slots;
     }
 
@@ -86,6 +85,8 @@ class WeeklySlotCalendar extends Component
     public $selectedSlot = null;
 
     public $showSlotModal = false;
+
+    protected $listeners = ['deleteSlotConfirmed' => 'deleteSlot', 'blockSlotConfirmed' => 'blockSlot', 'unblockSlotConfirmed' => 'unblockSlot'];
 
     public function handleSlotClick($slotId)
     {
@@ -151,6 +152,38 @@ class WeeklySlotCalendar extends Component
         $this->selectedSlot = null;
         $this->showSlotModal = false;
         session()->flash('success', __('slots.messages.status_updated', ['count' => 1]));
+    }
+
+    public function confirmDeleteSlot($slotId)
+    {
+        $this->dispatch('openConfirmationModal',
+            title: __('slots.confirm_delete'),
+            content: __('slots.confirm_delete'),
+            confirmEvent: 'deleteSlotConfirmed',
+            confirmParams: [$slotId],
+            confirmText: __('common.delete'),
+            cancelText: __('common.cancel')
+        );
+    }
+
+    public function confirmBlockSlot($slotId)
+    {
+        $this->dispatch('openConfirmationModal',
+            title: __('slots.confirm_block'),
+            content: __('slots.confirm_block'),
+            confirmEvent: 'blockSlotConfirmed',
+            confirmParams: [$slotId],
+        );
+    }
+
+    public function confirmUnblockSlot($slotId)
+    {
+        $this->dispatch('openConfirmationModal',
+            title: __('slots.confirm_unblock'),
+            content: __('slots.confirm_unblock'),
+            confirmEvent: 'unblockSlotConfirmed',
+            confirmParams: [$slotId],
+        );
     }
 
     public function deleteSlot($slotId, $applyToAll = false)
