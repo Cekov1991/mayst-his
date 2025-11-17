@@ -55,11 +55,14 @@
         <div class="gap-2 grid grid-cols-2">
             @foreach($timeSlots as $time => $timeSlot)
 
-            <div class="{{ $timeSlot[0]->status == 'blocked' ? 'border-yellow-500 text-yellow-500' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700' }} border rounded-md border-gray-200 dark:border-gray-700 p-2 bg-white dark:bg-gray-800 cursor-pointer">
+            <div class="
+            {{ $timeSlot[0]->status == 'blocked' ? 'border-yellow-500 text-yellow-500' : 'text-gray-500 dark:text-gray-400' }}
+            {{ $timeSlot[0]->status == 'booked' ? 'border-green-500 text-green-500' : '' }}
+            border rounded-md border-gray-200 dark:border-gray-700 p-2 bg-white dark:bg-gray-800">
                 <div class="">
                     <h1 class="text-xl font-bold">{{ $time }}</h1>
                 </div>
-                <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-2">
+                <div class="text-center flex items-center justify-between border-t border-gray-200 pt-2">
                     @if($timeSlot[0]->status == 'available')
                     <x-warning-button class="ms-3" wire:click="confirmBlockSlot({{ $timeSlot[0]->id }})" wire:loading.attr="disabled">
                         <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -74,12 +77,20 @@
                         </svg>
                     </x-danger-button>
                     @endif
+                    @if($timeSlot[0]->status !== 'booked')
                     <x-danger-button class="ms-3" wire:click="confirmDeleteSlot({{ $timeSlot[0]->id }})" wire:loading.attr="disabled">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                         </svg>
                     </x-danger-button>
+                    @endif
                 </div>
+                @if($timeSlot[0]->status == 'booked')
+                <p class="text-xs">{{(__('slots.statuses.booked'))}}</p>
+                @endif
+                @if($timeSlot[0]->status == 'blocked')
+                <p class="text-xs">{{(__('slots.statuses.blocked'))}}</p>
+                @endif
             </div>
             @endforeach
         </div>

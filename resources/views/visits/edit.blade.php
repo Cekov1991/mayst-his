@@ -42,7 +42,7 @@
                                 <x-input-error for="doctor_id" class="mt-2" />
                             </div>
                             @else
-                            <input type="hidden" name="doctor_id" value="{{ $visit->doctor_id }}">
+                            <input type="hidden" name="doctor_id" value="{{ $visit->doctor_id }}" id="doctor_id">
                             @endcan
 
                             <!-- Visit Type -->
@@ -72,12 +72,15 @@
                                 <x-input-error for="status" class="mt-2" />
                             </div>
 
-                            <!-- Scheduled Date & Time -->
+                            <!-- Slot Selection -->
                             <div>
-                                <x-label for="scheduled_at" value="{{ __('visits.scheduled_at') }}" />
-                                <x-input id="scheduled_at" type="datetime-local" name="scheduled_at"
-                                         value="{{ old('scheduled_at', $visit->scheduled_at->format('Y-m-d\TH:i')) }}"
-                                         class="mt-1 block w-full" required />
+                                @livewire('available-slot-selector', [
+                                    'doctorId' => $visit->doctor_id,
+                                    'selectedDate' => $visit->scheduled_at ? \Carbon\Carbon::parse($visit->scheduled_at)->format('Y-m-d') : null,
+                                    'selectedSlotId' => $visit->slot_id,
+                                    'label' => __('visits.scheduled_at')
+                                ])
+                                <x-input-error for="slot_id" class="mt-2" />
                                 <x-input-error for="scheduled_at" class="mt-2" />
                             </div>
 
@@ -115,4 +118,17 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const doctorSelect = document.getElementById('doctor_id');
+
+            if (doctorSelect) {
+                doctorSelect.addEventListener('change', function() {
+                    Livewire.dispatch('doctorChanged', {"doctorId": this.value});
+                });
+            }
+        });
+    </script>
+    @endpush
 </x-app-layout>

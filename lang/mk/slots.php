@@ -17,9 +17,10 @@ return [
     'no_slots' => 'Нема пронајдено термини',
     'no_slots_message' => 'Започнете со креирање на вашите први достапни термини.',
     'statuses' => [
-        'available' => 'Достапно',
-        'booked' => 'Резервирано',
-        'blocked' => 'Блокирано',
+        'available' => 'Достапен',
+        'booked' => 'Резервиран',
+        'blocked' => 'Блокиран',
+        'selected' => 'Избран Термин',
     ],
     'days' => [
         'sunday' => 'Недела',
@@ -44,7 +45,7 @@ return [
     'today' => 'Денес',
     'previous_week' => 'Претходна недела',
     'next_week' => 'Следна недела',
-    'available' => 'Достапно',
+    'available_slots' => 'Достапни Термини',
     'cannot_modify_booked' => 'Овој термин е резервиран и не може да се модифицира.',
     'messages' => [
         'created_successfully' => ':count термини креирани успешно.',

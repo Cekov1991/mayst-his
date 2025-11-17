@@ -20,6 +20,7 @@ return [
         'available' => 'Available',
         'booked' => 'Booked',
         'blocked' => 'Blocked',
+        'selected' => 'Selected',
     ],
     'days' => [
         'sunday' => 'Sunday',
@@ -33,7 +34,7 @@ return [
     'block' => 'Block',
     'unblock' => 'Unblock',
     'delete' => 'Delete',
-    'booked' => 'Booked',
+    'available_slots' => 'Available Slots',
     'confirm_block' => 'Are you sure you want to block this slot?',
     'confirm_unblock' => 'Are you sure you want to unblock this slot?',
     'confirm_delete' => 'Are you sure you want to delete this slot?',
@@ -43,7 +44,6 @@ return [
     'today' => 'Today',
     'previous_week' => 'Previous week',
     'next_week' => 'Next week',
-    'available' => 'Available',
     'cannot_modify_booked' => 'This slot is booked and cannot be modified.',
     'messages' => [
         'created_successfully' => ':count slots created successfully.',

@@ -6,6 +6,7 @@ use App\Http\Requests\CopyVisitDataRequest;
 use App\Http\Requests\StoreVisitRequest;
 use App\Http\Requests\UpdateVisitRequest;
 use App\Models\Patient;
+use App\Models\Slot;
 use App\Models\User;
 use App\Models\Visit;
 use Carbon\Carbon;
@@ -98,13 +99,43 @@ class VisitController extends Controller
 
         $validatedData = $request->validated();
 
-        // Set timestamps based on status
-        $this->setStatusTimestamps($validatedData);
+        // Use DB transaction to ensure slot booking and visit creation are atomic
+        DB::beginTransaction();
 
-        $visit = Visit::create($validatedData);
+        try {
+            // Get the slot and verify it's still available
+            $slot = Slot::lockForUpdate()->find($validatedData['slot_id']);
 
-        return redirect()->route('visits.show', $visit)
-            ->with('success', __('visits.messages.created_successfully'));
+            if (! $slot || ! $slot->isAvailable()) {
+                throw new \Exception(__('The selected time slot is no longer available.'));
+            }
+
+            // Set scheduled_at from slot if not provided
+            if (! $validatedData['scheduled_at']) {
+                $validatedData['scheduled_at'] = $slot->start_time;
+            }
+
+            // Set timestamps based on status
+            $this->setStatusTimestamps($validatedData);
+
+            // Create the visit
+            $visit = Visit::create($validatedData);
+
+            // Mark slot as booked
+            $slot->update(['status' => 'booked']);
+
+            DB::commit();
+
+            return redirect()->route('visits.show', $visit)
+                ->with('success', __('visits.messages.created_successfully'));
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -164,13 +195,57 @@ class VisitController extends Controller
 
         $validatedData = $request->validated();
 
-        // Handle status changes and timestamps
-        $this->handleStatusChange($visit, $validatedData);
+        // Use DB transaction to handle slot changes atomically
+        DB::beginTransaction();
 
-        $visit->update($validatedData);
+        try {
+            $oldSlotId = $visit->slot_id;
+            $newSlotId = $validatedData['slot_id'] ?? null;
 
-        return redirect()->route('visits.show', $visit)
-            ->with('success', __('visits.messages.updated_successfully'));
+            // Handle slot changes
+            if ($newSlotId && $oldSlotId !== $newSlotId) {
+                // Get the new slot and verify it's available
+                $newSlot = Slot::lockForUpdate()->find($newSlotId);
+
+                if (! $newSlot || ! $newSlot->isAvailable()) {
+                    throw new \Exception(__('The selected time slot is no longer available.'));
+                }
+
+                // Set scheduled_at from new slot if not provided
+                if (! $validatedData['scheduled_at']) {
+                    $validatedData['scheduled_at'] = $newSlot->start_time;
+                }
+
+                // Release old slot if it exists
+                if ($oldSlotId) {
+                    $oldSlot = Slot::find($oldSlotId);
+                    if ($oldSlot && $oldSlot->isBooked()) {
+                        $oldSlot->update(['status' => 'available']);
+                    }
+                }
+
+                // Book new slot
+                $newSlot->update(['status' => 'booked']);
+            }
+
+            // Handle status changes and timestamps
+            $this->handleStatusChange($visit, $validatedData);
+
+            // Update the visit
+            $visit->update($validatedData);
+
+            DB::commit();
+
+            return redirect()->route('visits.show', $visit)
+                ->with('success', __('visits.messages.updated_successfully'));
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -180,12 +255,26 @@ class VisitController extends Controller
     {
         $this->authorize('delete', $visit);
 
+        DB::beginTransaction();
+
         try {
+            // Release the associated slot
+            if ($visit->slot_id) {
+                $slot = Slot::find($visit->slot_id);
+                if ($slot && $slot->isBooked()) {
+                    $slot->update(['status' => 'available']);
+                }
+            }
+
             $visit->delete();
+
+            DB::commit();
 
             return redirect()->route('visits.index')
                 ->with('success', __('visits.messages.deleted_successfully'));
         } catch (\Exception $e) {
+            DB::rollback();
+
             return redirect()->route('visits.index')
                 ->with('error', __('visits.messages.delete_failed'));
         }
