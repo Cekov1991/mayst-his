@@ -15,19 +15,15 @@
                         <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
                             <!-- Patient Selection -->
                             <div class="sm:col-span-2">
-                                <x-label for="patient_id" value="{{ __('visits.patient') }}" />
-                                <select id="patient_id" name="patient_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-white" required>
-                                    <option value="">{{ __('visits.patient') }}</option>
-                                    @foreach($patients as $patient)
-                                        <option value="{{ $patient->id }}" {{ old('patient_id', $selectedPatientId) == $patient->id ? 'selected' : '' }}>
-                                            {{ $patient->full_name }} - {{ $patient->dob->format('M d, Y') }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @livewire('patient-search-select', [
+                                    'value' => old('patient_id', $selectedPatientId),
+                                    'label' => __('visits.patient'),
+                                ])
                                 <x-input-error for="patient_id" class="mt-2" />
                             </div>
 
                             <!-- Doctor Selection -->
+                            @can('create-visits-for-other-doctors')
                             <div>
                                 <x-label for="doctor_id" value="{{ __('visits.doctor') }}" />
                                 <select id="doctor_id" name="doctor_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-white" required>
@@ -40,6 +36,9 @@
                                 </select>
                                 <x-input-error for="doctor_id" class="mt-2" />
                             </div>
+                            @else
+                            <input type="hidden" name="doctor_id" value="{{ auth()->user()->id }}" id="doctor_id">
+                            @endcan
 
                             <!-- Visit Type -->
                             <div>
@@ -68,10 +67,15 @@
                                 <x-input-error for="status" class="mt-2" />
                             </div>
 
-                            <!-- Scheduled Date & Time -->
+                            <!-- Slot Selection -->
                             <div>
-                                <x-label for="scheduled_at" value="{{ __('visits.scheduled_at') }}" />
-                                <x-input id="scheduled_at" type="datetime-local" name="scheduled_at" value="{{ old('scheduled_at', now()->format('Y-m-d\TH:i')) }}" class="mt-1 block w-full" required />
+                                @livewire('available-slot-selector', [
+                                    'doctorId' => old('doctor_id'),
+                                    'selectedDate' => old('scheduled_at') ? \Carbon\Carbon::parse(old('scheduled_at'))->format('Y-m-d') : null,
+                                    'selectedSlotId' => old('slot_id'),
+                                    'label' => __('visits.scheduled_at')
+                                ])
+                                <x-input-error for="slot_id" class="mt-2" />
                                 <x-input-error for="scheduled_at" class="mt-2" />
                             </div>
 
@@ -103,4 +107,24 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const doctorSelect = document.getElementById('doctor_id');
+
+            if (doctorSelect) {
+                doctorSelect.addEventListener('change', function() {
+                    Livewire.dispatch('doctorChanged', {"doctorId": this.value});
+                });
+                // console.log(doctorSelect.value);
+
+                // If doctor is preselected (for doctors who can't select other doctors)
+                if (doctorSelect.value) {
+                    Livewire.dispatch('doctorChanged', {"doctorId": doctorSelect.value});
+                }
+            }
+        });
+    </script>
+    @endpush
 </x-app-layout>

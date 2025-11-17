@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Visit;
+use App\Observers\VisitObserver;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Spatie\LaravelPdf\Facades\Pdf;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register model observers
+        Visit::observe(VisitObserver::class);
+
         // Doctor Queue Authorization - now handled by Spatie permissions
         Gate::define('accessDoctorQueue', function ($user) {
             return $user->hasPermissionTo('access-doctor-queue') && $user->is_active;

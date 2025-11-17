@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CopyVisitDataRequest;
 use App\Http\Requests\StoreVisitRequest;
 use App\Http\Requests\UpdateVisitRequest;
-use App\Http\Requests\CopyVisitDataRequest;
 use App\Models\Patient;
+use App\Models\Slot;
 use App\Models\User;
 use App\Models\Visit;
 use Carbon\Carbon;
@@ -79,10 +80,6 @@ class VisitController extends Controller
     {
         $this->authorize('create', Visit::class);
 
-        $patients = Patient::orderBy('last_name')
-            ->orderBy('first_name')
-            ->get();
-
         $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
@@ -90,7 +87,7 @@ class VisitController extends Controller
 
         $selectedPatientId = $request->get('patient_id');
 
-        return view('visits.create', compact('patients', 'doctors', 'selectedPatientId'));
+        return view('visits.create', compact('doctors', 'selectedPatientId'));
     }
 
     /**
@@ -102,13 +99,43 @@ class VisitController extends Controller
 
         $validatedData = $request->validated();
 
-        // Set timestamps based on status
-        $this->setStatusTimestamps($validatedData);
+        // Use DB transaction to ensure slot booking and visit creation are atomic
+        DB::beginTransaction();
 
-        $visit = Visit::create($validatedData);
+        try {
+            // Get the slot and verify it's still available
+            $slot = Slot::lockForUpdate()->find($validatedData['slot_id']);
 
-        return redirect()->route('visits.show', $visit)
-            ->with('success', __('visits.messages.created_successfully'));
+            if (! $slot || ! $slot->isAvailable()) {
+                throw new \Exception(__('The selected time slot is no longer available.'));
+            }
+
+            // Set scheduled_at from slot if not provided
+            if (! $validatedData['scheduled_at']) {
+                $validatedData['scheduled_at'] = $slot->start_time;
+            }
+
+            // Set timestamps based on status
+            $this->setStatusTimestamps($validatedData);
+
+            // Create the visit
+            $visit = Visit::create($validatedData);
+
+            // Mark slot as booked
+            $slot->update(['status' => 'booked']);
+
+            DB::commit();
+
+            return redirect()->route('visits.show', $visit)
+                ->with('success', __('visits.messages.created_successfully'));
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -168,13 +195,57 @@ class VisitController extends Controller
 
         $validatedData = $request->validated();
 
-        // Handle status changes and timestamps
-        $this->handleStatusChange($visit, $validatedData);
+        // Use DB transaction to handle slot changes atomically
+        DB::beginTransaction();
 
-        $visit->update($validatedData);
+        try {
+            $oldSlotId = $visit->slot_id;
+            $newSlotId = $validatedData['slot_id'] ?? null;
 
-        return redirect()->route('visits.show', $visit)
-            ->with('success', __('visits.messages.updated_successfully'));
+            // Handle slot changes
+            if ($newSlotId && $oldSlotId !== $newSlotId) {
+                // Get the new slot and verify it's available
+                $newSlot = Slot::lockForUpdate()->find($newSlotId);
+
+                if (! $newSlot || ! $newSlot->isAvailable()) {
+                    throw new \Exception(__('The selected time slot is no longer available.'));
+                }
+
+                // Set scheduled_at from new slot if not provided
+                if (! $validatedData['scheduled_at']) {
+                    $validatedData['scheduled_at'] = $newSlot->start_time;
+                }
+
+                // Release old slot if it exists
+                if ($oldSlotId) {
+                    $oldSlot = Slot::find($oldSlotId);
+                    if ($oldSlot && $oldSlot->isBooked()) {
+                        $oldSlot->update(['status' => 'available']);
+                    }
+                }
+
+                // Book new slot
+                $newSlot->update(['status' => 'booked']);
+            }
+
+            // Handle status changes and timestamps
+            $this->handleStatusChange($visit, $validatedData);
+
+            // Update the visit
+            $visit->update($validatedData);
+
+            DB::commit();
+
+            return redirect()->route('visits.show', $visit)
+                ->with('success', __('visits.messages.updated_successfully'));
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -184,12 +255,26 @@ class VisitController extends Controller
     {
         $this->authorize('delete', $visit);
 
+        DB::beginTransaction();
+
         try {
+            // Release the associated slot
+            if ($visit->slot_id) {
+                $slot = Slot::find($visit->slot_id);
+                if ($slot && $slot->isBooked()) {
+                    $slot->update(['status' => 'available']);
+                }
+            }
+
             $visit->delete();
+
+            DB::commit();
 
             return redirect()->route('visits.index')
                 ->with('success', __('visits.messages.deleted_successfully'));
         } catch (\Exception $e) {
+            DB::rollback();
+
             return redirect()->route('visits.index')
                 ->with('error', __('visits.messages.delete_failed'));
         }
@@ -313,9 +398,9 @@ class VisitController extends Controller
             'treatmentPlans',
             'prescriptions.prescriptionItems',
             'spectaclePrescriptions',
-            'diagnoses' => function($query) {
+            'diagnoses' => function ($query) {
                 $query->whereIn('status', ['confirmed', 'working', 'provisional']);
-            }
+            },
         ]);
 
         return view('visits.copy-selection', compact('visit', 'previousVisit'));
@@ -408,11 +493,11 @@ class VisitController extends Controller
                 'onset_date' => $diagnosis->onset_date,
                 'severity' => $diagnosis->severity,
                 'acuity' => $diagnosis->acuity,
-                'notes' => ($diagnosis->notes ?? '') . ' (Copied from previous visit)',
+                'notes' => ($diagnosis->notes ?? '').' (Copied from previous visit)',
             ]);
         }
 
-        $copiedItems[] = __('visits.diagnoses') . ' (' . count($selectedDiagnoses) . ')';
+        $copiedItems[] = __('visits.diagnoses').' ('.count($selectedDiagnoses).')';
     }
 
     /**
@@ -443,15 +528,15 @@ class VisitController extends Controller
 
         foreach ($selectedRefractions as $refraction) {
             $refractionData = $refraction->only([
-                'eye', 'method', 'sphere', 'cylinder', 'axis', 'add_power', 'prism', 'base'
+                'eye', 'method', 'sphere', 'cylinder', 'axis', 'add_power', 'prism', 'base',
             ]);
             $refractionData['ophthalmic_exam_id'] = $exam->id;
-            $refractionData['notes'] = 'Baseline from previous visit: ' . ($refraction->notes ?? '');
+            $refractionData['notes'] = 'Baseline from previous visit: '.($refraction->notes ?? '');
 
             $exam->refractions()->create($refractionData);
         }
 
-        $copiedItems[] = __('visits.refractions') . ' (' . count($selectedRefractions) . ')';
+        $copiedItems[] = __('visits.refractions').' ('.count($selectedRefractions).')';
     }
 
     /**
@@ -464,7 +549,7 @@ class VisitController extends Controller
         foreach ($selectedPrescriptions as $prescription) {
             $newPrescription = $visit->prescriptions()->create([
                 'doctor_id' => Auth::id(),
-                'notes' => ($prescription->notes ?? '') . ' (Copied from previous visit)',
+                'notes' => ($prescription->notes ?? '').' (Copied from previous visit)',
             ]);
 
             // Copy prescription items
@@ -480,7 +565,7 @@ class VisitController extends Controller
             }
         }
 
-        $copiedItems[] = __('visits.prescriptions') . ' (' . count($selectedPrescriptions) . ')';
+        $copiedItems[] = __('visits.prescriptions').' ('.count($selectedPrescriptions).')';
     }
 
     /**
@@ -494,17 +579,17 @@ class VisitController extends Controller
             $spectacleData = $spectacle->only([
                 'od_sphere', 'od_cylinder', 'od_axis', 'od_add',
                 'os_sphere', 'os_cylinder', 'os_axis', 'os_add',
-                'pd_distance', 'pd_near', 'type'
+                'pd_distance', 'pd_near', 'type',
             ]);
             $spectacleData['visit_id'] = $visit->id;
             $spectacleData['doctor_id'] = Auth::id();
-            $spectacleData['notes'] = ($spectacle->notes ?? '') . ' (Copied from previous visit)';
+            $spectacleData['notes'] = ($spectacle->notes ?? '').' (Copied from previous visit)';
             $spectacleData['valid_until'] = $spectacle->valid_until;
 
             $visit->spectaclePrescriptions()->create($spectacleData);
         }
 
-        $copiedItems[] = __('visits.spectacle_prescriptions') . ' (' . count($selectedSpectacles) . ')';
+        $copiedItems[] = __('visits.spectacle_prescriptions').' ('.count($selectedSpectacles).')';
     }
 
     /**
@@ -517,11 +602,11 @@ class VisitController extends Controller
         foreach ($selectedPlans as $plan) {
             $visit->treatmentPlans()->create([
                 'plan_type' => $plan->plan_type,
-                'details' => ($plan->details ?? '') . ' (Continued from previous visit)',
+                'details' => ($plan->details ?? '').' (Continued from previous visit)',
                 'planned_date' => $plan->planned_date,
             ]);
         }
 
-        $copiedItems[] = __('visits.treatment_plans') . ' (' . count($selectedPlans) . ')';
+        $copiedItems[] = __('visits.treatment_plans').' ('.count($selectedPlans).')';
     }
 }

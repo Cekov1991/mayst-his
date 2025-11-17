@@ -40,6 +40,8 @@
 
         @stack('modals')
 
+        <livewire:confirmation-modal />
+
         <!-- Livewire Scripts -->
         @livewireScripts
         @stack('scripts')
