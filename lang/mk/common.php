@@ -69,7 +69,7 @@ return [
     'table_cell' => [
         'edit' => 'Уреди',
         'delete' => 'Избриши',
-        'view' => 'Преглед',
+        'view' => 'Отвори',
         'details' => 'Детали',
     ],
 

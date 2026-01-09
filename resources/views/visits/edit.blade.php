@@ -106,7 +106,7 @@
                             <!-- Action Buttons -->
                             <div class="flex space-x-3">
                                 <a href="{{ route('visits.show', $visit) }}" class="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                    {{ __('cancel') }}
+                                    {{ __('common.cancel') }}
                                 </a>
                                 <x-button type="submit">
                                     {{ __('common.save') }}

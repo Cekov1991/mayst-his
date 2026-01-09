@@ -4,7 +4,6 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('patients.add_patient') }}
             </h2>
-            <x-locale-switcher />
         </div>
     </x-slot>
 
@@ -166,7 +165,7 @@
 
                             <div class="flex items-center justify-end px-4 py-3 bg-gray-50 dark:bg-gray-800 text-end sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
                                 <x-secondary-button type="button" onclick="window.location.href='{{ route('patients.index') }}'">
-                                    {{ __('cancel') }}
+                                    {{ __('common.cancel') }}
                                 </x-secondary-button>
 
                                 <x-button class="ms-4">

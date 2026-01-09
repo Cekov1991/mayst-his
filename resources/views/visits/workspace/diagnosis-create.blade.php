@@ -233,7 +233,7 @@
                         <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
                             <a href="{{ route('visits.diagnoses', $visit) }}"
                                class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:bg-gray-50 disabled:opacity-25 transition">
-                                {{ __('cancel') }}
+                                {{ __('common.cancel') }}
                             </a>
                             <button type="submit"
                                     class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring focus:ring-indigo-200 active:bg-indigo-600 disabled:opacity-25 transition">

@@ -30,7 +30,7 @@
 
             <x-slot name="footer">
                 <x-secondary-button wire:click="$toggle('confirmingTeamDeletion')" wire:loading.attr="disabled">
-                    {{ __('Cancel') }}
+                    {{ __('common.cancel') }}
                 </x-secondary-button>
 
                 <x-danger-button class="ms-3" wire:click="deleteTeam" wire:loading.attr="disabled">

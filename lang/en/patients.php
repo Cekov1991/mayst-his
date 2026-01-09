@@ -23,5 +23,7 @@ return [
     'notes' => 'Notes',
     'created_at' => 'Registered',
     'visits_count' => 'Total Visits',
+    'quick_actions' => 'Quick Actions',
+    'manage_visits_and_information' => 'Manage this patient\'s visits and information.',
 ];
 

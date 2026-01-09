@@ -101,7 +101,7 @@
                                         <!-- Cancel Team Invitation -->
                                         <button class="cursor-pointer ms-6 text-sm text-red-500 focus:outline-none"
                                                             wire:click="cancelTeamInvitation({{ $invitation->id }})">
-                                            {{ __('Cancel') }}
+                                            {{ __('common.cancel') }}
                                         </button>
                                     @endif
                                 </div>
@@ -207,7 +207,7 @@
 
         <x-slot name="footer">
             <x-secondary-button wire:click="stopManagingRole" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('common.cancel') }}
             </x-secondary-button>
 
             <x-button class="ms-3" wire:click="updateRole" wire:loading.attr="disabled">
@@ -228,7 +228,7 @@
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingLeavingTeam')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('common.cancel') }}
             </x-secondary-button>
 
             <x-danger-button class="ms-3" wire:click="leaveTeam" wire:loading.attr="disabled">
@@ -249,7 +249,7 @@
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingTeamMemberRemoval')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('common.cancel') }}
             </x-secondary-button>
 
             <x-danger-button class="ms-3" wire:click="removeTeamMember" wire:loading.attr="disabled">
