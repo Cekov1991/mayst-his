@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Visit;
 use Illuminate\Support\Facades\Http;
+use Spatie\LaravelPdf\Facades\Pdf;
 
 class VisitPdfController extends Controller
 {
@@ -27,24 +28,10 @@ class VisitPdfController extends Controller
             'diagnoses',
         ]);
 
-        $visitArray = $visit->toArray();
+        return Pdf::view('pdf.visit-report', ['visit' => $visit])
+        ->format('a4')
+        ->download('visit-report.pdf');
 
-        $response = Http::post('http://host.docker.internal:3000/api/pdf/generate', [
-            'template_specifications' => [
-                "folder" => "reports",
-                "id" => "anamnesis",
-                "locale" => "mk"
-            ],
-            "data" => $visitArray
-        ]);
-
-        $base64 = $response['data']['base64'];
-        $pdf = base64_decode($base64);
-
-        return response($pdf, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="visit-report.pdf"',
-        ]);
 
     }
 }
