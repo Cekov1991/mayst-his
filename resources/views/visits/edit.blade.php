@@ -7,18 +7,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @can('delete', $visit)
-                <div class="flex justify-end mb-4">
-                    <form action="{{ route('visits.destroy', $visit) }}" method="POST"
-                        onsubmit="return confirm('{{ __('confirm_delete') }}');" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:bg-red-500 dark:hover:bg-red-600">
-                            {{ __('delete') }}
-                        </button>
-                    </form>
-                </div>
-            @endcan
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <form action="{{ route('visits.update', $visit) }}" method="POST">

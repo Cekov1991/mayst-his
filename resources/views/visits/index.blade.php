@@ -135,6 +135,14 @@
                                         <a href="{{ route('visits.edit', $visit) }}" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300">
                                             {{__('common.table_cell.edit')}}<span class="sr-only">, {{ $visit->patient->full_name }}</span>
                                         </a>
+                                        @can('delete', $visit)
+                                            <livewire:delete-button
+                                                :model="$visit"
+                                                route-name="visits.destroy"
+                                                redirect-route-name="visits.index"
+                                                :route-params="['visit' => $visit]"
+                                            />
+                                        @endcan
                                     </div>
                                 </x-table-action-cell>
                             </x-table-row>

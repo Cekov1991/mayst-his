@@ -102,6 +102,14 @@
                                         {{__('common.table_cell.edit')}}<span class="sr-only">, {{ $patient->full_name }}</span>
                                     </a>
                                 </x-table-action-cell>
+                                <x-table-action-cell>
+                                    <livewire:delete-button
+                                        :model="$patient"
+                                        route-name="patients.destroy"
+                                        redirect-route-name="patients.index"
+                                        :route-params="['patient' => $patient]"
+                                    />
+                                </x-table-action-cell>
                             </x-table-row>
                         @empty
                             <x-table-empty
