@@ -74,15 +74,11 @@
                                                    class="text-sm font-medium text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
                                                     {{__('common.table_cell.edit')}}
                                                 </a>
-                                                <form action="{{ route('visits.imaging.destroy', [$visit, $study]) }}" method="POST" class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                            onclick="return confirm('Are you sure?')"
-                                                            class="text-sm font-medium text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                        {{__('common.table_cell.delete')}}
-                                                    </button>
-                                                </form>
+                                                <livewire:delete-button
+                                                    :model="$study"
+                                                    route-name="visits.imaging.destroy"
+                                                    :route-params="['visit' => $visit]"
+                                                />
                                             </div>
                                         </x-table-action-cell>
                                     </x-table-row>

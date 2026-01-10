@@ -127,7 +127,7 @@
                             @if($previousVisit->diagnoses->isNotEmpty())
                             <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
                                 <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('visits.diagnoses') }}</h3>
+                                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('visits.diagnosis') }}</h3>
                                     <button type="button" onclick="toggleSection('diagnoses')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
                                         {{ __('common.select_all') }}
                                     </button>

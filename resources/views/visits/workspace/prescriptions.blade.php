@@ -54,15 +54,11 @@
                                                class="text-sm font-medium text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
                                                 {{ __('common.edit') }}
                                             </a>
-                                            <form action="{{ route('visits.prescriptions.destroy', [$visit, $prescription]) }}" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                        onclick="return confirm('Are you sure?')"
-                                                        class="text-sm font-medium text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                    {{ __('common.delete') }}
-                                                </button>
-                                            </form>
+                                            <livewire:delete-button
+                                                :model="$prescription"
+                                                route-name="visits.prescriptions.destroy"
+                                                :route-params="['visit' => $visit]"
+                                            />
                                         </div>
                                     </div>
 

@@ -34,7 +34,7 @@
                                         <div>
                                             <div class="flex items-center space-x-3">
                                                 <h4 class="text-md font-medium text-gray-900 dark:text-white">
-                                                    {{ __('spectacles.prescription') }} #{{ $prescription->id }}
+                                                    {{ __('spectacles.title') }} #{{ $prescription->id }}
                                                 </h4>
                                                 <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
                                                     @if($prescription->type === 'distance') bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300
@@ -45,28 +45,24 @@
                                                 </span>
                                             </div>
                                             <div class="text-sm text-gray-500 dark:text-gray-400">
-                                                Prescribed by {{ $prescription->doctor->name }} on {{ $prescription->created_at->format('M d, Y g:i A') }}
+                                                {{ __('spectacles.prescribed_by') }} {{ $prescription->doctor->name }} - {{ $prescription->created_at->format('M d, Y g:i A') }}
                                             </div>
                                             @if($prescription->valid_until)
                                                 <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                                    Valid until: {{ $prescription->valid_until->format('M d, Y') }}
+                                                    {{ __('spectacles.valid_until') }} {{ $prescription->valid_until->format('M d, Y') }}
                                                 </div>
                                             @endif
                                         </div>
                                         <div class="flex items-center space-x-2">
                                             <a href="{{ route('visits.spectacles.edit', [$visit, $prescription]) }}"
                                                class="text-sm font-medium text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                Edit
+                                                {{ __('common.table_cell.edit') }}
                                             </a>
-                                            <form action="{{ route('visits.spectacles.destroy', [$visit, $prescription]) }}" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                        onclick="return confirm('Are you sure?')"
-                                                        class="text-sm font-medium text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                            <livewire:delete-button
+                                                :model="$prescription"
+                                                route-name="visits.spectacles.destroy"
+                                                :route-params="['visit' => $visit]"
+                                            />
                                         </div>
                                     </div>
 

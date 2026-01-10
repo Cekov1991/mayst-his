@@ -59,7 +59,7 @@ Route::middleware([
         Route::get('/treatments', [App\Http\Controllers\TreatmentController::class, 'show'])->name('visits.treatments');
         Route::get('/prescriptions', [App\Http\Controllers\PrescriptionController::class, 'show'])->name('visits.prescriptions');
         Route::get('/spectacles', [App\Http\Controllers\SpectacleController::class, 'show'])->name('visits.spectacles');
-        Route::get('/diagnoses', [App\Http\Controllers\DiagnosisController::class, 'index'])->name('visits.diagnoses');
+        Route::get('/diagnoses', [App\Http\Controllers\DiagnosisController::class, 'index'])->name('visits.diagnosis');
 
         // Individual form routes
         Route::get('/imaging/create', [App\Http\Controllers\ImagingController::class, 'create'])->name('visits.imaging.create');

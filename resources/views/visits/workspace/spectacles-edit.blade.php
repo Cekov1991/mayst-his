@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Edit Spectacle Prescription - {{ $visit->patient->full_name }}
+            {{ __('spectacles.edit_prescription') }} - {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -14,8 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Edit Spectacle Prescription</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Update the spectacle prescription details.</p>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('spectacles.edit_prescription') }}</h3>
                     </div>
 
                     <!-- Spectacle Form -->

@@ -24,6 +24,8 @@ return [
     'updating' => 'Updating...',
     'no_records' => 'No records found.',
     'confirm_delete' => 'Are you sure you want to delete this record?',
+    'delete_confirm_title' => 'Confirm Deletion',
+    'delete_confirm_message' => 'Are you sure you want to delete this item? This action cannot be undone.',
     'yes' => 'Yes',
     'no' => 'No',
     'notes' => 'Notes',
@@ -91,19 +93,14 @@ return [
 
     // Messages & Notifications
     'messages' => [
-        'patient_created' => 'Patient created successfully.',
-        'patient_updated' => 'Patient updated successfully.',
-        'patient_deleted' => 'Patient deleted successfully.',
-        'visit_created' => 'Visit created successfully.',
-        'visit_updated' => 'Visit updated successfully.',
-        'visit_deleted' => 'Visit deleted successfully.',
-        'visit_started' => 'Visit started successfully.',
-        'visit_completed' => 'Visit completed successfully.',
+        'created_successfully' => 'Item created successfully.',
+        'updated_successfully' => 'Item updated successfully.',
+        'deleted_successfully' => 'Item deleted successfully.',
+        'saved_successfully' => 'Item saved successfully.',
+
         'status_updated' => 'Status updated successfully.',
-        'delete_failed' => 'Unable to delete. Please try again.',
-        'anamnesis_saved' => 'Anamnesis saved successfully.',
-        'exam_saved' => 'Examination saved successfully.',
-        'prescription_saved' => 'Prescription saved successfully.',
+        'action_failed' => 'Unable to perform action. Please try again.',
+
         'error_occurred' => 'An error occurred. Please try again.',
         'unauthorized' => 'You are not authorized to perform this action.',
         'locale_changed' => 'Language changed successfully.',

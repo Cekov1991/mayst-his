@@ -67,7 +67,7 @@ class PatientController extends Controller
 
         return redirect()
             ->route('patients.show', $patient)
-            ->with('success', __('messages.patient_created'));
+            ->with('success', __('common.messages.created_successfully'));
     }
 
     /**
@@ -110,7 +110,7 @@ class PatientController extends Controller
 
         return redirect()
             ->route('patients.show', $patient)
-            ->with('success', __('messages.patient_updated'));
+            ->with('success', __('common.messages.updated_successfully'));
     }
 
     /**

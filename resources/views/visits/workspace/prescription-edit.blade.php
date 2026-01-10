@@ -14,8 +14,8 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Edit Prescription</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Update the prescription details and medications.</p>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('spectacles.edit_prescription') }}</h3>
+
                     </div>
 
                     <!-- Prescription Form -->

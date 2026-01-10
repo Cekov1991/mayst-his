@@ -208,15 +208,12 @@
                                             <x-table-cell>{{ $refraction->add_power ?? '—' }}</x-table-cell>
 
                                             <x-table-action-cell>
-                                                <form action="{{ route('visits.refractions.destroy', [$visit, $refraction]) }}" method="POST" class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                            onclick="return confirm('{{ __('common.confirm_delete') }}')"
-                                                            class="text-sm font-medium text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                        {{ __('common.delete') }}
-                                                    </button>
-                                                </form>
+                                                <livewire:delete-button
+                                                    :model="$refraction"
+                                                    route-name="visits.refractions.destroy"
+                                                    :route-params="['visit' => $visit]"
+                                                    redirect-route-name="visits.examination"
+                                                />
                                             </x-table-action-cell>
                                         </x-table-row>
                                     @endforeach

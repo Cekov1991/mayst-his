@@ -15,7 +15,7 @@
                 <div class="p-6 lg:p-8">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('diagnoses.edit_diagnosis') }}</h3>
-                        <a href="{{ route('visits.diagnoses', $visit) }}"
+                        <a href="{{ route('visits.diagnosis', $visit) }}"
                            class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:bg-gray-50 disabled:opacity-25 transition">
                             {{ __('common.back') }}
                         </a>
@@ -232,7 +232,7 @@
                         </div>
 
                         <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
-                            <a href="{{ route('visits.diagnoses', $visit) }}"
+                            <a href="{{ route('visits.diagnosis', $visit) }}"
                                class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:bg-gray-50 disabled:opacity-25 transition">
                                 {{ __('common.cancel') }}
                             </a>

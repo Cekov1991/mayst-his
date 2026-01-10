@@ -64,7 +64,7 @@ class DoctorQueue extends Component
 
         $this->dispatch('show-message', [
             'type' => 'success',
-            'message' => __('visits.messages.status_updated')
+            'message' => __('common.messages.status_updated')
         ]);
 
         // Refresh the component
@@ -90,7 +90,7 @@ class DoctorQueue extends Component
 
         $this->dispatch('show-message', [
             'type' => 'success',
-            'message' => __('visits.messages.status_updated')
+            'message' => __('common.messages.status_updated')
         ]);
 
         // Refresh the component
