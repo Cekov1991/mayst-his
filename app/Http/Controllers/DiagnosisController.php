@@ -61,7 +61,7 @@ class DiagnosisController extends Controller
 
         $visit->diagnoses()->create($data);
 
-        return redirect()->route('visits.diagnoses', $visit)->with('success', 'Diagnosis created successfully.');
+        return redirect()->route('visits.diagnosis', $visit)->with('success', __('common.messages.saved_successfully'));
     }
 
     /**
@@ -97,7 +97,7 @@ class DiagnosisController extends Controller
 
         $diagnosis->update($data);
 
-        return redirect()->route('visits.diagnoses', $visit)->with('success', 'Diagnosis updated successfully.');
+        return redirect()->route('visits.diagnosis', $visit)->with('success', __('common.messages.updated_successfully'));
     }
 
     /**
@@ -109,6 +109,6 @@ class DiagnosisController extends Controller
 
         $diagnosis->delete();
 
-        return redirect()->route('visits.diagnoses', $visit)->with('success', 'Diagnosis deleted successfully.');
+        return redirect()->route('visits.diagnosis', $visit)->with('success', 'Diagnosis deleted successfully.');
     }
 }

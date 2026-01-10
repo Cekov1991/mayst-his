@@ -3,6 +3,9 @@
 return [
     'title' => 'Рецепт за очила',
     'add_prescription' => 'Додај рецепт за очила',
+    'edit_prescription' => 'Уреди рецепт за очила',
+    'prescribed_by' => 'Препишан од',
+    'valid_until' => 'Важи до',
     'doctor' => 'Доктор',
     'od_sphere' => 'ДО Сфера',
     'od_cylinder' => 'ДО Цилиндер',

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Schedule;
 use App\Models\Visit;
+use App\Observers\ScheduleObserver;
 use App\Observers\VisitObserver;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Register model observers
+        Schedule::observe(ScheduleObserver::class);
         Visit::observe(VisitObserver::class);
 
         // Doctor Queue Authorization - now handled by Spatie permissions

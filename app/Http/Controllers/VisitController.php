@@ -271,12 +271,12 @@ class VisitController extends Controller
             DB::commit();
 
             return redirect()->route('visits.index')
-                ->with('success', __('visits.messages.deleted_successfully'));
+                ->with('success', __('common.messages.deleted_successfully'));
         } catch (\Exception $e) {
             DB::rollback();
 
             return redirect()->route('visits.index')
-                ->with('error', __('visits.messages.delete_failed'));
+                ->with('error', __('common.messages.action_failed'));
         }
     }
 
@@ -319,7 +319,7 @@ class VisitController extends Controller
         $visit->update($updateData);
 
         return redirect()->back()
-            ->with('success', __('visits.messages.status_updated'));
+            ->with('success', __('common.messages.status_updated'));
     }
 
     /**
@@ -497,7 +497,7 @@ class VisitController extends Controller
             ]);
         }
 
-        $copiedItems[] = __('visits.diagnoses').' ('.count($selectedDiagnoses).')';
+        $copiedItems[] = __('visits.diagnosis').' ('.count($selectedDiagnoses).')';
     }
 
     /**

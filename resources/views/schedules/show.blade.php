@@ -4,18 +4,6 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ $schedule->name ?: __('schedules.unnamed_schedule') }}
             </h2>
-            <div class="flex gap-2">
-                <a href="{{ route('schedules.edit', $schedule) }}" class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400">
-                    {{ __('common.edit') }}
-                </a>
-                <form action="{{ route('schedules.destroy', $schedule) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('schedules.confirm_delete') }}')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 dark:bg-red-500 dark:hover:bg-red-400">
-                        {{ __('common.delete') }}
-                    </button>
-                </form>
-            </div>
         </div>
     </x-slot>
 

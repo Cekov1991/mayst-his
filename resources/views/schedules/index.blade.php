@@ -79,13 +79,12 @@
                                                     <a href="{{ route('schedules.edit', $schedule) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
                                                         {{ __('common.edit') }}
                                                     </a>
-                                                    <form action="{{ route('schedules.destroy', $schedule) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('schedules.confirm_delete') }}')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                            {{ __('common.delete') }}
-                                                        </button>
-                                                    </form>
+                                                    <livewire:delete-button
+                                                    :model="$schedule"
+                                                    route-name="schedules.destroy"
+                                                    redirect-route-name="schedules.index"
+                                                    :route-params="['schedule' => $schedule]"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>

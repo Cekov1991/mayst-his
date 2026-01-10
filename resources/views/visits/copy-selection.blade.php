@@ -7,7 +7,16 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg"
+                 x-data="{
+                     toggleSection(sectionName) {
+                         const checkboxes = document.querySelectorAll('input[name=\'' + sectionName + '[]\']');
+                         const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+                         checkboxes.forEach(checkbox => {
+                             checkbox.checked = !allChecked;
+                         });
+                     }
+                 }">
                 <div class="p-6 lg:p-8">
                     <!-- Header Information -->
                     <div class="mb-8">
@@ -64,7 +73,7 @@
                             <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('workspace.anamnesis') }}</h3>
-                                    <button type="button" onclick="toggleSection('medical_history')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                    <button type="button" @click="toggleSection('medical_history')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
                                         {{ __('common.select_all') }}
                                     </button>
                                 </div>
@@ -127,8 +136,8 @@
                             @if($previousVisit->diagnoses->isNotEmpty())
                             <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
                                 <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('visits.diagnoses') }}</h3>
-                                    <button type="button" onclick="toggleSection('diagnoses')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('visits.diagnosis') }}</h3>
+                                    <button type="button" @click="toggleSection('diagnoses')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
                                         {{ __('common.select_all') }}
                                     </button>
                                 </div>
@@ -162,7 +171,7 @@
                             <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('workspace.examination') }}</h3>
-                                    <button type="button" onclick="toggleSection('examination_data')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                    <button type="button" @click="toggleSection('examination_data')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
                                         {{ __('common.select_all') }}
                                     </button>
                                 </div>
@@ -214,7 +223,7 @@
                                 <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
                                     <div class="flex items-center justify-between mb-4">
                                         <h4 class="text-md font-medium text-gray-900 dark:text-white">{{ __('refraction.title') }}</h4>
-                                        <button type="button" onclick="toggleSection('refractions')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                        <button type="button" @click="toggleSection('refractions')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
                                             {{ __('common.select_all') }}
                                         </button>
                                     </div>
@@ -243,7 +252,7 @@
                             <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('workspace.prescriptions') }}</h3>
-                                    <button type="button" onclick="toggleSection('prescriptions')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                    <button type="button" @click="toggleSection('prescriptions')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
                                         {{ __('common.select_all') }}
                                     </button>
                                 </div>
@@ -273,7 +282,7 @@
                             <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('workspace.spectacles') }}</h3>
-                                    <button type="button" onclick="toggleSection('spectacle_prescriptions')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                    <button type="button" @click="toggleSection('spectacle_prescriptions')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
                                         {{ __('common.select_all') }}
                                     </button>
                                 </div>
@@ -303,7 +312,7 @@
                             <div class="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-6">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('workspace.treatments') }}</h3>
-                                    <button type="button" onclick="toggleSection('treatment_plans')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
+                                    <button type="button" @click="toggleSection('treatment_plans')" class="text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">
                                         {{ __('common.select_all') }}
                                     </button>
                                 </div>
@@ -334,7 +343,9 @@
                                 ← {{ __('common.cancel') }}
                             </a>
 
-                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
+                            <button type="submit"
+                                    @click="submitForm()"
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600 disabled:opacity-50">
                                 {{ __('visits.copy_selected_data') }}
                             </button>
                         </div>
@@ -344,23 +355,4 @@
         </div>
     </div>
 
-    @push('scripts')
-    <script>
-        function toggleSection(sectionName) {
-            const checkboxes = document.querySelectorAll(`input[name="${sectionName}[]"]`);
-            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = !allChecked;
-            });
-        }
-
-        // Add loading state to form submission
-        document.getElementById('copyForm').addEventListener('submit', function(e) {
-            const submitButton = e.target.querySelector('button[type="submit"]');
-            submitButton.disabled = true;
-            submitButton.innerHTML = '{{ __("common.processing") }}...';
-        });
-    </script>
-    @endpush
 </x-app-layout>
