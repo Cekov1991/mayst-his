@@ -45,7 +45,8 @@ Route::middleware([
     Route::patch('/slots/{slot}/status', [App\Http\Controllers\SlotController::class, 'updateStatus'])->name('slots.updateStatus');
 
     // Schedule management routes
-    Route::resource('schedules', App\Http\Controllers\ScheduleController::class);
+    // store/update handled by Livewire component
+    Route::resource('schedules', App\Http\Controllers\ScheduleController::class)->except(['store', 'update', 'destroy']);
 
     // Visit workspace routes - Medical workspace requires doctor access
     Route::prefix('visits/{visit}')->middleware(['auth'])->group(function () {
@@ -83,6 +84,7 @@ Route::middleware([
         Route::post('/treatments', [App\Http\Controllers\TreatmentController::class, 'store'])->name('visits.treatments.store');
         Route::put('/treatments/{treatment}', [App\Http\Controllers\TreatmentController::class, 'update'])->name('visits.treatments.update');
         // Prescription store/update handled by Livewire component
+        // Schedule store/update handled by Livewire component
         Route::post('/spectacles', [App\Http\Controllers\SpectacleController::class, 'store'])->name('visits.spectacles.store');
         Route::put('/spectacles/{spectacle}', [App\Http\Controllers\SpectacleController::class, 'update'])->name('visits.spectacles.update');
         Route::post('/diagnoses', [App\Http\Controllers\DiagnosisController::class, 'store'])->name('visits.diagnosis.store');
