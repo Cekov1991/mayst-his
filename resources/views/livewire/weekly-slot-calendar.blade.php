@@ -98,4 +98,17 @@
     @empty
         <div class="text-center text-gray-500 dark:text-gray-400">{{ __('slots.no_slots') }}</div>
     @endforelse
+
+
+    <!-- Flash Notifications -->
+    <x-flash-notifications />
+
+    <!-- BladeWindUI Notifications -->
+    <div x-on:show-message.window="
+        if (typeof showNotification !== 'undefined') {
+            const data = $event.detail[0];
+            const dismissTime = data.type === 'error' ? 5 : 3;
+            showNotification('', data.message, data.type, dismissTime);
+        }
+    "></div>
 </div>

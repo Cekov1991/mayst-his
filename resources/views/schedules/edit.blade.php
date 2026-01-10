@@ -14,4 +14,7 @@
             </div>
         </div>
     </div>
+
+    <!-- Flash Notifications -->
+    <x-flash-notifications />
 </x-app-layout>

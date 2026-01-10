@@ -104,15 +104,27 @@ class WeeklySlotCalendar extends Component
             $mysqlDayOfWeek = $dayOfWeek === 0 ? 1 : $dayOfWeek + 1;
             $time = $slot->start_time->format('H:i:s');
 
-            Slot::where('doctor_id', $slot->doctor_id)
+            $updatedCount = Slot::where('doctor_id', $slot->doctor_id)
                 ->whereRaw('DAYOFWEEK(start_time) = ?', [$mysqlDayOfWeek])
                 ->whereTime('start_time', $time)
                 ->where('start_time', '>=', $slot->start_time)
                 ->where('status', '!=', 'booked')
                 ->update(['status' => 'blocked']);
+
+            $this->selectedSlot = null;
+            $this->showSlotModal = false;
+            $this->dispatch('show-message', [
+                'type' => 'success',
+                'message' => __('slots.messages.status_updated', ['count' => $updatedCount])
+            ]);
+
+            return;
         } else {
             if ($slot->isBooked()) {
-                session()->flash('error', __('slots.messages.cannot_update_booked'));
+                $this->dispatch('show-message', [
+                    'type' => 'error',
+                    'message' => __('slots.messages.cannot_update_booked')
+                ]);
 
                 return;
             }
@@ -121,7 +133,10 @@ class WeeklySlotCalendar extends Component
 
         $this->selectedSlot = null;
         $this->showSlotModal = false;
-        session()->flash('success', __('slots.messages.status_updated', ['count' => 1]));
+        $this->dispatch('show-message', [
+            'type' => 'success',
+            'message' => __('slots.messages.status_updated', ['count' => 1])
+        ]);
     }
 
     public function unblockSlot($slotId, $applyToAll = false)
@@ -134,15 +149,27 @@ class WeeklySlotCalendar extends Component
             $mysqlDayOfWeek = $dayOfWeek === 0 ? 1 : $dayOfWeek + 1;
             $time = $slot->start_time->format('H:i:s');
 
-            Slot::where('doctor_id', $slot->doctor_id)
+            $updatedCount = Slot::where('doctor_id', $slot->doctor_id)
                 ->whereRaw('DAYOFWEEK(start_time) = ?', [$mysqlDayOfWeek])
                 ->whereTime('start_time', $time)
                 ->where('start_time', '>=', $slot->start_time)
                 ->where('status', '!=', 'booked')
                 ->update(['status' => 'available']);
+
+            $this->selectedSlot = null;
+            $this->showSlotModal = false;
+            $this->dispatch('show-message', [
+                'type' => 'success',
+                'message' => __('slots.messages.status_updated', ['count' => $updatedCount])
+            ]);
+
+            return;
         } else {
             if ($slot->isBooked()) {
-                session()->flash('error', __('slots.messages.cannot_update_booked'));
+                $this->dispatch('show-message', [
+                    'type' => 'error',
+                    'message' => __('slots.messages.cannot_update_booked')
+                ]);
 
                 return;
             }
@@ -151,7 +178,10 @@ class WeeklySlotCalendar extends Component
 
         $this->selectedSlot = null;
         $this->showSlotModal = false;
-        session()->flash('success', __('slots.messages.status_updated', ['count' => 1]));
+        $this->dispatch('show-message', [
+            'type' => 'success',
+            'message' => __('slots.messages.status_updated', ['count' => 1])
+        ]);
     }
 
     public function confirmDeleteSlot($slotId)
@@ -196,15 +226,34 @@ class WeeklySlotCalendar extends Component
             $mysqlDayOfWeek = $dayOfWeek === 0 ? 1 : $dayOfWeek + 1;
             $time = $slot->start_time->format('H:i:s');
 
+            $deletedCount = Slot::where('doctor_id', $slot->doctor_id)
+                ->whereRaw('DAYOFWEEK(start_time) = ?', [$mysqlDayOfWeek])
+                ->whereTime('start_time', $time)
+                ->where('start_time', '>=', $slot->start_time)
+                ->whereIn('status', ['available', 'blocked'])
+                ->count();
+
             Slot::where('doctor_id', $slot->doctor_id)
                 ->whereRaw('DAYOFWEEK(start_time) = ?', [$mysqlDayOfWeek])
                 ->whereTime('start_time', $time)
                 ->where('start_time', '>=', $slot->start_time)
                 ->whereIn('status', ['available', 'blocked'])
                 ->delete();
+
+            $this->selectedSlot = null;
+            $this->showSlotModal = false;
+            $this->dispatch('show-message', [
+                'type' => 'success',
+                'message' => __('slots.messages.deleted_successfully', ['count' => $deletedCount])
+            ]);
+
+            return;
         } else {
             if ($slot->isBooked() && $slot->visit) {
-                session()->flash('error', __('slots.messages.cannot_delete_booked'));
+                $this->dispatch('show-message', [
+                    'type' => 'error',
+                    'message' => __('slots.messages.cannot_delete_booked')
+                ]);
 
                 return;
             }
@@ -213,7 +262,10 @@ class WeeklySlotCalendar extends Component
 
         $this->selectedSlot = null;
         $this->showSlotModal = false;
-        session()->flash('success', __('slots.messages.deleted_successfully', ['count' => 1]));
+        $this->dispatch('show-message', [
+            'type' => 'success',
+            'message' => __('slots.messages.deleted_successfully', ['count' => 1])
+        ]);
     }
 
     public function closeModal()

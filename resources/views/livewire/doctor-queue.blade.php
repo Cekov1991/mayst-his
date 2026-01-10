@@ -140,26 +140,12 @@
         </x-slot>
     </x-table>
 
-    <!-- Toast Messages -->
-    <div x-data="{
-        show: false,
-        message: '',
-        type: 'success'
-    }"
-         x-on:show-message.window="
-            message = $event.detail[0].message;
-            type = $event.detail[0].type;
-            show = true;
-            setTimeout(() => show = false, type === 'error' ? 5000 : 3000);
-         ">
-        <div x-show="show"
-             x-transition
-             class="fixed bottom-4 right-4 z-50 rounded-lg px-6 py-4 shadow-lg"
-             :class="{
-                'bg-green-500 text-white': type === 'success',
-                'bg-red-500 text-white': type === 'error'
-             }">
-            <span x-text="message"></span>
-        </div>
-    </div>
+    <!-- BladeWindUI Notifications -->
+    <div x-on:show-message.window="
+        if (typeof showNotification !== 'undefined') {
+            const data = $event.detail[0];
+            const dismissTime = data.type === 'error' ? 5 : 3;
+            showNotification('', data.message, data.type, dismissTime);
+        }
+    "></div>
 </div>

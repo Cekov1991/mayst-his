@@ -11,6 +11,9 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <link href="{{ asset('vendor/bladewind/css/animate.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('vendor/bladewind/css/bladewind-ui.min.css') }}" rel="stylesheet" />
+        <script src="{{ asset('vendor/bladewind/js/helpers.js') }}"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -19,6 +22,9 @@
     </head>
     <body class="font-sans antialiased">
         <x-banner />
+
+        <!-- BladeWindUI Notifications (loaded early for flash messages) -->
+        <x-bladewind::notification position="bottom-right" />
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @livewire('navigation-menu')
