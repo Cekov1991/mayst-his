@@ -82,8 +82,7 @@ Route::middleware([
         Route::put('/imaging/{imaging}', [App\Http\Controllers\ImagingController::class, 'update'])->name('visits.imaging.update');
         Route::post('/treatments', [App\Http\Controllers\TreatmentController::class, 'store'])->name('visits.treatments.store');
         Route::put('/treatments/{treatment}', [App\Http\Controllers\TreatmentController::class, 'update'])->name('visits.treatments.update');
-        Route::post('/prescriptions', [App\Http\Controllers\PrescriptionController::class, 'store'])->name('visits.prescriptions.store');
-        Route::put('/prescriptions/{prescription}', [App\Http\Controllers\PrescriptionController::class, 'update'])->name('visits.prescriptions.update');
+        // Prescription store/update handled by Livewire component
         Route::post('/spectacles', [App\Http\Controllers\SpectacleController::class, 'store'])->name('visits.spectacles.store');
         Route::put('/spectacles/{spectacle}', [App\Http\Controllers\SpectacleController::class, 'update'])->name('visits.spectacles.update');
         Route::post('/diagnoses', [App\Http\Controllers\DiagnosisController::class, 'store'])->name('visits.diagnosis.store');

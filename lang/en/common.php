@@ -12,6 +12,7 @@ return [
     'delete' => 'Delete',
     'select_all' => 'Select all',
     'save' => 'Save',
+    'processing' => 'Processing...',
     'update' => 'Update',
     'cancel' => 'Cancel',
     'actions' => 'Actions',

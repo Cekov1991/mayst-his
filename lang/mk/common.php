@@ -12,6 +12,7 @@ return [
     'delete' => 'Избриши',
     'select_all' => 'Избери ги сите',
     'save' => 'Зачувај',
+    'processing' => 'Се обработува',
     'update' => 'Ажурирај',
     'cancel' => 'Откажи',
     'actions' => 'Акции',
