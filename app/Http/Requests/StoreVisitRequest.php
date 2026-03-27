@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreVisitRequest extends FormRequest
 {
@@ -24,9 +25,17 @@ class StoreVisitRequest extends FormRequest
         return [
             'patient_id' => ['required', 'exists:patients,id'],
             'doctor_id' => ['required', 'exists:users,id'],
+            'slot_id' => [
+                'required',
+                'exists:slots,id',
+                Rule::exists('slots', 'id')->where(function ($query) {
+                    $query->where('doctor_id', $this->doctor_id)
+                        ->where('status', 'available');
+                }),
+            ],
             'type' => ['required', 'in:exam,control,surgery'],
             'status' => ['required', 'in:scheduled,arrived,in_progress,completed,cancelled'],
-            'scheduled_at' => ['required', 'date', 'after_or_equal:today'],
+            'scheduled_at' => ['nullable', 'date', 'after_or_equal:today'],
             'reason_for_visit' => ['required', 'string', 'max:1000'],
             'room' => ['nullable', 'string', 'max:50'],
         ];
@@ -40,6 +49,7 @@ class StoreVisitRequest extends FormRequest
         return [
             'patient_id' => __('visits.patient'),
             'doctor_id' => __('visits.doctor'),
+            'slot_id' => __('Time Slot'),
             'type' => __('visits.type'),
             'status' => __('visits.status'),
             'scheduled_at' => __('visits.scheduled_at'),
@@ -56,11 +66,12 @@ class StoreVisitRequest extends FormRequest
         return [
             'patient_id.exists' => __('validation.exists', ['attribute' => __('visits.patient')]),
             'doctor_id.exists' => __('validation.exists', ['attribute' => __('visits.doctor')]),
+            'slot_id.exists' => __('The selected time slot is not available or does not belong to the selected doctor.'),
             'type.in' => __('validation.in', ['attribute' => __('visits.type')]),
             'status.in' => __('validation.in', ['attribute' => __('visits.status')]),
             'scheduled_at.after_or_equal' => __('validation.after_or_equal', [
                 'attribute' => __('visits.scheduled_at'),
-                'date' => 'today'
+                'date' => 'today',
             ]),
         ];
     }

@@ -84,7 +84,7 @@
 
             <x-slot name="footer">
                 <x-secondary-button wire:click="$toggle('confirmingLogout')" wire:loading.attr="disabled">
-                    {{ __('Cancel') }}
+                    {{ __('common.cancel') }}
                 </x-secondary-button>
 
                 <x-button class="ms-3"

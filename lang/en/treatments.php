@@ -3,11 +3,10 @@
 return [
     'title' => 'Treatment Plan',
     'add_treatment' => 'Add Treatment Plan',
+    'update_treatment' => 'Update Treatment Plan',
     'plan_type' => 'Plan Type',
-    'recommendation' => 'Recommendation',
     'details' => 'Details',
     'planned_date' => 'Planned Date',
-    'status' => 'Status',
 
     // Types
     'types' => [

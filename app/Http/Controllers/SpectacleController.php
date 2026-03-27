@@ -63,7 +63,7 @@ class SpectacleController extends Controller
 
         $visit->spectaclePrescriptions()->create($data);
 
-        return redirect()->route('visits.spectacles', $visit)->with('success', 'Spectacle prescription saved successfully.');
+        return redirect()->route('visits.spectacles', $visit)->with('success', __('common.messages.saved_successfully'));
     }
 
     /**

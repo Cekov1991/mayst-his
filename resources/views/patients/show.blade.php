@@ -207,7 +207,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <a href="{{ route('visits.show', $visit) }}"
                                                class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                {{ __('view') }}
+                                                {{ __('common.table_cell.view') }}
                                             </a>
                                         </td>
                                     </tr>

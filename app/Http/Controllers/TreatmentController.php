@@ -43,13 +43,11 @@ class TreatmentController extends Controller
 
         $request->validate([
             'plan_type' => 'required|in:surgery,injection,medical,advice',
-            'recommendation' => 'required|string|max:255',
             'details' => 'nullable|string',
             'planned_date' => 'nullable|date',
-            'status' => 'required|in:proposed,accepted,scheduled,done,declined',
         ]);
 
-        $visit->treatmentPlans()->create($request->only(['plan_type', 'recommendation', 'details', 'planned_date', 'status']));
+        $visit->treatmentPlans()->create($request->only(['plan_type', 'details', 'planned_date']));
 
         return redirect()->route('visits.treatments', $visit)->with('success', 'Treatment plan saved successfully.');
     }
@@ -75,13 +73,11 @@ class TreatmentController extends Controller
 
         $request->validate([
             'plan_type' => 'required|in:surgery,injection,medical,advice',
-            'recommendation' => 'required|string|max:255',
             'details' => 'nullable|string',
             'planned_date' => 'nullable|date',
-            'status' => 'required|in:proposed,accepted,scheduled,done,declined',
         ]);
 
-        $treatment->update($request->only(['plan_type', 'recommendation', 'details', 'planned_date', 'status']));
+        $treatment->update($request->only(['plan_type', 'details', 'planned_date']));
 
         return redirect()->route('visits.treatments', $visit)->with('success', 'Treatment plan updated successfully.');
     }

@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CopyVisitDataRequest;
 use App\Http\Requests\StoreVisitRequest;
 use App\Http\Requests\UpdateVisitRequest;
 use App\Models\Patient;
+use App\Models\Slot;
 use App\Models\User;
 use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class VisitController extends Controller
@@ -22,7 +26,7 @@ class VisitController extends Controller
         $this->authorize('viewAny', Visit::class);
 
         $query = Visit::with(['patient', 'doctor'])
-            ->visibleTo(auth()->user());
+            ->visibleTo(Auth::user());
 
         // Handle search
         if ($search = $request->get('search')) {
@@ -32,9 +36,6 @@ class VisitController extends Controller
                     ->orWhereHas('patient', function ($patientQuery) use ($search) {
                         $patientQuery->where('first_name', 'LIKE', "%{$search}%")
                             ->orWhere('last_name', 'LIKE', "%{$search}%");
-                    })
-                    ->orWhereHas('doctor', function ($doctorQuery) use ($search) {
-                        $doctorQuery->where('name', 'LIKE', "%{$search}%");
                     });
             });
         }
@@ -79,10 +80,6 @@ class VisitController extends Controller
     {
         $this->authorize('create', Visit::class);
 
-        $patients = Patient::orderBy('last_name')
-            ->orderBy('first_name')
-            ->get();
-
         $doctors = User::role('doctor')
             ->where('is_active', true)
             ->orderBy('name')
@@ -90,7 +87,7 @@ class VisitController extends Controller
 
         $selectedPatientId = $request->get('patient_id');
 
-        return view('visits.create', compact('patients', 'doctors', 'selectedPatientId'));
+        return view('visits.create', compact('doctors', 'selectedPatientId'));
     }
 
     /**
@@ -102,13 +99,43 @@ class VisitController extends Controller
 
         $validatedData = $request->validated();
 
-        // Set timestamps based on status
-        $this->setStatusTimestamps($validatedData);
+        // Use DB transaction to ensure slot booking and visit creation are atomic
+        DB::beginTransaction();
 
-        $visit = Visit::create($validatedData);
+        try {
+            // Get the slot and verify it's still available
+            $slot = Slot::lockForUpdate()->find($validatedData['slot_id']);
 
-        return redirect()->route('visits.show', $visit)
-            ->with('success', __('visits.messages.created_successfully'));
+            if (! $slot || ! $slot->isAvailable()) {
+                throw new \Exception(__('The selected time slot is no longer available.'));
+            }
+
+            // Set scheduled_at from slot if not provided
+            if (! $validatedData['scheduled_at']) {
+                $validatedData['scheduled_at'] = $slot->start_time;
+            }
+
+            // Set timestamps based on status
+            $this->setStatusTimestamps($validatedData);
+
+            // Create the visit
+            $visit = Visit::create($validatedData);
+
+            // Mark slot as booked
+            $slot->update(['status' => 'booked']);
+
+            DB::commit();
+
+            return redirect()->route('visits.show', $visit)
+                ->with('success', __('visits.messages.created_successfully'));
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -131,7 +158,13 @@ class VisitController extends Controller
             'spectaclePrescriptions.doctor',
         ]);
 
-        return view('visits.show', compact('visit'));
+        $previousVisit = Visit::select('id')
+            ->where('patient_id', $visit->patient_id)
+            ->where('id', '<', $visit->id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        return view('visits.show', compact('visit', 'previousVisit'));
     }
 
     /**
@@ -162,13 +195,57 @@ class VisitController extends Controller
 
         $validatedData = $request->validated();
 
-        // Handle status changes and timestamps
-        $this->handleStatusChange($visit, $validatedData);
+        // Use DB transaction to handle slot changes atomically
+        DB::beginTransaction();
 
-        $visit->update($validatedData);
+        try {
+            $oldSlotId = $visit->slot_id;
+            $newSlotId = $validatedData['slot_id'] ?? null;
 
-        return redirect()->route('visits.show', $visit)
-            ->with('success', __('visits.messages.updated_successfully'));
+            // Handle slot changes
+            if ($newSlotId && $oldSlotId !== $newSlotId) {
+                // Get the new slot and verify it's available
+                $newSlot = Slot::lockForUpdate()->find($newSlotId);
+
+                if (! $newSlot || ! $newSlot->isAvailable()) {
+                    throw new \Exception(__('The selected time slot is no longer available.'));
+                }
+
+                // Set scheduled_at from new slot if not provided
+                if (! $validatedData['scheduled_at']) {
+                    $validatedData['scheduled_at'] = $newSlot->start_time;
+                }
+
+                // Release old slot if it exists
+                if ($oldSlotId) {
+                    $oldSlot = Slot::find($oldSlotId);
+                    if ($oldSlot && $oldSlot->isBooked()) {
+                        $oldSlot->update(['status' => 'available']);
+                    }
+                }
+
+                // Book new slot
+                $newSlot->update(['status' => 'booked']);
+            }
+
+            // Handle status changes and timestamps
+            $this->handleStatusChange($visit, $validatedData);
+
+            // Update the visit
+            $visit->update($validatedData);
+
+            DB::commit();
+
+            return redirect()->route('visits.show', $visit)
+                ->with('success', __('visits.messages.updated_successfully'));
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -178,14 +255,28 @@ class VisitController extends Controller
     {
         $this->authorize('delete', $visit);
 
+        DB::beginTransaction();
+
         try {
+            // Release the associated slot
+            if ($visit->slot_id) {
+                $slot = Slot::find($visit->slot_id);
+                if ($slot && $slot->isBooked()) {
+                    $slot->update(['status' => 'available']);
+                }
+            }
+
             $visit->delete();
 
+            DB::commit();
+
             return redirect()->route('visits.index')
-                ->with('success', __('visits.messages.deleted_successfully'));
+                ->with('success', __('common.messages.deleted_successfully'));
         } catch (\Exception $e) {
+            DB::rollback();
+
             return redirect()->route('visits.index')
-                ->with('error', __('visits.messages.delete_failed'));
+                ->with('error', __('common.messages.action_failed'));
         }
     }
 
@@ -228,7 +319,7 @@ class VisitController extends Controller
         $visit->update($updateData);
 
         return redirect()->back()
-            ->with('success', __('visits.messages.status_updated'));
+            ->with('success', __('common.messages.status_updated'));
     }
 
     /**
@@ -292,5 +383,230 @@ class VisitController extends Controller
                     break;
             }
         }
+    }
+
+    /**
+     * Show the copy selection page.
+     */
+    public function showCopySelection(Visit $visit, Visit $previousVisit): View
+    {
+        // Authorization is handled in the CopyVisitDataRequest
+
+        $previousVisit->load([
+            'anamnesis',
+            'ophthalmicExam.refractions',
+            'treatmentPlans',
+            'prescriptions.prescriptionItems',
+            'spectaclePrescriptions',
+            'diagnoses' => function ($query) {
+                $query->whereIn('status', ['confirmed', 'working', 'provisional']);
+            },
+        ]);
+
+        return view('visits.copy-selection', compact('visit', 'previousVisit'));
+    }
+
+    /**
+     * Process the copy operation based on selected data.
+     */
+    public function processCopy(CopyVisitDataRequest $request, Visit $visit, Visit $previousVisit): RedirectResponse
+    {
+        $selectedData = $request->validated();
+        $copiedItems = [];
+
+        DB::transaction(function () use ($selectedData, $visit, $previousVisit, &$copiedItems) {
+            // Copy medical history data
+            if (isset($selectedData['medical_history']) && $previousVisit->anamnesis) {
+                $this->copyMedicalHistory($visit, $previousVisit, $selectedData['medical_history'], $copiedItems);
+            }
+
+            // Copy diagnoses
+            if (isset($selectedData['diagnoses'])) {
+                $this->copyDiagnoses($visit, $previousVisit, $selectedData['diagnoses'], $copiedItems);
+            }
+
+            // Copy examination data
+            if (isset($selectedData['examination_data']) && $previousVisit->ophthalmicExam) {
+                $this->copyExaminationData($visit, $previousVisit, $selectedData['examination_data'], $copiedItems);
+            }
+
+            // Copy refractions
+            if (isset($selectedData['refractions']) && $previousVisit->ophthalmicExam) {
+                $this->copyRefractions($visit, $previousVisit, $selectedData['refractions'], $copiedItems);
+            }
+
+            // Copy prescriptions
+            if (isset($selectedData['prescriptions'])) {
+                $this->copyPrescriptions($visit, $previousVisit, $selectedData['prescriptions'], $copiedItems);
+            }
+
+            // Copy spectacle prescriptions
+            if (isset($selectedData['spectacle_prescriptions'])) {
+                $this->copySpectaclePrescriptions($visit, $previousVisit, $selectedData['spectacle_prescriptions'], $copiedItems);
+            }
+
+            // Copy treatment plans
+            if (isset($selectedData['treatment_plans'])) {
+                $this->copyTreatmentPlans($visit, $previousVisit, $selectedData['treatment_plans'], $copiedItems);
+            }
+        });
+
+        $copiedItemsText = implode(', ', $copiedItems);
+
+        return redirect()->route('visits.show', $visit)
+            ->with('success', __('visits.messages.copied_successfully', ['items' => $copiedItemsText]));
+    }
+
+    /**
+     * Copy selected medical history fields.
+     */
+    private function copyMedicalHistory(Visit $visit, Visit $previousVisit, array $fields, array &$copiedItems): void
+    {
+        $anamnesisData = $previousVisit->anamnesis->only($fields);
+        $anamnesisData['visit_id'] = $visit->id;
+
+        $visit->anamnesis()->updateOrCreate(
+            ['visit_id' => $visit->id],
+            $anamnesisData
+        );
+
+        $copiedItems[] = __('visits.medical_history');
+    }
+
+    /**
+     * Copy selected diagnoses.
+     */
+    private function copyDiagnoses(Visit $visit, Visit $previousVisit, array $diagnosisIds, array &$copiedItems): void
+    {
+        $selectedDiagnoses = $previousVisit->diagnoses->whereIn('id', $diagnosisIds);
+
+        foreach ($selectedDiagnoses as $diagnosis) {
+            $visit->diagnoses()->create([
+                'patient_id' => $diagnosis->patient_id,
+                'diagnosed_by' => Auth::id(),
+                'is_primary' => $diagnosis->is_primary,
+                'eye' => $diagnosis->eye,
+                'code' => $diagnosis->code,
+                'code_system' => $diagnosis->code_system,
+                'term' => $diagnosis->term,
+                'status' => $diagnosis->status,
+                'onset_date' => $diagnosis->onset_date,
+                'severity' => $diagnosis->severity,
+                'acuity' => $diagnosis->acuity,
+                'notes' => ($diagnosis->notes ?? '').' (Copied from previous visit)',
+            ]);
+        }
+
+        $copiedItems[] = __('visits.diagnosis').' ('.count($selectedDiagnoses).')';
+    }
+
+    /**
+     * Copy selected examination data.
+     */
+    private function copyExaminationData(Visit $visit, Visit $previousVisit, array $fields, array &$copiedItems): void
+    {
+        $examData = $previousVisit->ophthalmicExam->only($fields);
+        $examData['visit_id'] = $visit->id;
+
+        $visit->ophthalmicExam()->updateOrCreate(
+            ['visit_id' => $visit->id],
+            $examData
+        );
+
+        $copiedItems[] = __('visits.examination_data');
+    }
+
+    /**
+     * Copy selected refractions.
+     */
+    private function copyRefractions(Visit $visit, Visit $previousVisit, array $refractionIds, array &$copiedItems): void
+    {
+        $selectedRefractions = $previousVisit->ophthalmicExam->refractions->whereIn('id', $refractionIds);
+
+        // Ensure ophthalmic exam exists
+        $exam = $visit->ophthalmicExam()->firstOrCreate(['visit_id' => $visit->id]);
+
+        foreach ($selectedRefractions as $refraction) {
+            $refractionData = $refraction->only([
+                'eye', 'method', 'sphere', 'cylinder', 'axis', 'add_power', 'prism', 'base',
+            ]);
+            $refractionData['ophthalmic_exam_id'] = $exam->id;
+            $refractionData['notes'] = 'Baseline from previous visit: '.($refraction->notes ?? '');
+
+            $exam->refractions()->create($refractionData);
+        }
+
+        $copiedItems[] = __('visits.refractions').' ('.count($selectedRefractions).')';
+    }
+
+    /**
+     * Copy selected prescriptions.
+     */
+    private function copyPrescriptions(Visit $visit, Visit $previousVisit, array $prescriptionIds, array &$copiedItems): void
+    {
+        $selectedPrescriptions = $previousVisit->prescriptions->whereIn('id', $prescriptionIds);
+
+        foreach ($selectedPrescriptions as $prescription) {
+            $newPrescription = $visit->prescriptions()->create([
+                'doctor_id' => Auth::id(),
+                'notes' => ($prescription->notes ?? '').' (Copied from previous visit)',
+            ]);
+
+            // Copy prescription items
+            foreach ($prescription->prescriptionItems as $item) {
+                $newPrescription->prescriptionItems()->create([
+                    'drug_name' => $item->drug_name,
+                    'form' => $item->form,
+                    'strength' => $item->strength,
+                    'dosage_instructions' => $item->dosage_instructions,
+                    'duration_days' => $item->duration_days,
+                    'repeats' => $item->repeats,
+                ]);
+            }
+        }
+
+        $copiedItems[] = __('visits.prescriptions').' ('.count($selectedPrescriptions).')';
+    }
+
+    /**
+     * Copy selected spectacle prescriptions.
+     */
+    private function copySpectaclePrescriptions(Visit $visit, Visit $previousVisit, array $spectacleIds, array &$copiedItems): void
+    {
+        $selectedSpectacles = $previousVisit->spectaclePrescriptions->whereIn('id', $spectacleIds);
+
+        foreach ($selectedSpectacles as $spectacle) {
+            $spectacleData = $spectacle->only([
+                'od_sphere', 'od_cylinder', 'od_axis', 'od_add',
+                'os_sphere', 'os_cylinder', 'os_axis', 'os_add',
+                'pd_distance', 'pd_near', 'type',
+            ]);
+            $spectacleData['visit_id'] = $visit->id;
+            $spectacleData['doctor_id'] = Auth::id();
+            $spectacleData['notes'] = ($spectacle->notes ?? '').' (Copied from previous visit)';
+            $spectacleData['valid_until'] = $spectacle->valid_until;
+
+            $visit->spectaclePrescriptions()->create($spectacleData);
+        }
+
+        $copiedItems[] = __('visits.spectacle_prescriptions').' ('.count($selectedSpectacles).')';
+    }
+
+    /**
+     * Copy selected treatment plans.
+     */
+    private function copyTreatmentPlans(Visit $visit, Visit $previousVisit, array $planIds, array &$copiedItems): void
+    {
+        $selectedPlans = $previousVisit->treatmentPlans->whereIn('id', $planIds);
+
+        foreach ($selectedPlans as $plan) {
+            $visit->treatmentPlans()->create([
+                'plan_type' => $plan->plan_type,
+                'details' => ($plan->details ?? '').' (Continued from previous visit)',
+                'planned_date' => $plan->planned_date,
+            ]);
+        }
+
+        $copiedItems[] = __('visits.treatment_plans').' ('.count($selectedPlans).')';
     }
 }

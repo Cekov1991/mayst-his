@@ -16,6 +16,7 @@ class Visit extends Model
     protected $fillable = [
         'patient_id',
         'doctor_id',
+        'slot_id',
         'type',
         'status',
         'scheduled_at',
@@ -45,6 +46,11 @@ class Visit extends Model
     public function doctor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'doctor_id');
+    }
+
+    public function slot(): BelongsTo
+    {
+        return $this->belongsTo(Slot::class);
     }
 
     public function anamnesis(): HasOne

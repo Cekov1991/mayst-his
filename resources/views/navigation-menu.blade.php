@@ -32,6 +32,12 @@
                             {{ __('visits.queue') }}
                         </x-nav-link>
                     @endcan
+                    @can('viewAny', App\Models\Schedule::class)
+                    <!-- Schedules Link -->
+                    <x-nav-link href="{{ route('schedules.index') }}" :active="request()->routeIs('schedules.*')">
+                        {{ __('schedules.title') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 

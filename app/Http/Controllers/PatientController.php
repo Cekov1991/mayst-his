@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePatientRequest;
 use App\Models\Patient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PatientController extends Controller
@@ -66,7 +67,7 @@ class PatientController extends Controller
 
         return redirect()
             ->route('patients.show', $patient)
-            ->with('success', __('messages.patient_created'));
+            ->with('success', __('common.messages.created_successfully'));
     }
 
     /**
@@ -109,7 +110,7 @@ class PatientController extends Controller
 
         return redirect()
             ->route('patients.show', $patient)
-            ->with('success', __('messages.patient_updated'));
+            ->with('success', __('common.messages.updated_successfully'));
     }
 
     /**
@@ -146,7 +147,7 @@ class PatientController extends Controller
             return response()->json([]);
         }
 
-        $patients = Patient::visibleTo(auth()->user())
+        $patients = Patient::visibleTo(Auth::user())
             ->where(function ($q) use ($query) {
                 $q->where('first_name', 'LIKE', "%{$query}%")
                     ->orWhere('last_name', 'LIKE', "%{$query}%")

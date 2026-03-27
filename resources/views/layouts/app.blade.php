@@ -14,7 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <!-- Styles -->
+        <!-- Livewire Styles -->
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
@@ -40,6 +40,10 @@
 
         @stack('modals')
 
+        <livewire:confirmation-modal />
+
+        <!-- Livewire Scripts -->
         @livewireScripts
+        @stack('scripts')
     </body>
 </html>

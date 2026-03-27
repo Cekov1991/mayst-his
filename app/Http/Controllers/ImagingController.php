@@ -58,7 +58,7 @@ class ImagingController extends Controller
 
         $visit->imagingStudies()->create($data);
 
-        return redirect()->route('visits.imaging', $visit)->with('success', 'Imaging study saved successfully.');
+        return redirect()->route('visits.imaging', $visit)->with('success', __('common.messages.saved_successfully'));
     }
 
     /**
@@ -95,7 +95,7 @@ class ImagingController extends Controller
 
         $imaging->update($data);
 
-        return redirect()->route('visits.imaging', $visit)->with('success', 'Imaging study updated successfully.');
+        return redirect()->route('visits.imaging', $visit)->with('success', __('common.messages.updated_successfully'));
     }
 
     /**

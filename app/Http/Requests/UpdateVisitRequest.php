@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateVisitRequest extends FormRequest
 {
@@ -22,11 +23,20 @@ class UpdateVisitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'patient_id' => ['required', 'exists:patients,id'],
             'doctor_id' => ['required', 'exists:users,id'],
+            'slot_id' => [
+                'nullable',
+                'exists:slots,id',
+                Rule::exists('slots', 'id')->where(function ($query) {
+                    if ($this->slot_id) {
+                        $query->where('doctor_id', $this->doctor_id)
+                            ->where('status', 'available');
+                    }
+                }),
+            ],
             'type' => ['required', 'in:exam,control,surgery'],
             'status' => ['required', 'in:scheduled,arrived,in_progress,completed,cancelled'],
-            'scheduled_at' => ['required', 'date'],
+            'scheduled_at' => ['nullable', 'date'],
             'reason_for_visit' => ['required', 'string', 'max:1000'],
             'room' => ['nullable', 'string', 'max:50'],
         ];
@@ -40,6 +50,7 @@ class UpdateVisitRequest extends FormRequest
         return [
             'patient_id' => __('visits.patient'),
             'doctor_id' => __('visits.doctor'),
+            'slot_id' => __('Time Slot'),
             'type' => __('visits.type'),
             'status' => __('visits.status'),
             'scheduled_at' => __('visits.scheduled_at'),
@@ -56,6 +67,7 @@ class UpdateVisitRequest extends FormRequest
         return [
             'patient_id.exists' => __('validation.exists', ['attribute' => __('visits.patient')]),
             'doctor_id.exists' => __('validation.exists', ['attribute' => __('visits.doctor')]),
+            'slot_id.exists' => __('The selected time slot is not available or does not belong to the selected doctor.'),
             'type.in' => __('validation.in', ['attribute' => __('visits.type')]),
             'status.in' => __('validation.in', ['attribute' => __('visits.status')]),
         ];

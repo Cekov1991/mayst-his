@@ -13,10 +13,8 @@ class TreatmentPlan extends Model
     protected $fillable = [
         'visit_id',
         'plan_type',
-        'recommendation',
         'details',
         'planned_date',
-        'status',
     ];
 
     protected function casts(): array

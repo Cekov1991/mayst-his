@@ -34,14 +34,14 @@
                                         <div>
                                             <div class="flex items-center space-x-3">
                                                 <h4 class="text-md font-medium text-gray-900 dark:text-white">
-                                                    {{ __('prescription.prescription') }} #{{ $prescription->id }}
+                                                    {{ __('prescriptions.title') }} #{{ $prescription->id }}
                                                 </h4>
                                                 <span class="text-sm text-gray-500 dark:text-gray-400">
                                                     {{ $prescription->doctor->name }}
                                                 </span>
                                             </div>
                                             <div class="text-sm text-gray-500 dark:text-gray-400">
-                                                {{ __('common.created') }}: {{ $prescription->created_at->format('M d, Y g:i A') }}
+                                                {{ __('common.date') }}: {{ $prescription->created_at->format('M d, Y g:i A') }}
                                             </div>
                                             @if($prescription->notes)
                                                 <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
@@ -54,15 +54,11 @@
                                                class="text-sm font-medium text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
                                                 {{ __('common.edit') }}
                                             </a>
-                                            <form action="{{ route('visits.prescriptions.destroy', [$visit, $prescription]) }}" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                        onclick="return confirm('Are you sure?')"
-                                                        class="text-sm font-medium text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                    {{ __('common.delete') }}
-                                                </button>
-                                            </form>
+                                            <livewire:delete-button
+                                                :model="$prescription"
+                                                route-name="visits.prescriptions.destroy"
+                                                :route-params="['visit' => $visit]"
+                                            />
                                         </div>
                                     </div>
 
@@ -70,7 +66,7 @@
                                     @if($prescription->prescriptionItems->isNotEmpty())
                                         <x-table>
                                             <x-slot name="head">
-                                                <x-table-header>{{ __('prescriptions.medication') }}</x-table-header>
+                                                <x-table-header>{{ __('prescriptions.drug_name') }}</x-table-header>
                                                 <x-table-header-secondary>{{ __('prescriptions.form') }}</x-table-header-secondary>
                                                 <x-table-header-secondary>{{ __('prescriptions.strength') }}</x-table-header-secondary>
                                                 <x-table-header-secondary>{{ __('prescriptions.instructions') }}</x-table-header-secondary>

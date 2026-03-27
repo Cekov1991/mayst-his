@@ -100,17 +100,13 @@
                                                 <div class="flex items-center space-x-2">
                                                     <a href="{{ route('visits.diagnosis.edit', [$visit, $diagnosis]) }}"
                                                        class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
-                                                        {{ __('edit') }}
+                                                        {{ __('common.table_cell.edit') }}
                                                     </a>
-                                                    <form action="{{ route('visits.diagnosis.destroy', [$visit, $diagnosis]) }}"
-                                                          method="POST" class="inline"
-                                                          onsubmit="return confirm('{{ __('diagnoses.confirm_delete') }}')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                            {{ __('delete') }}
-                                                        </button>
-                                                    </form>
+                                                    <livewire:delete-button
+                                                        :model="$diagnosis"
+                                                        route-name="visits.diagnosis.destroy"
+                                                        :route-params="['visit' => $visit]"
+                                                    />
                                                 </div>
                                             </td>
                                         </tr>

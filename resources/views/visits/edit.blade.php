@@ -7,18 +7,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @can('delete', $visit)
-                <div class="flex justify-end mb-4">
-                    <form action="{{ route('visits.destroy', $visit) }}" method="POST"
-                        onsubmit="return confirm('{{ __('confirm_delete') }}');" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:bg-red-500 dark:hover:bg-red-600">
-                            {{ __('delete') }}
-                        </button>
-                    </form>
-                </div>
-            @endcan
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <form action="{{ route('visits.update', $visit) }}" method="POST">
@@ -26,21 +14,9 @@
                         @method('PUT')
 
                         <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                            <!-- Patient Selection -->
-                            <div class="sm:col-span-2">
-                                <x-label for="patient_id" value="{{ __('visits.patient') }}" />
-                                <select id="patient_id" name="patient_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-white" required>
-                                    <option value="">{{ __('visits.patient') }}</option>
-                                    @foreach($patients as $patient)
-                                        <option value="{{ $patient->id }}" {{ old('patient_id', $visit->patient_id) == $patient->id ? 'selected' : '' }}>
-                                            {{ $patient->full_name }} - {{ $patient->dob->format('M d, Y') }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <x-input-error for="patient_id" class="mt-2" />
-                            </div>
 
                             <!-- Doctor Selection -->
+                            @can('edit-visits-for-other-doctors')
                             <div>
                                 <x-label for="doctor_id" value="{{ __('visits.doctor') }}" />
                                 <select id="doctor_id" name="doctor_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-white" required>
@@ -53,6 +29,9 @@
                                 </select>
                                 <x-input-error for="doctor_id" class="mt-2" />
                             </div>
+                            @else
+                            <input type="hidden" name="doctor_id" value="{{ $visit->doctor_id }}" id="doctor_id">
+                            @endcan
 
                             <!-- Visit Type -->
                             <div>
@@ -81,12 +60,15 @@
                                 <x-input-error for="status" class="mt-2" />
                             </div>
 
-                            <!-- Scheduled Date & Time -->
+                            <!-- Slot Selection -->
                             <div>
-                                <x-label for="scheduled_at" value="{{ __('visits.scheduled_at') }}" />
-                                <x-input id="scheduled_at" type="datetime-local" name="scheduled_at"
-                                         value="{{ old('scheduled_at', $visit->scheduled_at->format('Y-m-d\TH:i')) }}"
-                                         class="mt-1 block w-full" required />
+                                @livewire('available-slot-selector', [
+                                    'doctorId' => $visit->doctor_id,
+                                    'selectedDate' => $visit->scheduled_at ? \Carbon\Carbon::parse($visit->scheduled_at)->format('Y-m-d') : null,
+                                    'selectedSlotId' => $visit->slot_id,
+                                    'label' => __('visits.scheduled_at')
+                                ])
+                                <x-input-error for="slot_id" class="mt-2" />
                                 <x-input-error for="scheduled_at" class="mt-2" />
                             </div>
 
@@ -112,7 +94,7 @@
                             <!-- Action Buttons -->
                             <div class="flex space-x-3">
                                 <a href="{{ route('visits.show', $visit) }}" class="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
-                                    {{ __('cancel') }}
+                                    {{ __('common.cancel') }}
                                 </a>
                                 <x-button type="submit">
                                     {{ __('common.save') }}
@@ -124,4 +106,17 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const doctorSelect = document.getElementById('doctor_id');
+
+            if (doctorSelect) {
+                doctorSelect.addEventListener('change', function() {
+                    Livewire.dispatch('doctorChanged', {"doctorId": this.value});
+                });
+            }
+        });
+    </script>
+    @endpush
 </x-app-layout>

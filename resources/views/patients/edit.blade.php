@@ -157,18 +157,6 @@
 
                             <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-800 sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
                                 <div class="flex items-center">
-                                    @if($patient->visits()->count() === 0)
-                                        <form method="POST" action="{{ route('patients.destroy', $patient) }}" onsubmit="return confirm('{{ __('confirm_delete') }}')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <x-danger-button type="submit">
-                                                {{ __('delete') }}
-                                            </x-danger-button>
-                                        </form>
-                                    @endif
-                                </div>
-
-                                <div class="flex items-center">
                                     <x-secondary-button type="button" onclick="window.location.href='{{ route('patients.show', $patient) }}'">
                                         {{ __('common.cancel') }}
                                     </x-secondary-button>

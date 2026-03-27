@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Prescription;
 use App\Models\Visit;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PrescriptionController extends Controller
@@ -36,36 +34,6 @@ class PrescriptionController extends Controller
     }
 
     /**
-     * Store a prescription with items.
-     */
-    public function store(Request $request, Visit $visit): RedirectResponse
-    {
-        $this->authorize('accessMedicalWorkspace', $visit);
-
-        $request->validate([
-            'notes' => 'nullable|string',
-            'items' => 'required|array|min:1',
-            'items.*.drug_name' => 'required|string|max:255',
-            'items.*.form' => 'required|in:drops,ointment,tablet,capsule,other',
-            'items.*.strength' => 'nullable|string|max:50',
-            'items.*.dosage_instructions' => 'required|string|max:255',
-            'items.*.duration_days' => 'nullable|integer|min:1',
-            'items.*.repeats' => 'nullable|integer|min:0',
-        ]);
-
-        $prescription = $visit->prescriptions()->create([
-            'doctor_id' => Auth::id(),
-            'notes' => $request->input('notes'),
-        ]);
-
-        foreach ($request->input('items', []) as $item) {
-            $prescription->prescriptionItems()->create($item);
-        }
-
-        return redirect()->route('visits.prescriptions', $visit)->with('success', __('messages.prescription_saved'));
-    }
-
-    /**
      * Show edit prescription form.
      */
     public function edit(Visit $visit, Prescription $prescription): View
@@ -76,38 +44,6 @@ class PrescriptionController extends Controller
         $prescription->load('prescriptionItems');
 
         return view('visits.workspace.prescription-edit', compact('visit', 'prescription'));
-    }
-
-    /**
-     * Update a prescription with items.
-     */
-    public function update(Request $request, Visit $visit, Prescription $prescription): RedirectResponse
-    {
-        $this->authorize('accessMedicalWorkspace', $visit);
-
-        $request->validate([
-            'notes' => 'nullable|string',
-            'items' => 'required|array|min:1',
-            'items.*.drug_name' => 'required|string|max:255',
-            'items.*.form' => 'required|in:drops,ointment,tablet,capsule,other',
-            'items.*.strength' => 'nullable|string|max:50',
-            'items.*.dosage_instructions' => 'required|string|max:255',
-            'items.*.duration_days' => 'nullable|integer|min:1',
-            'items.*.repeats' => 'nullable|integer|min:0',
-        ]);
-
-        $prescription->update([
-            'notes' => $request->input('notes'),
-        ]);
-
-        // Delete existing items and recreate them
-        $prescription->prescriptionItems()->delete();
-
-        foreach ($request->input('items', []) as $item) {
-            $prescription->prescriptionItems()->create($item);
-        }
-
-        return redirect()->route('visits.prescriptions', $visit)->with('success', __('messages.prescription_saved'));
     }
 
     /**

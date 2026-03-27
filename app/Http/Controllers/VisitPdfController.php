@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Visit;
+use Illuminate\Support\Facades\Http;
 use Spatie\LaravelPdf\Facades\Pdf;
 
 class VisitPdfController extends Controller
@@ -27,14 +28,10 @@ class VisitPdfController extends Controller
             'diagnoses',
         ]);
 
-        $filename = sprintf(
-            'visit-report-%s-%s.pdf',
-            $visit->patient->last_name,
-            $visit->scheduled_at->format('Y-m-d')
-        );
-
         return Pdf::view('pdf.visit-report', ['visit' => $visit])
-            ->format('a4')
-            ->name($filename);
+        ->format('a4')
+        ->download('visit-report.pdf');
+
+
     }
 }

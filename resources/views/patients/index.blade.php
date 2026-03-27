@@ -8,10 +8,10 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
             <div class="px-4 sm:px-6 lg:px-8">
                 <!-- Header Section -->
-                <div class="sm:flex sm:items-center">
+                <div class="sm:flex sm:items-center ">
                     <div class="sm:flex-auto">
                         <h1 class="text-base font-semibold text-gray-900 dark:text-white">{{ __('patients.title') }}</h1>
                         <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{{ __('patients.subtitle') }}</p>
@@ -101,6 +101,14 @@
                                     <a href="{{ route('patients.edit', $patient) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
                                         {{__('common.table_cell.edit')}}<span class="sr-only">, {{ $patient->full_name }}</span>
                                     </a>
+                                </x-table-action-cell>
+                                <x-table-action-cell>
+                                    <livewire:delete-button
+                                        :model="$patient"
+                                        route-name="patients.destroy"
+                                        redirect-route-name="patients.index"
+                                        :route-params="['patient' => $patient]"
+                                    />
                                 </x-table-action-cell>
                             </x-table-row>
                         @empty

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Edit Imaging Study - {{ $visit->patient->full_name }}
+            {{ $visit->patient->full_name }}
         </h2>
     </x-slot>
 
@@ -14,8 +14,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 lg:p-8">
                     <div class="mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Edit Imaging Study</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Update the imaging study details.</p>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{__('imaging.edit_imaging')}}</h3>
                     </div>
 
                     <!-- Imaging Form -->
@@ -105,7 +104,7 @@
                             </a>
 
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">
-                                {{ __('update') }} Imaging Study
+                                {{ __('common.update') }}
                             </button>
                         </div>
                     </form>

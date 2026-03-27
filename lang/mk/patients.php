@@ -23,5 +23,7 @@ return [
     'notes' => 'Забелешки',
     'created_at' => 'Регистриран',
     'visits_count' => 'Вкупно прегледи',
+    'quick_actions' => 'Брзи акцији',
+    'manage_visits_and_information' => 'Управувајте со прегледите и информациите за пациентот.',
 ];
 
